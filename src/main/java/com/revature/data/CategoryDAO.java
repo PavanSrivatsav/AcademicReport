@@ -7,13 +7,14 @@ import com.revature.model.Category;
 
 public interface CategoryDAO {
 
-  /**
-   * Used to get the categories data from db.
-   * 
-   * @return categories
-   * @throws DataServiceException if any exception happens while executing the query
-   */
+	/**
+	 * Used to get the categories data from db.
+	 * 
+	 * @return categories
+	 * @throws DataServiceException
+	 *             if any exception happens while executing the query
+	 */
 
-  public List<Category> getAllCategories() throws DataServiceException;
+	public List<Category> getAllCategories() throws DataServiceException;
 
 }

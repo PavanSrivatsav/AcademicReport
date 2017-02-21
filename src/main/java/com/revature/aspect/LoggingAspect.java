@@ -9,11 +9,11 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Component
 public class LoggingAspect {
-  private static Logger logger = Logger.getLogger(LoggingAspect.class);
+	private static Logger logger = Logger.getLogger(LoggingAspect.class);
 
-  @AfterThrowing(pointcut = "execution(public * com.revature.biz.*.*(..))", throwing = "t")
-  public void serviceError(JoinPoint joinPoint, Throwable t) {
-    logger.error(t.getMessage(), t);
-  }
+	@AfterThrowing(pointcut = "execution(public * com.revature.biz.*.*(..))", throwing = "t")
+	public void serviceError(JoinPoint joinPoint, Throwable t) {
+		logger.error(t.getMessage(), t);
+	}
 
 }

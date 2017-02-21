@@ -15,22 +15,22 @@ import com.revature.model.Category;
 @Service
 public class CategoryServiceImpl implements CategoryService {
 
-  private static Logger logger = Logger.getLogger(CategoryServiceImpl.class);
+	private static Logger logger = Logger.getLogger(CategoryServiceImpl.class);
 
-  @Autowired
-  private CategoryDAO categoryDAO;
+	@Autowired
+	private CategoryDAO categoryDAO;
 
-  @Override
-  public List<Category> getAllCategories() throws BusinessServiceException {
-    List<Category> categories = null;
-    try {
-      categories = categoryDAO.getAllCategories();
-      logger.info("Categories retrieved successfully");
-    } catch (DataServiceException e) {
-      logger.error(e.getMessage(), e);
-      throw new BusinessServiceException(e.getMessage(), e);
-    }
-    return categories;
-  }
+	@Override
+	public List<Category> getAllCategories() throws BusinessServiceException {
+		List<Category> categories = null;
+		try {
+			categories = categoryDAO.getAllCategories();
+			logger.info("Categories retrieved successfully");
+		} catch (DataServiceException e) {
+			logger.error(e.getMessage(), e);
+			throw new BusinessServiceException(e.getMessage(), e);
+		}
+		return categories;
+	}
 
 }
