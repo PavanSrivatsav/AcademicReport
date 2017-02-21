@@ -7,40 +7,20 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.Data;
+
+@Data
 @Entity
 @Table(name = "seed_categories")
 public class Category {
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private Integer id;
-  private String name;
-  @Column(name = "IS_ACTIVE")
-  private Boolean isActive;
 
-  public Integer getId() {
-    return id;
-  }
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
 
-  public void setId(Integer id) {
-    this.id = id;
-  }
+	private String name;
 
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public Boolean getIsActive() {
-    return isActive;
-  }
-
-  public void setIsActive(Boolean isActive) {
-    this.isActive = isActive;
-  }
-
-
+	@Column(name = "IS_ACTIVE")
+	private Boolean isActive;
 
 }
