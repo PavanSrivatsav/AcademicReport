@@ -14,7 +14,7 @@ import com.revature.controller.exception.InvalidInputException;
 import com.revature.model.Category;
 
 @RestController
-@RequestMapping("/")
+
 public class CategoryController {
 
 	private static Logger logger = Logger.getLogger(CategoryController.class);

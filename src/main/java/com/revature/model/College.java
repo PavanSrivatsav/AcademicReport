@@ -26,7 +26,7 @@ public class College {
 	@NotNull
 	private String Address;
 
-	@Column(unique = true)
+	@Column(name = "EMAIL_ID", unique = true)
 	@NotNull
 	private String emailId;
 

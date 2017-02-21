@@ -7,28 +7,28 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.revature.biz.RoleService;
+import com.revature.biz.StudentService;
 import com.revature.biz.exception.BusinessServiceException;
 import com.revature.controller.exception.InternalException;
 import com.revature.controller.exception.InvalidInputException;
-import com.revature.model.Role;
+import com.revature.model.Student;
 
 @RestController
 
-public class RoleController {
+public class StudentController {
 
-	private static Logger logger = Logger.getLogger(RoleController.class);
+	private static Logger logger = Logger.getLogger(StudentController.class);
 
 	@Autowired
-	private RoleService roleService;
+	private StudentService studentService;
 
-	@RequestMapping("/roles")
-	public List<Role> getRolesController() {
-		List<Role> roles = null;
+	@RequestMapping("/students")
+	public List<Student> getStudentController() {
+		List<Student> students = null;
 		try {
-			logger.info("Getting the roles data...");
-			roles = roleService.getAllRoles();
-			logger.info("roles data retrieval success.");
+			logger.info("Getting the Students data...");
+			students = studentService.getAllStudents();
+			logger.info("Students data retrieval success.");
 		} catch (BusinessServiceException e) {
 			logger.error(e.getMessage(), e);
 			throw new InvalidInputException(e.getMessage(), e);
@@ -36,6 +36,6 @@ public class RoleController {
 			logger.error(e.getMessage(), e);
 			throw new InternalException("System has some issue...", e);
 		}
-		return roles;
+		return students;
 	}
 }
