@@ -24,5 +24,6 @@ public class Department {
 	private String name;
 
 	@Column(name = "IS_ACTIVE")
+	@NotNull
 	private Boolean isActive;
 }

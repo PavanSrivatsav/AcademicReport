@@ -12,21 +12,30 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "seed_categories")
-public class Category {
-
-	private Category() {
-
-	}
+@Table(name = "videos")
+public class Video {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
+	@NotNull
 	private String name;
 
-	@Column(name = "IS_ACTIVE")
 	@NotNull
+	@Column(unique = true)
+	private String url;
+
+	@NotNull
+	@Column(name = "TRANSCRIPT_FILENAME")
+	private String transcriptFilename;
+
+	@NotNull
+	@Column(name = "DURATION_IN_MINUTES")
+	private Integer duration;
+
+	@NotNull
+	@Column(name = "IS_ACTIVE")
 	private Boolean isActive;
 
 }

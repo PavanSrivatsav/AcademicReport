@@ -19,8 +19,9 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "student_courses", uniqueConstraints = { @UniqueConstraint(columnNames = { "STUDENT_ID", "COURSE_ID" }) })
-public class StudentCourse {
+@Table(name = "student_projects", uniqueConstraints = {
+		@UniqueConstraint(columnNames = { "STUDENT_ID", "PROJECT_ID" }) })
+public class StudentProject {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,25 +30,26 @@ public class StudentCourse {
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "STUDENT_ID")
-	private Student student;
+	private Student studentId;
 
 	@NotNull
 	@ManyToOne
-	@JoinColumn(name = "COURSE_ID")
-	private Course course;
+	@JoinColumn(name = "PROJECT_ID")
+	private Project project;
 
 	@NotNull
-	@Column(name = "STARTED_ON")
 	@Temporal(TemporalType.DATE)
+	@Column(name = "STARTED_ON")
 	private Date startedOn;
 
-	@Column(name = "COMPLETED_ON", nullable = true)
+	@NotNull
 	@Temporal(TemporalType.DATE)
+	@Column(name = "COMPLETED_ON", nullable = true)
 	private Date completedOn;
 
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "STATUS_ID")
-	private Status statusId;
+	private Status status;
 
 }

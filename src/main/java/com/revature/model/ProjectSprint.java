@@ -8,34 +8,29 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
 import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "courses")
-public class Course {
+@Table(name = "project_sprints", uniqueConstraints = {
+		@UniqueConstraint(columnNames = { "PROJECT_ID", "SPRINT_NAME" }) })
+public class ProjectSprint {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
 	@NotNull
-	@Column(unique = true)
-	private String name;
-
-	@NotNull
 	@ManyToOne
-	@JoinColumn(name = "CATEGORY_ID")
-	private Category category;
+	@JoinColumn(name = "PROJECT_ID")
+	private Project project;
 
 	@NotNull
-	private String description;
-
-	@NotNull
-	@Column(name = "DURATION_IN_MINUTES")
-	private Integer duration;
+	@Column(name = "SPRINT_NAME")
+	private String sprintName;
 
 	@NotNull
 	@Column(name = "IS_ACTIVE")

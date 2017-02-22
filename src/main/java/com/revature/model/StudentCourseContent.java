@@ -15,34 +15,32 @@ import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
-import lombok.Data;
-
-@Data
 @Entity
-@Table(name = "student_courses", uniqueConstraints = { @UniqueConstraint(columnNames = { "STUDENT_ID", "COURSE_ID" }) })
-public class StudentCourse {
+@Table(name = "student_course_contents", uniqueConstraints = {
+		@UniqueConstraint(columnNames = { "STUDENT_COURSE_ID", "COURSE_CONTENT_ID" }) })
+public class StudentCourseContent {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+	
+	@NotNull
+	@ManyToOne
+	@JoinColumn(name = "STUDENT_COURSE_ID")
+	private StudentCourse studentCourseId;
 
 	@NotNull
 	@ManyToOne
-	@JoinColumn(name = "STUDENT_ID")
-	private Student student;
+	@JoinColumn(name = "COURSE_CONTENT_ID")
+	private CourseContent courseContentId;
 
 	@NotNull
-	@ManyToOne
-	@JoinColumn(name = "COURSE_ID")
-	private Course course;
-
-	@NotNull
-	@Column(name = "STARTED_ON")
 	@Temporal(TemporalType.DATE)
+	@Column(name = "STARTED_ON")
 	private Date startedOn;
 
-	@Column(name = "COMPLETED_ON", nullable = true)
 	@Temporal(TemporalType.DATE)
+	@Column(name = "COMPLETED_ON", nullable = true)
 	private Date completedOn;
 
 	@NotNull

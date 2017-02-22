@@ -19,8 +19,13 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "student_courses", uniqueConstraints = { @UniqueConstraint(columnNames = { "STUDENT_ID", "COURSE_ID" }) })
-public class StudentCourse {
+@Table(name = "project_sprint_activities", uniqueConstraints = {
+		@UniqueConstraint(columnNames = { "PROJECT_SPRINT_ID", "VIDEO_ID" }),
+		@UniqueConstraint(columnNames = { "PROJECT_SPRINT_ID", "COURSE_ID" }),
+		@UniqueConstraint(columnNames = { "PROJECT_SPRINT_ID", "QUIZ_ID" }),
+		@UniqueConstraint(columnNames = { "PROJECT_SPRINT_ID", "ONLINE_ACTIVITY" }),
+		@UniqueConstraint(columnNames = { "PROJECT_SPRINT_ID", "OFFLINE_ACTIVITY" }) })
+public class StudentProjectSprintActivity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -28,21 +33,22 @@ public class StudentCourse {
 
 	@NotNull
 	@ManyToOne
-	@JoinColumn(name = "STUDENT_ID")
-	private Student student;
+	@JoinColumn(name = "STUDENT_PROJECT_SPRINT_ID")
+	private StudentProjectSprint studentProjectSprint;
 
 	@NotNull
 	@ManyToOne
-	@JoinColumn(name = "COURSE_ID")
-	private Course course;
+	@JoinColumn(name = "PROJECT_SPRINT_ACTIVITY_ID")
+	private ProjectSprintActivity projectSprintActivity;
 
 	@NotNull
-	@Column(name = "STARTED_ON")
 	@Temporal(TemporalType.DATE)
+	@Column(name = "STARTED_ON")
 	private Date startedOn;
 
-	@Column(name = "COMPLETED_ON", nullable = true)
+	@NotNull
 	@Temporal(TemporalType.DATE)
+	@Column(name = "COMPLETED_ON", nullable = true)
 	private Date completedOn;
 
 	@NotNull

@@ -31,7 +31,7 @@ public class Student {
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "COLLEGE_ID")
-	private College collegeId;
+	private College college;
 
 	@NotNull
 	@Temporal(TemporalType.DATE)
@@ -55,7 +55,7 @@ public class Student {
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "DEPARTMENT_ID")
-	private Department departmentId;
+	private Department department;
 
 	@NotNull
 	@Column(name = "AREA_OF_INTEREST")

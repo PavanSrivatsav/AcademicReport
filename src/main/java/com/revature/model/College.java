@@ -34,6 +34,7 @@ public class College {
 	@NotNull
 	private Long phone;
 
+	@NotNull
 	@Column(name = "IS_ACTIVE")
 	private Boolean isActive;
 
