@@ -12,7 +12,9 @@ public interface ProjectService {
 	 */
 	List<Project> getAllProjects() throws BusinessServiceException;
 
-	List<Project> getProjectById(int projectId) throws BusinessServiceException;
+	List<Project> getProjectById(Integer Id) throws BusinessServiceException;
 
 	List<Project> getProjectByName(String projectName) throws BusinessServiceException;
+
+	List<Project> getProjectByCategoryId(Integer categoryId) throws BusinessServiceException;
 }

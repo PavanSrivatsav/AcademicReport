@@ -12,7 +12,7 @@ public interface VideoService {
 	 */
 	List<Video> getAllVideos() throws BusinessServiceException;
 
-	List<Video> getVideoById(int videoId) throws BusinessServiceException;
+	List<Video> getVideoById(Integer videoId) throws BusinessServiceException;
 
 	List<Video> getVideoByName(String videoName) throws BusinessServiceException;
 

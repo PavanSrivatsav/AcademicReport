@@ -43,12 +43,32 @@ public class CollegeDAOImpl implements CollegeDAO {
 	}
 
 	@Override
-	public List<College> getCollegeById(int collegeId) throws DataServiceException {
-		return null;
+	public List<College> getCollegeById(Integer collegeId) throws DataServiceException {
+		List<College> collegesById = null;
+		try {
+			StringBuilder sb = new StringBuilder(
+					"select * from colleges c where c.ID=" + collegeId + " and c.IS_ACTIVE=true");
+			collegesById = dataRetriver.retrieveBySQL(sb.toString());
+			logger.info("Colleges By id data retrieval success..");
+		} catch (DataAccessException e) {
+			logger.error(e.getMessage(), e);
+			throw new DataServiceException(DataUtils.getPropertyMessage("data_retrieval_fail"), e);
+		}
+		return collegesById;
 	}
 
 	@Override
 	public List<College> getCollegeByName(String collegeName) throws DataServiceException {
-		return null;
+		List<College> collegesByName = null;
+		try {
+			StringBuilder sb = new StringBuilder(
+					"select * from colleges c where c.NAME='" + collegeName + "' and c.IS_ACTIVE=true");
+			collegesByName = dataRetriver.retrieveBySQL(sb.toString());
+			logger.info("Colleges By name data retrieval success..");
+		} catch (DataAccessException e) {
+			logger.error(e.getMessage(), e);
+			throw new DataServiceException(DataUtils.getPropertyMessage("data_retrieval_fail"), e);
+		}
+		return collegesByName;
 	}
 }

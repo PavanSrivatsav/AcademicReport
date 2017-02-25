@@ -14,8 +14,10 @@ public interface ProjectDAO {
 
 	public List<Project> getAllProjects() throws DataServiceException;
 
-	public List<Project> getProjectById(int projectId) throws DataServiceException;
+	public List<Project> getProjectById(Integer Id) throws DataServiceException;
 
 	public List<Project> getProjectByName(String projectName) throws DataServiceException;
+
+	public List<Project> getProjectByCategoryId(Integer categoryId) throws DataServiceException;
 
 }

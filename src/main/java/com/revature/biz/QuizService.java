@@ -9,7 +9,7 @@ public interface QuizService {
 
 	List<Quiz> getAllQuizzes() throws BusinessServiceException;
 
-	List<Quiz> getQuizById(int quizId) throws BusinessServiceException;
+	List<Quiz> getQuizById(Integer quizId) throws BusinessServiceException;
 
 	List<Quiz> getQuizByName(String quizName) throws BusinessServiceException;
 }

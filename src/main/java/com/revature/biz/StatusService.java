@@ -12,7 +12,7 @@ public interface StatusService {
 	 */
 	List<Status> getAllStatus() throws BusinessServiceException;
 
-	List<Status> getStatusById(int statusId) throws BusinessServiceException;
+	List<Status> getStatusById(Integer statusId) throws BusinessServiceException;
 
 	List<Status> getStatusByName(String statusName) throws BusinessServiceException;
 }

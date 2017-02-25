@@ -33,12 +33,28 @@ public class RoleServiceImpl implements RoleService {
 	}
 
 	@Override
-	public List<Role> getRoleById(int roleId) throws BusinessServiceException {
-		return null;
+	public List<Role> getRoleById(Integer roleId) throws BusinessServiceException {
+		List<Role> roleById = null;
+		try {
+			roleById = roleDAO.getRoleById(roleId);
+			logger.info("Role by id retrieved successfully");
+		} catch (DataServiceException e) {
+			logger.error(e.getMessage(), e);
+			throw new BusinessServiceException(e.getMessage(), e);
+		}
+		return roleById;
 	}
 
 	@Override
 	public List<Role> getRoleByName(String roleName) throws BusinessServiceException {
-		return null;
+		List<Role> roleByName = null;
+		try {
+			roleByName = roleDAO.getRoleByName(roleName);
+			logger.info("Role by name retrieved successfully");
+		} catch (DataServiceException e) {
+			logger.error(e.getMessage(), e);
+			throw new BusinessServiceException(e.getMessage(), e);
+		}
+		return roleByName;
 	}
 }

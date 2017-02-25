@@ -16,6 +16,8 @@ public interface CategoryDAO {
 	 */
 
 	public List<Category> getAllCategories() throws DataServiceException;
-	public List<Category> getCategoryById(int categoryId) throws DataServiceException;
+
+	public List<Category> getCategoryById(Integer categoryId) throws DataServiceException;
+
 	public List<Category> getCategoryByName(String categoryName) throws DataServiceException;
 }

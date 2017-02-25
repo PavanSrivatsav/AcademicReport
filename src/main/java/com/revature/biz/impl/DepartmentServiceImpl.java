@@ -33,12 +33,28 @@ public class DepartmentServiceImpl implements DepartmentService {
 	}
 
 	@Override
-	public List<Department> getDepartmentById(int departmentId) throws BusinessServiceException {
-		return null;
+	public List<Department> getDepartmentById(Integer departmentId) throws BusinessServiceException {
+		List<Department> departmentsById = null;
+		try {
+			departmentsById = departmentDAO.getDepartmentById(departmentId);
+			logger.info("Departments by id retrieved successfully");
+		} catch (DataServiceException e) {
+			logger.error(e.getMessage(), e);
+			throw new BusinessServiceException(e.getMessage(), e);
+		}
+		return departmentsById;
 	}
 
 	@Override
 	public List<Department> getDepartmentByName(String departmentName) throws BusinessServiceException {
-		return null;
+		List<Department> departmentsByName = null;
+		try {
+			departmentsByName = departmentDAO.getDepartmentByName(departmentName);
+			logger.info("Departments by id retrieved successfully");
+		} catch (DataServiceException e) {
+			logger.error(e.getMessage(), e);
+			throw new BusinessServiceException(e.getMessage(), e);
+		}
+		return departmentsByName;
 	}
 }

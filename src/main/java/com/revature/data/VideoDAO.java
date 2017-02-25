@@ -13,8 +13,8 @@ public interface VideoDAO {
 
 	public List<Video> getAllVideos() throws DataServiceException;
 
-	public List<Video> getVideoById(int videoId) throws DataServiceException;
-	
+	public List<Video> getVideoById(Integer videoId) throws DataServiceException;
+
 	public List<Video> getVideoByName(String videoName) throws DataServiceException;
 
 }

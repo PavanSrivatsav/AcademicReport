@@ -13,17 +13,17 @@ import com.revature.data.exception.DataServiceException;
 import com.revature.model.Video;
 
 @Service
-public class VideoServiceImpl implements VideoService{
+public class VideoServiceImpl implements VideoService {
 	private static Logger logger = Logger.getLogger(UserServiceImpl.class);
 
 	@Autowired
-	private  VideoDAO videoDAO;
+	private VideoDAO videoDAO;
 
 	@Override
 	public List<Video> getAllVideos() throws BusinessServiceException {
-		List<Video> videos=null;
-		try{
-			videos=videoDAO.getAllVideos();
+		List<Video> videos = null;
+		try {
+			videos = videoDAO.getAllVideos();
 			logger.info("Videos retrived successfully");
 		} catch (DataServiceException e) {
 			logger.error(e.getMessage(), e);
@@ -33,10 +33,10 @@ public class VideoServiceImpl implements VideoService{
 	}
 
 	@Override
-	public List<Video> getVideoById(int videoId) throws BusinessServiceException {
-		List<Video> videos=null;
-		try{
-			videos=videoDAO.getVideoById(videoId);
+	public List<Video> getVideoById(Integer videoId) throws BusinessServiceException {
+		List<Video> videos = null;
+		try {
+			videos = videoDAO.getVideoById(videoId);
 			logger.info("Videos retrived successfully");
 		} catch (DataServiceException e) {
 			logger.error(e.getMessage(), e);
@@ -47,9 +47,9 @@ public class VideoServiceImpl implements VideoService{
 
 	@Override
 	public List<Video> getVideoByName(String videoName) throws BusinessServiceException {
-		List<Video> videos=null;
-		try{
-			videos=videoDAO.getVideoByName(videoName);
+		List<Video> videos = null;
+		try {
+			videos = videoDAO.getVideoByName(videoName);
 			logger.info("Videos retrived successfully");
 		} catch (DataServiceException e) {
 			logger.error(e.getMessage(), e);

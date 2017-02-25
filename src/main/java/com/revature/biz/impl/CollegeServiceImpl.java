@@ -33,12 +33,28 @@ public class CollegeServiceImpl implements CollegeService {
 	}
 
 	@Override
-	public List<College> getCollegeById(int collegeId) throws BusinessServiceException {
-		return null;
+	public List<College> getCollegeById(Integer collegeId) throws BusinessServiceException {
+		List<College> collegesById = null;
+		try {
+			collegesById = collegeDAO.getCollegeById(collegeId);
+			logger.info("Colleges by id retrieved successfully");
+		} catch (DataServiceException e) {
+			logger.error(e.getMessage(), e);
+			throw new BusinessServiceException(e.getMessage(), e);
+		}
+		return collegesById;
 	}
 
 	@Override
 	public List<College> getCollegeByName(String collegeName) throws BusinessServiceException {
-		return null;
+		List<College> collegesByName = null;
+		try {
+			collegesByName = collegeDAO.getCollegeByName(collegeName);
+			logger.info("Colleges by name retrieved successfully");
+		} catch (DataServiceException e) {
+			logger.error(e.getMessage(), e);
+			throw new BusinessServiceException(e.getMessage(), e);
+		}
+		return collegesByName;
 	}
 }

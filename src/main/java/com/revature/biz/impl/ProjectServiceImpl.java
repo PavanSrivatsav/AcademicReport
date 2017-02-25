@@ -33,12 +33,42 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 	@Override
-	public List<Project> getProjectById(int projectId) throws BusinessServiceException {
-		return null;
+	public List<Project> getProjectById(Integer id) throws BusinessServiceException {
+		List<Project> projectById = null;
+		try {
+			projectById = projectDAO.getProjectById(id);
+			logger.info("Project by id retrieved successfully");
+		} catch (DataServiceException e) {
+			logger.error(e.getMessage(), e);
+			throw new BusinessServiceException(e.getMessage(), e);
+		}
+		return projectById;
 	}
 
 	@Override
 	public List<Project> getProjectByName(String projectName) throws BusinessServiceException {
-		return null;
+		List<Project> projectByName = null;
+		try {
+			projectByName = projectDAO.getProjectByName(projectName);
+			logger.info("Project by name retrieved successfully");
+		} catch (DataServiceException e) {
+			logger.error(e.getMessage(), e);
+			throw new BusinessServiceException(e.getMessage(), e);
+		}
+		return projectByName;
 	}
+
+	@Override
+	public List<Project> getProjectByCategoryId(Integer categoryId) throws BusinessServiceException {
+		List<Project> projectByCategoryId = null;
+		try {
+			projectByCategoryId = projectDAO.getProjectByCategoryId(categoryId);
+			logger.info("Project by category id retrieved successfully");
+		} catch (DataServiceException e) {
+			logger.error(e.getMessage(), e);
+			throw new BusinessServiceException(e.getMessage(), e);
+		}
+		return projectByCategoryId;
+	}
+
 }

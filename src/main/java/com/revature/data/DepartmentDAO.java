@@ -14,7 +14,7 @@ public interface DepartmentDAO {
 
 	public List<Department> getAllDepartments() throws DataServiceException;
 
-	public List<Department> getDepartmentById(int departmentId) throws DataServiceException;
+	public List<Department> getDepartmentById(Integer departmentId) throws DataServiceException;
 
 	public List<Department> getDepartmentByName(String departmentName) throws DataServiceException;
 

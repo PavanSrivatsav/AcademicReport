@@ -43,7 +43,7 @@ public class VideoDAOImpl implements VideoDAO {
 	}
 
 	@Override
-	public List<Video> getVideoById(int videoId) throws DataServiceException {
+	public List<Video> getVideoById(Integer videoId) throws DataServiceException {
 		List<Video> videos = null;
 		try {
 			StringBuilder sb = new StringBuilder(

@@ -12,7 +12,7 @@ public interface DepartmentService {
 	 */
 	List<Department> getAllDepartments() throws BusinessServiceException;
 
-	List<Department> getDepartmentById(int departmentId) throws BusinessServiceException;
+	List<Department> getDepartmentById(Integer departmentId) throws BusinessServiceException;
 
 	List<Department> getDepartmentByName(String departmentName) throws BusinessServiceException;
 }

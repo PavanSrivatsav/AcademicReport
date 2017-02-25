@@ -42,12 +42,12 @@ public class CategoryController {
 	}
 
 	@GetMapping("/list/id/{id}")
-	public List<Category> getActiveCategoriesController(@PathVariable("id") int categoryId) {
-		List<Category> category = null;
+	public List<Category> getActiveCategoriesController(@PathVariable("id") Integer categoryId) {
+		List<Category> categoryById = null;
 		try {
-			logger.info("Getting the categories data...");
-			category = categoryService.getCategoryById(categoryId);
-			logger.info("category data retrieval success.");
+			logger.info("Getting the categories by id data...");
+			categoryById = categoryService.getCategoryById(categoryId);
+			logger.info("category by id data retrieval success.");
 		} catch (BusinessServiceException e) {
 			logger.error(e.getMessage(), e);
 			throw new InvalidInputException(e.getMessage(), e);
@@ -55,16 +55,16 @@ public class CategoryController {
 			logger.error(e.getMessage(), e);
 			throw new InternalException("System has some issue...", e);
 		}
-		return category;
+		return categoryById;
 	}
 
 	@GetMapping("/list/name/{name}")
 	public List<Category> getActiveCategoriesController(@PathVariable("name") String categoryName) {
-		List<Category> category = null;
+		List<Category> categoryByName = null;
 		try {
-			logger.info("Getting the categories data...");
-			category = categoryService.getCategoryByName(categoryName);
-			logger.info("category data retrieval success.");
+			logger.info("Getting the categories by name data...");
+			categoryByName = categoryService.getCategoryByName(categoryName);
+			logger.info("category by name data retrieval success.");
 		} catch (BusinessServiceException e) {
 			logger.error(e.getMessage(), e);
 			throw new InvalidInputException(e.getMessage(), e);
@@ -72,7 +72,7 @@ public class CategoryController {
 			logger.error(e.getMessage(), e);
 			throw new InternalException("System has some issue...", e);
 		}
-		return category;
+		return categoryByName;
 	}
 
 }

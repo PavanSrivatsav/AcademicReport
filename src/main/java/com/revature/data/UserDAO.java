@@ -13,9 +13,13 @@ public interface UserDAO {
 
 	public List<User> getAllUsers() throws DataServiceException;
 
-	public List<User> getUserById(int userId) throws DataServiceException;
+	public List<User> getUserById(Integer id) throws DataServiceException;
 
-	public List<User> getUserByEmailId(String userEmailId) throws DataServiceException;
+	public List<User> getUserByEmailId(String emailId) throws DataServiceException;
+
+	public List<User> getUsersByCollegeId(Integer collegeId) throws DataServiceException;
+
+	public List<User> getUsersByDepartmentId(Integer departmentId) throws DataServiceException;
 
 	// public List<User> getValues() throws DataServiceException;
 

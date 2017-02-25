@@ -33,12 +33,28 @@ public class StatusServiceImpl implements StatusService {
 	}
 
 	@Override
-	public List<Status> getStatusById(int statusId) throws BusinessServiceException {
-		return null;
+	public List<Status> getStatusById(Integer id) throws BusinessServiceException {
+		List<Status> statusById = null;
+		try {
+			statusById = statusDAO.getStatusById(id);
+			logger.info("Status retrieved successfully");
+		} catch (DataServiceException e) {
+			logger.error(e.getMessage(), e);
+			throw new BusinessServiceException(e.getMessage(), e);
+		}
+		return statusById;
 	}
 
 	@Override
-	public List<Status> getStatusByName(String statusName) throws BusinessServiceException {
-		return null;
+	public List<Status> getStatusByName(String name) throws BusinessServiceException {
+		List<Status> statusByName = null;
+		try {
+			statusByName = statusDAO.getStatusByName(name);
+			logger.info("Status by name retrieved successfully");
+		} catch (DataServiceException e) {
+			logger.error(e.getMessage(), e);
+			throw new BusinessServiceException(e.getMessage(), e);
+		}
+		return statusByName;
 	}
 }

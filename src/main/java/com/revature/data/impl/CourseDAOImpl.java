@@ -43,12 +43,46 @@ public class CourseDAOImpl implements CourseDAO {
 	}
 
 	@Override
-	public List<Course> getCourseById(int courseId) throws DataServiceException {
-		return null;
+	public List<Course> getCourseById(Integer id) throws DataServiceException {
+		List<Course> coursesById = null;
+		try {
+			StringBuilder sb = new StringBuilder("select * from courses c where c.ID=" + id + " and c.IS_ACTIVE=true");
+			coursesById = dataRetriver.retrieveBySQL(sb.toString());
+			logger.info("Courses by id data retrieval success..");
+		} catch (DataAccessException e) {
+			logger.error(e.getMessage(), e);
+			throw new DataServiceException(DataUtils.getPropertyMessage("data_retrieval_fail"), e);
+		}
+		return coursesById;
 	}
 
 	@Override
 	public List<Course> getCourseByName(String courseName) throws DataServiceException {
-		return null;
+		List<Course> coursesByName = null;
+		try {
+			StringBuilder sb = new StringBuilder(
+					"select * from courses c where c.NAME='" + courseName + "' and c.IS_ACTIVE=true");
+			coursesByName = dataRetriver.retrieveBySQL(sb.toString());
+			logger.info("Courses by course name data retrieval success..");
+		} catch (DataAccessException e) {
+			logger.error(e.getMessage(), e);
+			throw new DataServiceException(DataUtils.getPropertyMessage("data_retrieval_fail"), e);
+		}
+		return coursesByName;
+	}
+
+	@Override
+	public List<Course> getCourseByCategoryId(Integer categoryId) throws DataServiceException {
+		List<Course> coursesByCategoryId = null;
+		try {
+			StringBuilder sb = new StringBuilder(
+					"select * from courses c where c.CATEGORY_ID=" + categoryId + " and c.IS_ACTIVE=true");
+			coursesByCategoryId = dataRetriver.retrieveBySQL(sb.toString());
+			logger.info("Courses by category id data retrieval success..");
+		} catch (DataAccessException e) {
+			logger.error(e.getMessage(), e);
+			throw new DataServiceException(DataUtils.getPropertyMessage("data_retrieval_fail"), e);
+		}
+		return coursesByCategoryId;
 	}
 }

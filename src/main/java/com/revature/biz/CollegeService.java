@@ -12,7 +12,7 @@ public interface CollegeService {
 	 */
 	List<College> getAllColleges() throws BusinessServiceException;
 
-	List<College> getCollegeById(int collegeId) throws BusinessServiceException;
+	List<College> getCollegeById(Integer collegeId) throws BusinessServiceException;
 
 	List<College> getCollegeByName(String collegeName) throws BusinessServiceException;
 }

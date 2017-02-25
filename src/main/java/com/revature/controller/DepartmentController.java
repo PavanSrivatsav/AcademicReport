@@ -42,12 +42,12 @@ public class DepartmentController {
 	}
 
 	@GetMapping("/list/id/{id}")
-	public List<Department> getActiveDepartmentsController(@PathVariable("id") int departmentId) {
-		List<Department> department = null;
+	public List<Department> getActiveDepartmentsController(@PathVariable("id") Integer departmentId) {
+		List<Department> departmentsById = null;
 		try {
-			logger.info("Getting the categories data...");
-			department = departmentService.getDepartmentById(departmentId);
-			logger.info("department data retrieval success.");
+			logger.info("Getting the departments by id data...");
+			departmentsById = departmentService.getDepartmentById(departmentId);
+			logger.info("departments by id data retrieval success.");
 		} catch (BusinessServiceException e) {
 			logger.error(e.getMessage(), e);
 			throw new InvalidInputException(e.getMessage(), e);
@@ -55,16 +55,16 @@ public class DepartmentController {
 			logger.error(e.getMessage(), e);
 			throw new InternalException("System has some issue...", e);
 		}
-		return department;
+		return departmentsById;
 	}
 
 	@GetMapping("/list/name/{name}")
 	public List<Department> getActiveCategoriesController(@PathVariable("name") String departmentName) {
-		List<Department> department = null;
+		List<Department> departmentsByName = null;
 		try {
-			logger.info("Getting the categories data...");
-			department = departmentService.getDepartmentByName(departmentName);
-			logger.info("department data retrieval success.");
+			logger.info("Getting the departments by name data...");
+			departmentsByName = departmentService.getDepartmentByName(departmentName);
+			logger.info("departments by name data retrieval success.");
 		} catch (BusinessServiceException e) {
 			logger.error(e.getMessage(), e);
 			throw new InvalidInputException(e.getMessage(), e);
@@ -72,7 +72,7 @@ public class DepartmentController {
 			logger.error(e.getMessage(), e);
 			throw new InternalException("System has some issue...", e);
 		}
-		return department;
+		return departmentsByName;
 	}
 
 }

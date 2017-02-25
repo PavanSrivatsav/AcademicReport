@@ -12,9 +12,13 @@ public interface UserService {
 	 */
 	List<User> getAllUsers() throws BusinessServiceException;
 
-	List<User> getUserById(int userId) throws BusinessServiceException;
+	List<User> getUserById(Integer userId) throws BusinessServiceException;
 
 	List<User> getUserByEmailId(String userEmailId) throws BusinessServiceException;
-	
+
+	List<User> getUsersByCollegeId(Integer collegeId) throws BusinessServiceException;
+
+	List<User> getUsersByDepartmentId(Integer departmentId) throws BusinessServiceException;
+
 	// List<User> getValues() throws BusinessServiceException;
 }

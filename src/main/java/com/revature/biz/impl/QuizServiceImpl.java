@@ -33,12 +33,28 @@ public class QuizServiceImpl implements QuizService {
 	}
 
 	@Override
-	public List<Quiz> getQuizById(int quizId) throws BusinessServiceException {
-		return null;
+	public List<Quiz> getQuizById(Integer quizId) throws BusinessServiceException {
+		List<Quiz> quizById = null;
+		try {
+			quizById = quizDAO.getQuizById(quizId);
+			logger.info("Quiz by id retrieved successfully");
+		} catch (DataServiceException e) {
+			logger.error(e.getMessage(), e);
+			throw new BusinessServiceException(e.getMessage(), e);
+		}
+		return quizById;
 	}
 
 	@Override
 	public List<Quiz> getQuizByName(String quizName) throws BusinessServiceException {
-		return null;
+		List<Quiz> quizByName = null;
+		try {
+			quizByName = quizDAO.getQuizByName(quizName);
+			logger.info("Quiz by name retrieved successfully");
+		} catch (DataServiceException e) {
+			logger.error(e.getMessage(), e);
+			throw new BusinessServiceException(e.getMessage(), e);
+		}
+		return quizByName;
 	}
 }

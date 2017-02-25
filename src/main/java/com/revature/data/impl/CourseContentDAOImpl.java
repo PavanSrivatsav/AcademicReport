@@ -43,8 +43,48 @@ public class CourseContentDAOImpl implements CourseContentDAO {
 	}
 
 	@Override
-	public List<CourseContent> getCourseContentById(int courseId) throws DataServiceException {
-		return null;
+	public List<CourseContent> getCourseContentById(Integer id) throws DataServiceException {
+		List<CourseContent> courseContentsById = null;
+		try {
+			StringBuilder sb = new StringBuilder(
+					"select * from course_contents c where c.ID=" + id + " and c.IS_ACTIVE=true");
+			courseContentsById = dataRetriver.retrieveBySQL(sb.toString());
+			logger.info("Course contents by id data retrieval success..");
+		} catch (DataAccessException e) {
+			logger.error(e.getMessage(), e);
+			throw new DataServiceException(DataUtils.getPropertyMessage("data_retrieval_fail"), e);
+		}
+		return courseContentsById;
+	}
+
+	@Override
+	public List<CourseContent> getCourseContentByCourseId(Integer courseId) throws DataServiceException {
+		List<CourseContent> courseContentByCourseId = null;
+		try {
+			StringBuilder sb = new StringBuilder(
+					"select * from course_contents c where c.COURSE_ID=" + courseId + " and c.IS_ACTIVE=true");
+			courseContentByCourseId = dataRetriver.retrieveBySQL(sb.toString());
+			logger.info("Course contents by course id data retrieval success..");
+		} catch (DataAccessException e) {
+			logger.error(e.getMessage(), e);
+			throw new DataServiceException(DataUtils.getPropertyMessage("data_retrieval_fail"), e);
+		}
+		return courseContentByCourseId;
+	}
+
+	@Override
+	public List<CourseContent> getCourseContentByVideoId(Integer videoId) throws DataServiceException {
+		List<CourseContent> courseContentByVideoId = null;
+		try {
+			StringBuilder sb = new StringBuilder(
+					"select * from course_contents c where c.VIDEO_ID=" + videoId + " and c.IS_ACTIVE=true");
+			courseContentByVideoId = dataRetriver.retrieveBySQL(sb.toString());
+			logger.info("Course contents by video id data retrieval success..");
+		} catch (DataAccessException e) {
+			logger.error(e.getMessage(), e);
+			throw new DataServiceException(DataUtils.getPropertyMessage("data_retrieval_fail"), e);
+		}
+		return courseContentByVideoId;
 	}
 
 }

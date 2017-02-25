@@ -12,7 +12,9 @@ public interface CourseService {
 	 */
 	List<Course> getAllCourses() throws BusinessServiceException;
 
-	List<Course> getCoursesById(int id) throws BusinessServiceException;
+	List<Course> getCoursesById(Integer id) throws BusinessServiceException;
 
-	List<Course> getCoursesByName(String name) throws BusinessServiceException;
+	List<Course> getCourseByName(String courseName) throws BusinessServiceException;
+
+	List<Course> getCourseByCategoryId(Integer categoryId) throws BusinessServiceException;
 }

@@ -43,12 +43,47 @@ public class ProjectDAOImpl implements ProjectDAO {
 	}
 
 	@Override
-	public List<Project> getProjectById(int projectId) throws DataServiceException {
-		return null;
+	public List<Project> getProjectById(Integer id) throws DataServiceException {
+		List<Project> projectById = null;
+		try {
+			StringBuilder sb = new StringBuilder("select * from projects p where ID=" + id + " and p.IS_ACTIVE=true");
+			projectById = dataRetriver.retrieveBySQL(sb.toString());
+			logger.info("Projects by id data retrieval success..");
+		} catch (DataAccessException e) {
+			logger.error(e.getMessage(), e);
+			throw new DataServiceException(DataUtils.getPropertyMessage("data_retrieval_fail"), e);
+		}
+		return projectById;
 	}
 
 	@Override
 	public List<Project> getProjectByName(String projectName) throws DataServiceException {
-		return null;
+		List<Project> projectByName = null;
+		try {
+			StringBuilder sb = new StringBuilder(
+					"select * from projects p where NAME='" + projectName + "' and p.IS_ACTIVE=true");
+			projectByName = dataRetriver.retrieveBySQL(sb.toString());
+			logger.info("Projects by name data retrieval success..");
+		} catch (DataAccessException e) {
+			logger.error(e.getMessage(), e);
+			throw new DataServiceException(DataUtils.getPropertyMessage("data_retrieval_fail"), e);
+		}
+		return projectByName;
 	}
+
+	@Override
+	public List<Project> getProjectByCategoryId(Integer categoryId) throws DataServiceException {
+		List<Project> projectByCategoryId = null;
+		try {
+			StringBuilder sb = new StringBuilder(
+					"select * from projects p where CATEGORY_ID=" + categoryId + " and p.IS_ACTIVE=true");
+			projectByCategoryId = dataRetriver.retrieveBySQL(sb.toString());
+			logger.info("Projects by category id data retrieval success..");
+		} catch (DataAccessException e) {
+			logger.error(e.getMessage(), e);
+			throw new DataServiceException(DataUtils.getPropertyMessage("data_retrieval_fail"), e);
+		}
+		return projectByCategoryId;
+	}
+
 }

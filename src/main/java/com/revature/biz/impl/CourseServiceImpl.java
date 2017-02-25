@@ -34,15 +34,42 @@ public class CourseServiceImpl implements CourseService {
 	}
 
 	@Override
-	public List<Course> getCoursesById(int id) throws BusinessServiceException {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Course> getCoursesById(Integer id) throws BusinessServiceException {
+		List<Course> coursesById = null;
+		try {
+			coursesById = courseDAO.getCourseById(id);
+			logger.info("Courses by id retrieved successfully");
+		} catch (DataServiceException e) {
+			logger.error(e.getMessage(), e);
+			throw new BusinessServiceException(e.getMessage(), e);
+		}
+		return coursesById;
 	}
 
 	@Override
-	public List<Course> getCoursesByName(String name) throws BusinessServiceException {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Course> getCourseByName(String courseName) throws BusinessServiceException {
+		List<Course> coursesByName = null;
+		try {
+			coursesByName = courseDAO.getCourseByName(courseName);
+			logger.info("Courses by name retrieved successfully");
+		} catch (DataServiceException e) {
+			logger.error(e.getMessage(), e);
+			throw new BusinessServiceException(e.getMessage(), e);
+		}
+		return coursesByName;
+	}
+
+	@Override
+	public List<Course> getCourseByCategoryId(Integer categoryId) throws BusinessServiceException {
+		List<Course> coursesByCategoryId = null;
+		try {
+			coursesByCategoryId = courseDAO.getCourseByCategoryId(categoryId);
+			logger.info("Courses by category id retrieved successfully");
+		} catch (DataServiceException e) {
+			logger.error(e.getMessage(), e);
+			throw new BusinessServiceException(e.getMessage(), e);
+		}
+		return coursesByCategoryId;
 	}
 
 }

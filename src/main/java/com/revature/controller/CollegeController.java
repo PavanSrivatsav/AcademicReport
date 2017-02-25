@@ -43,11 +43,11 @@ public class CollegeController {
 
 	@GetMapping("/list/id/{id}")
 	public List<College> getActiveCollegesController(@PathVariable("id") int collegeId) {
-		List<College> college = null;
+		List<College> collegesById = null;
 		try {
-			logger.info("Getting the categories data...");
-			college = collegeService.getCollegeById(collegeId);
-			logger.info("college data retrieval success.");
+			logger.info("Getting the colleges by id data...");
+			collegesById = collegeService.getCollegeById(collegeId);
+			logger.info("college by id data retrieval success.");
 		} catch (BusinessServiceException e) {
 			logger.error(e.getMessage(), e);
 			throw new InvalidInputException(e.getMessage(), e);
@@ -55,16 +55,16 @@ public class CollegeController {
 			logger.error(e.getMessage(), e);
 			throw new InternalException("System has some issue...", e);
 		}
-		return college;
+		return collegesById;
 	}
 
 	@GetMapping("/list/name/{name}")
 	public List<College> getActiveCollegeController(@PathVariable("name") String collegeName) {
-		List<College> college = null;
+		List<College> collegesByName = null;
 		try {
-			logger.info("Getting the categories data...");
-			college = collegeService.getCollegeByName(collegeName);
-			logger.info("college data retrieval success.");
+			logger.info("Getting the colleges by name data...");
+			collegesByName = collegeService.getCollegeByName(collegeName);
+			logger.info("college by name data retrieval success.");
 		} catch (BusinessServiceException e) {
 			logger.error(e.getMessage(), e);
 			throw new InvalidInputException(e.getMessage(), e);
@@ -72,7 +72,7 @@ public class CollegeController {
 			logger.error(e.getMessage(), e);
 			throw new InternalException("System has some issue...", e);
 		}
-		return college;
+		return collegesByName;
 	}
 
 }

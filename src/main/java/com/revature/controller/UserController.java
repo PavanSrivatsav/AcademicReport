@@ -39,13 +39,13 @@ public class UserController {
 		}
 		return users;
 	}
-	
+
 	@GetMapping("/list/id/{id}")
-	public List<User> getActiveUsersController(@PathVariable("id") int userId) {
-		List<User> user = null;
+	public List<User> getActiveUsersByIdController(@PathVariable("id") Integer userId) {
+		List<User> userById = null;
 		try {
 			logger.info("Getting the Users data...");
-			user = userService.getUserById(userId);
+			userById = userService.getUserById(userId);
 			logger.info("User data retrieval success.");
 		} catch (BusinessServiceException e) {
 			logger.error(e.getMessage(), e);
@@ -54,37 +54,16 @@ public class UserController {
 			logger.error(e.getMessage(), e);
 			throw new InternalException("System has some issue...", e);
 		}
-		return user;
-	}
-	
-	@GetMapping("/list/emailid/{emailid}")
-	public List<User> getActiveUsersController(@PathVariable("emailid") String userEmailId) {
-		List<User> user = null;
-		try {
-			logger.info("Getting the Users data...");
-			user = userService.getUserByEmailId(userEmailId);
-			logger.info("User data retrieval success.");
-		} catch (BusinessServiceException e) {
-			logger.error(e.getMessage(), e);
-			throw new InvalidInputException(e.getMessage(), e);
-		} catch (Exception e) {
-			logger.error(e.getMessage(), e);
-			throw new InternalException("System has some issue...", e);
-		}
-		return user;
+		return userById;
 	}
 
-/*	
- 	public List<User> getUserController(){
-		List<User> users = null;
+	@GetMapping("/list/emailid/{emailid}/")
+	public List<User> getActiveUsersByEmailIdController(@PathVariable("emailid") String userEmailId) {
+		List<User> userByEmailId = null;
 		try {
-			ObjectMapper mapper=new ObjectMapper();
-			mapper.enable(SerializationFeature.INDENT_OUTPUT);
-			mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
 			logger.info("Getting the Users data...");
-			users = userService.getValues();
-			s=mapper.writeValueAsString(users);
-			logger.info("Users data retrieval success.");
+			userByEmailId = userService.getUserByEmailId(userEmailId);
+			logger.info("User data retrieval success.");
 		} catch (BusinessServiceException e) {
 			logger.error(e.getMessage(), e);
 			throw new InvalidInputException(e.getMessage(), e);
@@ -92,8 +71,55 @@ public class UserController {
 			logger.error(e.getMessage(), e);
 			throw new InternalException("System has some issue...", e);
 		}
-		return users;
+		return userByEmailId;
 	}
-*/
-	
+
+	@GetMapping("/list/college/id/{id}")
+	public List<User> getActiveUsersByCollegeIdController(@PathVariable("id") Integer collegeId) {
+		List<User> userByCollegeId = null;
+		try {
+			logger.info("Getting the Users by college id data...");
+			userByCollegeId = userService.getUsersByCollegeId(collegeId);
+			logger.info("Users by college id  data retrieval success.");
+		} catch (BusinessServiceException e) {
+			logger.error(e.getMessage(), e);
+			throw new InvalidInputException(e.getMessage(), e);
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			throw new InternalException("System has some issue...", e);
+		}
+		return userByCollegeId;
+	}
+
+	@GetMapping("/list/department/id/{id}")
+	public List<User> getActiveUsersDepartmentIdController(@PathVariable("id") Integer departmentId) {
+		List<User> userByDepartmentId = null;
+		try {
+			logger.info("Getting the Users by department id data...");
+			userByDepartmentId = userService.getUsersByDepartmentId(departmentId);
+			logger.info("Users by department id data retrieval success.");
+		} catch (BusinessServiceException e) {
+			logger.error(e.getMessage(), e);
+			throw new InvalidInputException(e.getMessage(), e);
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			throw new InternalException("System has some issue...", e);
+		}
+		return userByDepartmentId;
+	}
+
+	/*
+	 * public List<User> getUserController(){ List<User> users = null; try {
+	 * ObjectMapper mapper=new ObjectMapper();
+	 * mapper.enable(SerializationFeature.INDENT_OUTPUT);
+	 * mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+	 * logger.info("Getting the Users data..."); users =
+	 * userService.getValues(); s=mapper.writeValueAsString(users);
+	 * logger.info("Users data retrieval success."); } catch
+	 * (BusinessServiceException e) { logger.error(e.getMessage(), e); throw new
+	 * InvalidInputException(e.getMessage(), e); } catch (Exception e) {
+	 * logger.error(e.getMessage(), e); throw new
+	 * InternalException("System has some issue...", e); } return users; }
+	 */
+
 }

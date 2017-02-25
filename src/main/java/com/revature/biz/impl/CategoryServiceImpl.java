@@ -34,29 +34,29 @@ public class CategoryServiceImpl implements CategoryService {
 	}
 
 	@Override
-	public List<Category> getCategoryById(int categoryId) throws BusinessServiceException {
-		List<Category> categories = null;
+	public List<Category> getCategoryById(Integer categoryId) throws BusinessServiceException {
+		List<Category> categoriesById = null;
 		try {
-			categories = categoryDAO.getCategoryById(categoryId);
+			categoriesById = categoryDAO.getCategoryById(categoryId);
 			logger.info("Category retrieved successfully");
 		} catch (DataServiceException e) {
 			logger.error(e.getMessage(), e);
 			throw new BusinessServiceException(e.getMessage(), e);
 		}
-		return categories;
+		return categoriesById;
 	}
 
 	@Override
 	public List<Category> getCategoryByName(String categoryName) throws BusinessServiceException {
-		List<Category> categories = null;
+		List<Category> categoriesByName = null;
 		try {
-			categories = categoryDAO.getCategoryByName(categoryName);
+			categoriesByName = categoryDAO.getCategoryByName(categoryName);
 			logger.info("Category retrieved successfully");
 		} catch (DataServiceException e) {
 			logger.error(e.getMessage(), e);
 			throw new BusinessServiceException(e.getMessage(), e);
 		}
-		return categories;
+		return categoriesByName;
 	}
 
 }

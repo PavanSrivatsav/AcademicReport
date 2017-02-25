@@ -43,12 +43,32 @@ public class DepartmentDAOImpl implements DepartmentDAO {
 	}
 
 	@Override
-	public List<Department> getDepartmentById(int departmentId) throws DataServiceException {
-		return null;
+	public List<Department> getDepartmentById(Integer id) throws DataServiceException {
+		List<Department> departmentsById = null;
+		try {
+			StringBuilder sb = new StringBuilder(
+					"select * from seed_departments d where ID=" + id + " and d.IS_ACTIVE=true");
+			departmentsById = dataRetriver.retrieveBySQL(sb.toString());
+			logger.info("Departments by id data retrieval success..");
+		} catch (DataAccessException e) {
+			logger.error(e.getMessage(), e);
+			throw new DataServiceException(DataUtils.getPropertyMessage("data_retrieval_fail"), e);
+		}
+		return departmentsById;
 	}
 
 	@Override
 	public List<Department> getDepartmentByName(String departmentName) throws DataServiceException {
-		return null;
+		List<Department> departmentsByName = null;
+		try {
+			StringBuilder sb = new StringBuilder(
+					"select * from seed_departments d where NAME='" + departmentName + "' and d.IS_ACTIVE=true");
+			departmentsByName = dataRetriver.retrieveBySQL(sb.toString());
+			logger.info("Departments by name data retrieval success..");
+		} catch (DataAccessException e) {
+			logger.error(e.getMessage(), e);
+			throw new DataServiceException(DataUtils.getPropertyMessage("data_retrieval_fail"), e);
+		}
+		return departmentsByName;
 	}
 }

@@ -42,12 +42,12 @@ public class CourseContentController {
 	}
 
 	@GetMapping("/list/id/{id}")
-	public List<CourseContent> getActiveCategoriesController(@PathVariable("id") int courseContentId) {
-		List<CourseContent> courseContent = null;
+	public List<CourseContent> getActiveCategoriesByIdController(@PathVariable("id") Integer id) {
+		List<CourseContent> courseContentById = null;
 		try {
-			logger.info("Getting the categories data...");
-			courseContent = courseContentService.getCourseContentById(courseContentId);
-			logger.info("category data retrieval success.");
+			logger.info("Getting the categories by id data...");
+			courseContentById = courseContentService.getCourseContentById(id);
+			logger.info("category data by id retrieval success.");
 		} catch (BusinessServiceException e) {
 			logger.error(e.getMessage(), e);
 			throw new InvalidInputException(e.getMessage(), e);
@@ -55,7 +55,41 @@ public class CourseContentController {
 			logger.error(e.getMessage(), e);
 			throw new InternalException("System has some issue...", e);
 		}
-		return courseContent;
+		return courseContentById;
+	}
+
+	@GetMapping("/list/course/id/{id}")
+	public List<CourseContent> getActiveCategoriesByCourseIdController(@PathVariable("id") Integer courseId) {
+		List<CourseContent> courseContentById = null;
+		try {
+			logger.info("Getting the categories by course id data...");
+			courseContentById = courseContentService.getCourseContentByCourseId(courseId);
+			logger.info("Categories by course id data retrieval success.");
+		} catch (BusinessServiceException e) {
+			logger.error(e.getMessage(), e);
+			throw new InvalidInputException(e.getMessage(), e);
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			throw new InternalException("System has some issue...", e);
+		}
+		return courseContentById;
+	}
+
+	@GetMapping("/list/video/id/{id}")
+	public List<CourseContent> getActiveCategoriesByVideoController(@PathVariable("id") Integer videoId) {
+		List<CourseContent> courseContentById = null;
+		try {
+			logger.info("Getting the categories by video id data...");
+			courseContentById = courseContentService.getCourseContentByVideoId(videoId);
+			logger.info("categories by video id data retrieval success.");
+		} catch (BusinessServiceException e) {
+			logger.error(e.getMessage(), e);
+			throw new InvalidInputException(e.getMessage(), e);
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			throw new InternalException("System has some issue...", e);
+		}
+		return courseContentById;
 	}
 
 }

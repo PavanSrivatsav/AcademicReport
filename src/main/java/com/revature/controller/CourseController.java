@@ -59,12 +59,29 @@ public class CourseController {
 	}
 
 	@GetMapping("/list/name/{name}")
-	public List<Course> getActiveCategoriesController(@PathVariable("name") String courseName) {
+	public List<Course> getActiveCategoriesByNameController(@PathVariable("name") String courseName) {
 		List<Course> course = null;
 		try {
 			logger.info("Getting the categories data...");
-			course = courseService.getCoursesByName(courseName);
+			course = courseService.getCourseByName(courseName);
 			logger.info("course data retrieval success.");
+		} catch (BusinessServiceException e) {
+			logger.error(e.getMessage(), e);
+			throw new InvalidInputException(e.getMessage(), e);
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			throw new InternalException("System has some issue...", e);
+		}
+		return course;
+	}
+
+	@GetMapping("/list/category/id/{id}")
+	public List<Course> getActiveCategoriesByCategoryIdController(@PathVariable("id") Integer categoryId) {
+		List<Course> course = null;
+		try {
+			logger.info("Getting the categories by category id data...");
+			course = courseService.getCourseByCategoryId(categoryId);
+			logger.info("categories by category id data retrieval success.");
 		} catch (BusinessServiceException e) {
 			logger.error(e.getMessage(), e);
 			throw new InvalidInputException(e.getMessage(), e);
