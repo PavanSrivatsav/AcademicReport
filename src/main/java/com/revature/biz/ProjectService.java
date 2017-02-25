@@ -11,4 +11,8 @@ public interface ProjectService {
 	 * @throws BusinessServiceException
 	 */
 	List<Project> getAllProjects() throws BusinessServiceException;
+
+	List<Project> getProjectById(int projectId) throws BusinessServiceException;
+
+	List<Project> getProjectByName(String projectName) throws BusinessServiceException;
 }

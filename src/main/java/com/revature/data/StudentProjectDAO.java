@@ -14,4 +14,10 @@ public interface StudentProjectDAO {
 
 	public List<StudentProject> getAllStudentProjects() throws DataServiceException;
 
+	public List<StudentProject> getStudentProjectById(int studentProjectId) throws DataServiceException;
+
+	public List<StudentProject> getStudentProjectByStudentId(int studentId) throws DataServiceException;
+
+	public List<StudentProject> getStudentProjectByProjectId(int projectId) throws DataServiceException;
+
 }

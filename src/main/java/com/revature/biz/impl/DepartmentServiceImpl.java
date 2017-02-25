@@ -31,4 +31,14 @@ public class DepartmentServiceImpl implements DepartmentService {
 		}
 		return departments;
 	}
+
+	@Override
+	public List<Department> getDepartmentById(int departmentId) throws BusinessServiceException {
+		return null;
+	}
+
+	@Override
+	public List<Department> getDepartmentByName(String departmentName) throws BusinessServiceException {
+		return null;
+	}
 }

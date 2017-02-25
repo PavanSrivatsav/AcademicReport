@@ -14,4 +14,8 @@ public interface RoleDAO {
 
 	public List<Role> getAllRoles() throws DataServiceException;
 
+	public List<Role> getRoleById(int roleId) throws DataServiceException;
+
+	public List<Role> getRoleByName(String roleName) throws DataServiceException;
+
 }

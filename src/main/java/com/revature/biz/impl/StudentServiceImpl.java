@@ -31,4 +31,14 @@ public class StudentServiceImpl implements StudentService {
 		}
 		return students;
 	}
+
+	@Override
+	public List<Student> getStudentById(int studentId) throws BusinessServiceException {
+		return null;
+	}
+
+	@Override
+	public List<Student> getStudentByEmailId(String studentEmailId) throws BusinessServiceException {
+		return null;
+	}
 }

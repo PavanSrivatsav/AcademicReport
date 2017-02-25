@@ -14,4 +14,6 @@ public interface ProjectSprintDAO {
 
 	public List<ProjectSprint> getAllProjectSprints() throws DataServiceException;
 
+	public List<ProjectSprint> getProjectSprintById(int projectSprintId) throws DataServiceException;
+
 }

@@ -32,13 +32,23 @@ public class QuizDAOImpl implements QuizDAO {
 	public List<Quiz> getAllQuizzes() throws DataServiceException {
 		List<Quiz> quizzes = null;
 		try {
-			StringBuilder sb = new StringBuilder("FROM Quiz");
-			quizzes = dataRetriver.retrieveByHQL(sb.toString());
+			StringBuilder sb = new StringBuilder("select * from quizzes q where q.IS_ACTIVE=true");
+			quizzes = dataRetriver.retrieveBySQL(sb.toString());
 			logger.info("Quizzes data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
 			throw new DataServiceException(DataUtils.getPropertyMessage("data_retrieval_fail"), e);
 		}
 		return quizzes;
+	}
+
+	@Override
+	public List<Quiz> getQuizById(int quizId) throws DataServiceException {
+		return null;
+	}
+
+	@Override
+	public List<Quiz> getQuizByName(String quizName) throws DataServiceException {
+		return null;
 	}
 }

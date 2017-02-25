@@ -11,4 +11,6 @@ public interface ProjectSprintActivityService {
 	 * @throws BusinessServiceException
 	 */
 	List<ProjectSprintActivity> getAllProjectSprintActivities() throws BusinessServiceException;
+
+	List<ProjectSprintActivity> getProjectSprintActivityById(int id) throws BusinessServiceException;
 }

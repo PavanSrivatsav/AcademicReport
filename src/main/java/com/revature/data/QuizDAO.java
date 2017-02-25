@@ -14,4 +14,8 @@ public interface QuizDAO {
 
 	public List<Quiz> getAllQuizzes() throws DataServiceException;
 
+	public List<Quiz> getQuizById(int quizId) throws DataServiceException;
+
+	public List<Quiz> getQuizByName(String quizName) throws DataServiceException;
+
 }

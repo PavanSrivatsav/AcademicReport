@@ -11,4 +11,8 @@ public interface CollegeService {
 	 * @throws BusinessServiceException
 	 */
 	List<College> getAllColleges() throws BusinessServiceException;
+
+	List<College> getCollegeById(int collegeId) throws BusinessServiceException;
+
+	List<College> getCollegeByName(String collegeName) throws BusinessServiceException;
 }

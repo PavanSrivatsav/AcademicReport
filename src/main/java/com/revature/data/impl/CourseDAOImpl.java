@@ -32,13 +32,23 @@ public class CourseDAOImpl implements CourseDAO {
 	public List<Course> getAllCourses() throws DataServiceException {
 		List<Course> courses = null;
 		try {
-			StringBuilder sb = new StringBuilder("FROM Course");
-			courses = dataRetriver.retrieveByHQL(sb.toString());
+			StringBuilder sb = new StringBuilder("select * from courses c where c.IS_ACTIVE=true");
+			courses = dataRetriver.retrieveBySQL(sb.toString());
 			logger.info("Courses data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
 			throw new DataServiceException(DataUtils.getPropertyMessage("data_retrieval_fail"), e);
 		}
 		return courses;
+	}
+
+	@Override
+	public List<Course> getCourseById(int courseId) throws DataServiceException {
+		return null;
+	}
+
+	@Override
+	public List<Course> getCourseByName(String courseName) throws DataServiceException {
+		return null;
 	}
 }

@@ -31,4 +31,14 @@ public class RoleServiceImpl implements RoleService {
 		}
 		return roles;
 	}
+
+	@Override
+	public List<Role> getRoleById(int roleId) throws BusinessServiceException {
+		return null;
+	}
+
+	@Override
+	public List<Role> getRoleByName(String roleName) throws BusinessServiceException {
+		return null;
+	}
 }

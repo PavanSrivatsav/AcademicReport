@@ -11,6 +11,9 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
+import lombok.Data;
+
+@Data
 @Entity
 @Table(name = "course_contents", uniqueConstraints = { @UniqueConstraint(columnNames = { "COURSE_ID", "VIDEO_ID" }),
 		@UniqueConstraint(columnNames = { "COURSE_ID", "TEXT_CONTENT" }) })
@@ -35,45 +38,5 @@ public class CourseContent {
 	@NotNull
 	@Column(name = "IS_ACTIVE")
 	private Boolean isActive;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Course getCourse() {
-		return course;
-	}
-
-	public void setCourse(Course course) {
-		this.course = course;
-	}
-
-	public Video getVideoId() {
-		return video;
-	}
-
-	public void setVideoId(Video videoId) {
-		this.video = videoId;
-	}
-
-	public String getTextContent() {
-		return textContent;
-	}
-
-	public void setTextContent(String textContent) {
-		this.textContent = textContent;
-	}
-
-	public Boolean getIsActive() {
-		return isActive;
-	}
-
-	public void setIsActive(Boolean isActive) {
-		this.isActive = isActive;
-	}
 
 }

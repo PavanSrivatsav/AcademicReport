@@ -32,13 +32,25 @@ public class StudentDAOImpl implements StudentDAO {
 	public List<Student> getAllStudents() throws DataServiceException {
 		List<Student> students = null;
 		try {
-			StringBuilder sb = new StringBuilder("FROM Student");
-			students = dataRetriver.retrieveByHQL(sb.toString());
+			StringBuilder sb = new StringBuilder("select * from students s where s.IS_ACTIVE=true");
+			students = dataRetriver.retrieveBySQL(sb.toString());
 			logger.info("Students data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
 			throw new DataServiceException(DataUtils.getPropertyMessage("data_retrieval_fail"), e);
 		}
 		return students;
+	}
+
+	@Override
+	public List<Student> getStudentById(int studentId) throws DataServiceException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Student> getStudentByEmailId(String sudentName) throws DataServiceException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

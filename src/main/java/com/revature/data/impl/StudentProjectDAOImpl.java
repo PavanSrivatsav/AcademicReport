@@ -32,13 +32,55 @@ public class StudentProjectDAOImpl implements StudentProjectDAO {
 	public List<StudentProject> getAllStudentProjects() throws DataServiceException {
 		List<StudentProject> studentProjects = null;
 		try {
-			StringBuilder sb = new StringBuilder("FROM StudentProject");
-			studentProjects = dataRetriver.retrieveByHQL(sb.toString());
+			StringBuilder sb = new StringBuilder("select * from student_projects");
+			studentProjects = dataRetriver.retrieveBySQL(sb.toString());
 			logger.info("StudentProjects data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
 			throw new DataServiceException(DataUtils.getPropertyMessage("data_retrieval_fail"), e);
 		}
 		return studentProjects;
+	}
+
+	@Override
+	public List<StudentProject> getStudentProjectById(int studentProjectId) throws DataServiceException {
+		List<StudentProject> studentProject = null;
+		try {
+			StringBuilder sb = new StringBuilder("select * from student_projects where ID='"+studentProjectId+"'");
+			studentProject = dataRetriver.retrieveBySQL(sb.toString());
+			logger.info("StudentProjects data retrieval success..");
+		} catch (DataAccessException e) {
+			logger.error(e.getMessage(), e);
+			throw new DataServiceException(DataUtils.getPropertyMessage("data_retrieval_fail"), e);
+		}
+		return studentProject;
+	}
+
+	@Override
+	public List<StudentProject> getStudentProjectByStudentId(int studentId) throws DataServiceException {
+		List<StudentProject> studentProject = null;
+		try {
+			StringBuilder sb = new StringBuilder("select * from student_projects where STUDENT_ID='"+studentId+"'");
+			studentProject = dataRetriver.retrieveBySQL(sb.toString());
+			logger.info("StudentProjects data retrieval success..");
+		} catch (DataAccessException e) {
+			logger.error(e.getMessage(), e);
+			throw new DataServiceException(DataUtils.getPropertyMessage("data_retrieval_fail"), e);
+		}
+		return studentProject;
+	}
+
+	@Override
+	public List<StudentProject> getStudentProjectByProjectId(int projectId) throws DataServiceException {
+		List<StudentProject> studentProject = null;
+		try {
+			StringBuilder sb = new StringBuilder("select * from student_projects where PROJECT_ID='"+projectId+"'");
+			studentProject = dataRetriver.retrieveBySQL(sb.toString());
+			logger.info("StudentProjects data retrieval success..");
+		} catch (DataAccessException e) {
+			logger.error(e.getMessage(), e);
+			throw new DataServiceException(DataUtils.getPropertyMessage("data_retrieval_fail"), e);
+		}
+		return studentProject;
 	}
 }

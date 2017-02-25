@@ -6,9 +6,10 @@ import com.revature.biz.exception.BusinessServiceException;
 import com.revature.model.Quiz;
 
 public interface QuizService {
-	/**
-	 * @return
-	 * @throws BusinessServiceException
-	 */
+
 	List<Quiz> getAllQuizzes() throws BusinessServiceException;
+
+	List<Quiz> getQuizById(int quizId) throws BusinessServiceException;
+
+	List<Quiz> getQuizByName(String quizName) throws BusinessServiceException;
 }

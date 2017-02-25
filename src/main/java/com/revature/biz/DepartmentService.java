@@ -11,4 +11,8 @@ public interface DepartmentService {
 	 * @throws BusinessServiceException
 	 */
 	List<Department> getAllDepartments() throws BusinessServiceException;
+
+	List<Department> getDepartmentById(int departmentId) throws BusinessServiceException;
+
+	List<Department> getDepartmentByName(String departmentName) throws BusinessServiceException;
 }

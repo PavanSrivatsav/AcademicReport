@@ -31,4 +31,43 @@ public class StudentCourseServiceImpl implements StudentCourseService {
 		}
 		return studentCourses;
 	}
+
+	@Override
+	public List<StudentCourse> getStudentCourseById(int studentCourseId) throws BusinessServiceException {
+		List<StudentCourse> studentCourses = null;
+		try {
+			studentCourses = studentCourseDAO.getStudentCourseById(studentCourseId);
+			logger.info("StudentCourses retrieved successfully");
+		} catch (DataServiceException e) {
+			logger.error(e.getMessage(), e);
+			throw new BusinessServiceException(e.getMessage(), e);
+		}
+		return studentCourses;
+	}
+
+	@Override
+	public List<StudentCourse> getStudentCourseByStudentId(int studentId) throws BusinessServiceException {
+		List<StudentCourse> studentCourses = null;
+		try {
+			studentCourses = studentCourseDAO.getStudentCourseByStudentId(studentId);
+			logger.info("StudentCourses retrieved successfully");
+		} catch (DataServiceException e) {
+			logger.error(e.getMessage(), e);
+			throw new BusinessServiceException(e.getMessage(), e);
+		}
+		return studentCourses;
+	}
+
+	@Override
+	public List<StudentCourse> getStudentCourseByCourseId(int courseId) throws BusinessServiceException {
+		List<StudentCourse> studentCourses = null;
+		try {
+			studentCourses = studentCourseDAO.getStudentCourseById(courseId);
+			logger.info("StudentCourses retrieved successfully");
+		} catch (DataServiceException e) {
+			logger.error(e.getMessage(), e);
+			throw new BusinessServiceException(e.getMessage(), e);
+		}
+		return studentCourses;
+	}
 }

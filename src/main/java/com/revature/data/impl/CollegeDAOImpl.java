@@ -32,13 +32,23 @@ public class CollegeDAOImpl implements CollegeDAO {
 	public List<College> getAllColleges() throws DataServiceException {
 		List<College> colleges = null;
 		try {
-			StringBuilder sb = new StringBuilder("FROM College");
-			colleges = dataRetriver.retrieveByHQL(sb.toString());
+			StringBuilder sb = new StringBuilder("select * from colleges c where c.IS_ACTIVE=true");
+			colleges = dataRetriver.retrieveBySQL(sb.toString());
 			logger.info("Colleges data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
 			throw new DataServiceException(DataUtils.getPropertyMessage("data_retrieval_fail"), e);
 		}
 		return colleges;
+	}
+
+	@Override
+	public List<College> getCollegeById(int collegeId) throws DataServiceException {
+		return null;
+	}
+
+	@Override
+	public List<College> getCollegeByName(String collegeName) throws DataServiceException {
+		return null;
 	}
 }

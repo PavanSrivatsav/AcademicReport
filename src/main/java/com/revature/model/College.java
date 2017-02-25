@@ -15,23 +15,27 @@ import lombok.Data;
 @Table(name = "colleges")
 public class College {
 
+	private College() {
+
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	@Column(unique = true)
 	@NotNull
+	@Column(unique = true)
 	private String name;
 
 	@NotNull
 	private String Address;
 
-	@Column(name = "EMAIL_ID", unique = true)
 	@NotNull
+	@Column(name = "EMAIL_ID", unique = true)
 	private String emailId;
 
-	@Column(unique = true)
 	@NotNull
+	@Column(unique = true)
 	private Long phone;
 
 	@NotNull

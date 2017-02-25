@@ -24,11 +24,16 @@ public class ProjectSprintServiceImpl implements ProjectSprintService {
 		List<ProjectSprint> projectSprints = null;
 		try {
 			projectSprints = projectSprintDAO.getAllProjectSprints();
-			logger.info("ProjectSprint retrieved successfully");
+			logger.info("ProjectSprints retrieved successfully");
 		} catch (DataServiceException e) {
 			logger.error(e.getMessage(), e);
 			throw new BusinessServiceException(e.getMessage(), e);
 		}
 		return projectSprints;
+	}
+
+	@Override
+	public List<ProjectSprint> getProjectSprintById(int id) throws BusinessServiceException {
+		return null;
 	}
 }

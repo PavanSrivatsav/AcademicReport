@@ -11,4 +11,8 @@ public interface StudentService {
 	 * @throws BusinessServiceException
 	 */
 	List<Student> getAllStudents() throws BusinessServiceException;
+
+	List<Student> getStudentById(int studentId) throws BusinessServiceException;
+
+	List<Student> getStudentByEmailId(String studentEmailId) throws BusinessServiceException;
 }

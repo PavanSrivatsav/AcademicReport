@@ -32,13 +32,23 @@ public class RoleDAOImpl implements RoleDAO {
 	public List<Role> getAllRoles() throws DataServiceException {
 		List<Role> roles = null;
 		try {
-			StringBuilder sb = new StringBuilder("FROM Role");
-			roles = dataRetriver.retrieveByHQL(sb.toString());
+			StringBuilder sb = new StringBuilder("select * from seed_roles");
+			roles = dataRetriver.retrieveBySQL(sb.toString());
 			logger.info("Roles data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
 			throw new DataServiceException(DataUtils.getPropertyMessage("data_retrieval_fail"), e);
 		}
 		return roles;
+	}
+
+	@Override
+	public List<Role> getRoleById(int id) throws DataServiceException {
+		return null;
+	}
+
+	@Override
+	public List<Role> getRoleByName(String name) throws DataServiceException {
+		return null;
 	}
 }

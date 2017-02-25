@@ -16,17 +16,18 @@ import lombok.Data;
 public class Category {
 
 	private Category() {
-
 	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-
+	
+	@NotNull
+	@Column(unique = true)
 	private String name;
 
-	@Column(name = "IS_ACTIVE")
 	@NotNull
+	@Column(name = "IS_ACTIVE")
 	private Boolean isActive;
 
 }

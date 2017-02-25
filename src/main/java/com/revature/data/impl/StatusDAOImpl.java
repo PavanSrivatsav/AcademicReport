@@ -32,13 +32,23 @@ public class StatusDAOImpl implements StatusDAO {
 	public List<Status> getAllStatus() throws DataServiceException {
 		List<Status> status = null;
 		try {
-			StringBuilder sb = new StringBuilder("FROM Status");
-			status = dataRetriver.retrieveByHQL(sb.toString());
+			StringBuilder sb = new StringBuilder("select * from seed_status");
+			status = dataRetriver.retrieveBySQL(sb.toString());
 			logger.info("Status data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
 			throw new DataServiceException(DataUtils.getPropertyMessage("data_retrieval_fail"), e);
 		}
 		return status;
+	}
+
+	@Override
+	public List<Status> getStatusById(int statusId) throws DataServiceException {
+		return null;
+	}
+
+	@Override
+	public List<Status> getStatusByName(String statusName) throws DataServiceException {
+		return null;
 	}
 }

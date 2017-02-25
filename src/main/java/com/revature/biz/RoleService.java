@@ -11,4 +11,6 @@ public interface RoleService {
 	 * @throws BusinessServiceException
 	 */
 	List<Role> getAllRoles() throws BusinessServiceException;
+	List<Role> getRoleById(int roleId) throws BusinessServiceException;
+	List<Role> getRoleByName(String roleName) throws BusinessServiceException;
 }

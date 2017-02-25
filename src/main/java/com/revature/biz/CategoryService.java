@@ -16,4 +16,8 @@ public interface CategoryService {
 	 */
 	List<Category> getAllCategories() throws BusinessServiceException;
 
+	List<Category> getCategoryById(int categoryId) throws BusinessServiceException;
+
+	List<Category> getCategoryByName(String categoryName) throws BusinessServiceException;
+	
 }

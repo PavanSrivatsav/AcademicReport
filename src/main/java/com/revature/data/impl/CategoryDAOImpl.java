@@ -31,9 +31,39 @@ public class CategoryDAOImpl implements CategoryDAO {
 	public List<Category> getAllCategories() throws DataServiceException {
 		List<Category> categories = null;
 		try {
-			StringBuilder sb = new StringBuilder("FROM Category c where c.isActive=true");
-			categories = dataRetriver.retrieveByHQL(sb.toString());
+			StringBuilder sb = new StringBuilder("select * from seed_categories c where c.IS_ACTIVE=true");
+			categories = dataRetriver.retrieveBySQL(sb.toString());
 			logger.info("Categories data retrieval success..");
+		} catch (DataAccessException e) {
+			logger.error(e.getMessage(), e);
+			throw new DataServiceException(DataUtils.getPropertyMessage("data_retrieval_fail"), e);
+		}
+		return categories;
+	}
+
+	@Override
+	public List<Category> getCategoryById(int categoryId) throws DataServiceException {
+		List<Category> categories = null;
+		try {
+			StringBuilder sb = new StringBuilder(
+					"select * from seed_categories c where c.ID='" + categoryId + "' and c.IS_ACTIVE=true");
+			categories = dataRetriver.retrieveBySQL(sb.toString());
+			logger.info("Category data retrieval success..");
+		} catch (DataAccessException e) {
+			logger.error(e.getMessage(), e);
+			throw new DataServiceException(DataUtils.getPropertyMessage("data_retrieval_fail"), e);
+		}
+		return categories;
+	}
+
+	@Override
+	public List<Category> getCategoryByName(String categoryName) throws DataServiceException {
+		List<Category> categories = null;
+		try {
+			StringBuilder sb = new StringBuilder(
+					"select * from seed_categories c where c.NAME='" + categoryName + "' and c.IS_ACTIVE=true");
+			categories = dataRetriver.retrieveBySQL(sb.toString());
+			logger.info("Category data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
 			throw new DataServiceException(DataUtils.getPropertyMessage("data_retrieval_fail"), e);

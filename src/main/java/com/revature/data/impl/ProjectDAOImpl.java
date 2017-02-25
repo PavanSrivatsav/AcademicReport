@@ -32,13 +32,23 @@ public class ProjectDAOImpl implements ProjectDAO {
 	public List<Project> getAllProjects() throws DataServiceException {
 		List<Project> projects = null;
 		try {
-			StringBuilder sb = new StringBuilder("FROM Project");
-			projects = dataRetriver.retrieveByHQL(sb.toString());
+			StringBuilder sb = new StringBuilder("select * from projects p where p.IS_ACTIVE=true");
+			projects = dataRetriver.retrieveBySQL(sb.toString());
 			logger.info("Projects data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
 			throw new DataServiceException(DataUtils.getPropertyMessage("data_retrieval_fail"), e);
 		}
 		return projects;
+	}
+
+	@Override
+	public List<Project> getProjectById(int projectId) throws DataServiceException {
+		return null;
+	}
+
+	@Override
+	public List<Project> getProjectByName(String projectName) throws DataServiceException {
+		return null;
 	}
 }

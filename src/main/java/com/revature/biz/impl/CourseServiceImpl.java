@@ -33,4 +33,16 @@ public class CourseServiceImpl implements CourseService {
 		return courses;
 	}
 
+	@Override
+	public List<Course> getCoursesById(int id) throws BusinessServiceException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Course> getCoursesByName(String name) throws BusinessServiceException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

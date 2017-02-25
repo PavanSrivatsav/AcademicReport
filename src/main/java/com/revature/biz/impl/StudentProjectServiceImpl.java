@@ -31,4 +31,44 @@ public class StudentProjectServiceImpl implements StudentProjectService {
 		}
 		return studentProjects;
 	}
+
+	@Override
+	public List<StudentProject> getStudentProjectById(int studentProjectId) throws BusinessServiceException {
+		List<StudentProject> studentProject = null;
+		try {
+			studentProject = studentProjectDAO.getStudentProjectById(studentProjectId);
+			logger.info("StudentProjects retrieved successfully");
+		} catch (DataServiceException e) {
+			logger.error(e.getMessage(), e);
+			throw new BusinessServiceException(e.getMessage(), e);
+		}
+		return studentProject;
+	}
+
+	@Override
+	public List<StudentProject> getStudentProjectByStudentId(int studentId) throws BusinessServiceException {
+		List<StudentProject> studentProjects = null;
+		try {
+			studentProjects = studentProjectDAO.getStudentProjectByStudentId(studentId);
+			logger.info("StudentProjects retrieved successfully");
+		} catch (DataServiceException e) {
+			logger.error(e.getMessage(), e);
+			throw new BusinessServiceException(e.getMessage(), e);
+		}
+		return studentProjects;
+	}
+
+	@Override
+	public List<StudentProject> getStudentProjectByProjectId(int projectId) throws BusinessServiceException {
+		List<StudentProject> studentProjects = null;
+		try {
+			studentProjects = studentProjectDAO.getStudentProjectByProjectId(projectId);
+			logger.info("StudentProjects retrieved successfully");
+		} catch (DataServiceException e) {
+			logger.error(e.getMessage(), e);
+			throw new BusinessServiceException(e.getMessage(), e);
+		}
+		return studentProjects;
+
+	}
 }

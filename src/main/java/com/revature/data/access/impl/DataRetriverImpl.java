@@ -19,10 +19,10 @@ public class DataRetriverImpl implements DataRetriver {
 	@Autowired
 	private SessionFactory sessionFactory;
 
-	public <E> List<E> retrieveByHQL(String queryString) throws DataAccessException {
+	public <E> List<E> retrieveBySQL(String queryString) throws DataAccessException {
 		List<E> list = null;
 		try {
-			list = sessionFactory.getCurrentSession().createQuery(queryString).list();
+			list = sessionFactory.getCurrentSession().createSQLQuery(queryString).list();
 			logger.info("data retrieval success..");
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);

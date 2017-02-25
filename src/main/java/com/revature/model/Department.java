@@ -19,11 +19,11 @@ public class Department {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 
-	@Column(unique = true)
 	@NotNull
+	@Column(unique = true)
 	private String name;
 
-	@Column(name = "IS_ACTIVE")
 	@NotNull
+	@Column(name = "IS_ACTIVE")
 	private Boolean isActive;
 }

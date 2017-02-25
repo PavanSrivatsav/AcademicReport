@@ -14,4 +14,8 @@ public interface CourseDAO {
 
 	public List<Course> getAllCourses() throws DataServiceException;
 
+	public List<Course> getCourseById(int courseId) throws DataServiceException;
+
+	public List<Course> getCourseByName(String courseName) throws DataServiceException;
+
 }

@@ -32,13 +32,18 @@ public class ProjectSprintDAOImpl implements ProjectSprintDAO {
 	public List<ProjectSprint> getAllProjectSprints() throws DataServiceException {
 		List<ProjectSprint> projectSprints = null;
 		try {
-			StringBuilder sb = new StringBuilder("FROM ProjectSprint");
-			projectSprints = dataRetriver.retrieveByHQL(sb.toString());
+			StringBuilder sb = new StringBuilder("select * from project_sprints p where p.IS_ACTIVE=true");
+			projectSprints = dataRetriver.retrieveBySQL(sb.toString());
 			logger.info("ProjectSprints data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
 			throw new DataServiceException(DataUtils.getPropertyMessage("data_retrieval_fail"), e);
 		}
 		return projectSprints;
+	}
+
+	@Override
+	public List<ProjectSprint> getProjectSprintById(int projectSprintId) throws DataServiceException {
+		return null;
 	}
 }

@@ -31,4 +31,14 @@ public class QuizServiceImpl implements QuizService {
 		}
 		return quizzes;
 	}
+
+	@Override
+	public List<Quiz> getQuizById(int quizId) throws BusinessServiceException {
+		return null;
+	}
+
+	@Override
+	public List<Quiz> getQuizByName(String quizName) throws BusinessServiceException {
+		return null;
+	}
 }

@@ -31,4 +31,14 @@ public class ProjectServiceImpl implements ProjectService {
 		}
 		return projects;
 	}
+
+	@Override
+	public List<Project> getProjectById(int projectId) throws BusinessServiceException {
+		return null;
+	}
+
+	@Override
+	public List<Project> getProjectByName(String projectName) throws BusinessServiceException {
+		return null;
+	}
 }

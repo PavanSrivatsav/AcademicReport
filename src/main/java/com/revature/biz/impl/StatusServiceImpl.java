@@ -31,4 +31,14 @@ public class StatusServiceImpl implements StatusService {
 		}
 		return status;
 	}
+
+	@Override
+	public List<Status> getStatusById(int statusId) throws BusinessServiceException {
+		return null;
+	}
+
+	@Override
+	public List<Status> getStatusByName(String statusName) throws BusinessServiceException {
+		return null;
+	}
 }

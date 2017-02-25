@@ -31,4 +31,14 @@ public class CollegeServiceImpl implements CollegeService {
 		}
 		return colleges;
 	}
+
+	@Override
+	public List<College> getCollegeById(int collegeId) throws BusinessServiceException {
+		return null;
+	}
+
+	@Override
+	public List<College> getCollegeByName(String collegeName) throws BusinessServiceException {
+		return null;
+	}
 }

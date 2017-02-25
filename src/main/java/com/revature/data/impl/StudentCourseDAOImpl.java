@@ -32,8 +32,50 @@ public class StudentCourseDAOImpl implements StudentCourseDAO {
 	public List<StudentCourse> getAllStudentCourses() throws DataServiceException {
 		List<StudentCourse> studentCourses = null;
 		try {
-			StringBuilder sb = new StringBuilder("FROM StudentCourse");
-			studentCourses = dataRetriver.retrieveByHQL(sb.toString());
+			StringBuilder sb = new StringBuilder("select * from student_courses");
+			studentCourses = dataRetriver.retrieveBySQL(sb.toString());
+			logger.info("StudentCourses data retrieval success..");
+		} catch (DataAccessException e) {
+			logger.error(e.getMessage(), e);
+			throw new DataServiceException(DataUtils.getPropertyMessage("data_retrieval_fail"), e);
+		}
+		return studentCourses;
+	}
+
+	@Override
+	public List<StudentCourse> getStudentCourseById(int studentCourseId) throws DataServiceException {
+		List<StudentCourse> studentCourses = null;
+		try {
+			StringBuilder sb = new StringBuilder("select * from student_courses where ID='"+studentCourseId+"'");
+			studentCourses = dataRetriver.retrieveBySQL(sb.toString());
+			logger.info("StudentCourses data retrieval success..");
+		} catch (DataAccessException e) {
+			logger.error(e.getMessage(), e);
+			throw new DataServiceException(DataUtils.getPropertyMessage("data_retrieval_fail"), e);
+		}
+		return studentCourses;
+	}
+
+	@Override
+	public List<StudentCourse> getStudentCourseByStudentId(int studentId) throws DataServiceException {
+		List<StudentCourse> studentCourses = null;
+		try {
+			StringBuilder sb = new StringBuilder("select * from student_courses where ID='"+studentId+"'");
+			studentCourses = dataRetriver.retrieveBySQL(sb.toString());
+			logger.info("StudentCourses data retrieval success..");
+		} catch (DataAccessException e) {
+			logger.error(e.getMessage(), e);
+			throw new DataServiceException(DataUtils.getPropertyMessage("data_retrieval_fail"), e);
+		}
+		return studentCourses;
+	}
+
+	@Override
+	public List<StudentCourse> getStudentCourseByCourseId(int courseId) throws DataServiceException {
+		List<StudentCourse> studentCourses = null;
+		try {
+			StringBuilder sb = new StringBuilder("select * from student_courses where ID='"+courseId+"'");
+			studentCourses = dataRetriver.retrieveBySQL(sb.toString());
 			logger.info("StudentCourses data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);

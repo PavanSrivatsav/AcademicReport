@@ -14,4 +14,8 @@ public interface StatusDAO {
 
 	public List<Status> getAllStatus() throws DataServiceException;
 
+	public List<Status> getStatusById(int statusId) throws DataServiceException;
+
+	public List<Status> getStatusByName(String statusName) throws DataServiceException;
+
 }

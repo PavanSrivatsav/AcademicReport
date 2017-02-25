@@ -21,6 +21,7 @@ public class StudentCourseController {
 
 	@Autowired
 	private StudentCourseService studentCourseService;
+	
 
 	@RequestMapping("/students/courses")
 	public List<StudentCourse> getStudentCourseController() {

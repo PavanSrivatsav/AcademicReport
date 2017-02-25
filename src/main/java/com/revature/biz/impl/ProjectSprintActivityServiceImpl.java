@@ -31,4 +31,9 @@ public class ProjectSprintActivityServiceImpl implements ProjectSprintActivitySe
 		}
 		return projectSprintActivities;
 	}
+
+	@Override
+	public List<ProjectSprintActivity> getProjectSprintActivityById(int id) throws BusinessServiceException {
+		return null;
+	}
 }

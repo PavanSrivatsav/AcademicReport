@@ -11,4 +11,10 @@ public interface StudentCourseService {
 	 * @throws BusinessServiceException
 	 */
 	List<StudentCourse> getAllStudentCourses() throws BusinessServiceException;
+
+	List<StudentCourse> getStudentCourseById(int studentCourseId) throws BusinessServiceException;
+
+	List<StudentCourse> getStudentCourseByStudentId(int studentId) throws BusinessServiceException;
+
+	List<StudentCourse> getStudentCourseByCourseId(int courseId) throws BusinessServiceException;
 }

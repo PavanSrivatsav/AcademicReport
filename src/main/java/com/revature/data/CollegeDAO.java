@@ -14,4 +14,8 @@ public interface CollegeDAO {
 
 	public List<College> getAllColleges() throws DataServiceException;
 
+	public List<College> getCollegeById(int collegeId) throws DataServiceException;
+
+	public List<College> getCollegeByName(String collegeName) throws DataServiceException;
+
 }
