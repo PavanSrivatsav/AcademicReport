@@ -57,4 +57,16 @@ public class DashboardServiceImpl implements DashboardService {
 		}
 		return trendingCourses;
 	}
+	@Override
+	public List<StudentProject> getTrendingProjects(Integer collegeId) throws BusinessServiceException {
+		List<StudentProject> trendingProject= null;
+		try {
+			trendingProject = dashboardDAO.getTrendingProjects(collegeId);
+			logger.info("Trending projects retrieved successfully");
+		} catch (DataServiceException e) {
+			logger.error(e.getMessage(), e);
+			throw new BusinessServiceException(e.getMessage(), e);
+		}
+		return trendingProject;
+	}
 }

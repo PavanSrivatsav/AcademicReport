@@ -71,4 +71,20 @@ public class DashboardController {
 		}
 		return trendingCourse;
 	}
+	@GetMapping("/trendingproject/collegeId/{collegeId}")
+	public List<StudentProject> getTrendingProjectsController(@PathVariable("collegeId") int collegeId) {
+		List<StudentProject> trendingProject = null;
+		try {
+			logger.info("Getting the trending projects data...");
+			trendingProject = dashboardService.getTrendingProjects(collegeId);
+			logger.info("Trending project data retrieval success.");
+		} catch (BusinessServiceException e) {
+			logger.error(e.getMessage(), e);
+			throw new InvalidInputException(e.getMessage(), e);
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			throw new InternalException("System has some issue...", e);
+		}
+		return trendingProject;
+	}
 }

@@ -58,7 +58,7 @@ public class DashboardDAOImpl implements DashboardDAO{
 	public List<StudentCourse> getTrendingCourses(Integer collegeId) throws DataServiceException {
 		List<StudentCourse> trendingCourses = null;
 		try {
-			StringBuilder sb = new StringBuilder("SELECT courses.`NAME` ,COUNT(`student_id`) FROM `student_courses` JOIN `courses` ON `courses`.`ID`=`student_courses`.`COURSE_ID` JOIN `students`  ON students.`ID`=student_courses.`STUDENT_ID` WHERE `students`.`COLLEGE_ID`=" + collegeId + " GROUP BY `student_courses`.`COURSE_ID` ORDER BY COUNT(`COURSE_ID`) DESC LIMIT 2");
+			StringBuilder sb = new StringBuilder("SELECT courses.`NAME` ,COUNT(`student_id`) FROM `student_courses` JOIN `courses` ON `courses`.`ID`=`student_courses`.`COURSE_ID` JOIN `students`  ON students.`ID`=student_courses.`STUDENT_ID` WHERE `students`.`COLLEGE_ID`=" + collegeId + " GROUP BY `student_courses`.`COURSE_ID` ORDER BY COUNT(`COURSE_ID`) DESC LIMIT 5");
 			trendingCourses = dataRetriver.retrieveBySQL(sb.toString());
 			logger.info("Trending courses data retrieval success..");
 		} catch (DataAccessException e) {
@@ -66,5 +66,18 @@ public class DashboardDAOImpl implements DashboardDAO{
 			throw new DataServiceException(DataUtils.getPropertyMessage("data_retrieval_fail"), e);
 		}
 		return trendingCourses;
+	}
+	@Override
+	public List<StudentProject> getTrendingProjects(Integer collegeId) throws DataServiceException {
+		List<StudentProject> trendingProjects = null;
+		try {
+			StringBuilder sb = new StringBuilder("SELECT projects.`NAME`  ,COUNT(`student_id`) FROM `student_projects` JOIN `projects` ON `projects`.`ID`=`student_projects`.`PROJECT_ID` JOIN `students` ON students.`ID`=student_projects.`STUDENT_ID` WHERE `students`.`COLLEGE_ID`=" + collegeId + " GROUP BY `student_projects`.`PROJECT_ID` ORDER BY COUNT(`PROJECT_ID`) DESC LIMIT 5");
+			trendingProjects = dataRetriver.retrieveBySQL(sb.toString());
+			logger.info("Trending projects data retrieval success..");
+		} catch (DataAccessException e) {
+			logger.error(e.getMessage(), e);
+			throw new DataServiceException(DataUtils.getPropertyMessage("data_retrieval_fail"), e);
+		}
+		return trendingProjects;
 	}
 }
