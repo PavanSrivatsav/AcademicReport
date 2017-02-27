@@ -17,4 +17,7 @@ public interface CourseService {
 	List<Course> getCourseByName(String courseName) throws BusinessServiceException;
 
 	List<Course> getCourseByCategoryId(Integer categoryId) throws BusinessServiceException;
+	
+	List<Course> getCourseOverAllDetail(Integer collegeId) throws BusinessServiceException;
+
 }
