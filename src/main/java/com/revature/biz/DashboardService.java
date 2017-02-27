@@ -17,5 +17,6 @@ public interface DashboardService {
 	 */
 	List<StudentCourse> getActiveCourses(Integer collegeId,Integer departmentId) throws BusinessServiceException;
 	List<StudentProject> getActiveProjects(Integer collegeId,Integer departmentId) throws BusinessServiceException;
+	List<StudentCourse> getTrendingCourses(Integer collegeId) throws BusinessServiceException;
 
 }
