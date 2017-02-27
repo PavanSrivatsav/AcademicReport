@@ -12,6 +12,7 @@ import com.revature.data.access.exception.DataAccessException;
 import com.revature.data.exception.DataServiceException;
 import com.revature.data.utils.DataUtils;
 import com.revature.model.StudentCourse;
+import com.revature.model.StudentProject;
 @Repository
 
 public class DashboardDAOImpl implements DashboardDAO{
@@ -39,6 +40,19 @@ public class DashboardDAOImpl implements DashboardDAO{
 			throw new DataServiceException(DataUtils.getPropertyMessage("data_retrieval_fail"), e);
 		}
 		return activeCourses;
+	}
+	@Override
+	public List<StudentProject> getActiveProjects(Integer collegeId,Integer departmentId) throws DataServiceException {
+		List<StudentProject> activeProjects = null;
+		try {
+			StringBuilder sb = new StringBuilder("SELECT students.`NAME` FROM `students` JOIN `student_projects` ON `student_projects`.`STUDENT_ID`=`students`.`ID`WHERE `student_projects`.`STATUS_ID`=(SELECT id FROM seed_status WHERE NAME='COMPLETED') AND `students`.`DEPARTMENT_ID`=" + departmentId+ "  AND `students`.`COLLEGE_ID`=" + collegeId + " GROUP BY `STUDENT_ID` ORDER BY COUNT(`PROJECT_ID`) DESC LIMIT 5");
+			activeProjects = dataRetriver.retrieveBySQL(sb.toString());
+			logger.info("Active projects data retrieval success..");
+		} catch (DataAccessException e) {
+			logger.error(e.getMessage(), e);
+			throw new DataServiceException(DataUtils.getPropertyMessage("data_retrieval_fail"), e);
+		}
+		return activeProjects;
 	}
 
 }

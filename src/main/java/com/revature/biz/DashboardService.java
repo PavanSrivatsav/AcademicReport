@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.revature.biz.exception.BusinessServiceException;
 import com.revature.model.StudentCourse;
+import com.revature.model.StudentProject;
 
 public interface DashboardService {
 
@@ -15,5 +16,6 @@ public interface DashboardService {
 	 *             if any business error occurs
 	 */
 	List<StudentCourse> getActiveCourses(Integer collegeId,Integer departmentId) throws BusinessServiceException;
+	List<StudentProject> getActiveProjects(Integer collegeId,Integer departmentId) throws BusinessServiceException;
 
 }

@@ -14,6 +14,7 @@ import com.revature.biz.exception.BusinessServiceException;
 import com.revature.controller.exception.InternalException;
 import com.revature.controller.exception.InvalidInputException;
 import com.revature.model.StudentCourse;
+import com.revature.model.StudentProject;
 @RestController
 @RequestMapping("/dashboard")
 public class DashboardController {
@@ -22,7 +23,7 @@ public class DashboardController {
 	@Autowired
 	private DashboardService dashboardService;
 
-	@GetMapping("/list/collegeId/{collegeId}/departmentId/{departmentId}")
+	@GetMapping("/activecourse/collegeId/{collegeId}/departmentId/{departmentId}")
 	public List<StudentCourse> getActiveCoursesController(@PathVariable("collegeId") int collegeId,@PathVariable("departmentId") int departmentId) {
 		List<StudentCourse> activeCourse = null;
 		try {
@@ -37,5 +38,21 @@ public class DashboardController {
 			throw new InternalException("System has some issue...", e);
 		}
 		return activeCourse;
+	}
+	@GetMapping("/activeproject/collegeId/{collegeId}/departmentId/{departmentId}")
+	public List<StudentProject> getActiveProjectsController(@PathVariable("collegeId") int collegeId,@PathVariable("departmentId") int departmentId) {
+		List<StudentProject> activeProjects = null;
+		try {
+			logger.info("Getting the active projects data...");
+			activeProjects = dashboardService.getActiveProjects(collegeId,departmentId);
+			logger.info("Active projects data retrieval success.");
+		} catch (BusinessServiceException e) {
+			logger.error(e.getMessage(), e);
+			throw new InvalidInputException(e.getMessage(), e);
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			throw new InternalException("System has some issue...", e);
+		}
+		return activeProjects;
 	}
 }

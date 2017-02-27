@@ -11,6 +11,7 @@ import com.revature.biz.exception.BusinessServiceException;
 import com.revature.data.DashboardDAO;
 import com.revature.data.exception.DataServiceException;
 import com.revature.model.StudentCourse;
+import com.revature.model.StudentProject;
 @Service
 
 public class DashboardServiceImpl implements DashboardService {
@@ -31,5 +32,17 @@ public class DashboardServiceImpl implements DashboardService {
 			throw new BusinessServiceException(e.getMessage(), e);
 		}
 		return activeCourses;
+	}
+	@Override
+	public List<StudentProject> getActiveProjects(Integer collegeId,Integer departmentId) throws BusinessServiceException {
+		List<StudentProject> activeProjects= null;
+		try {
+			activeProjects = dashboardDAO.getActiveProjects(collegeId,departmentId);
+			logger.info("Active projects retrieved successfully");
+		} catch (DataServiceException e) {
+			logger.error(e.getMessage(), e);
+			throw new BusinessServiceException(e.getMessage(), e);
+		}
+		return activeProjects;
 	}
 }
