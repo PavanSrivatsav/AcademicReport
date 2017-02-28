@@ -17,4 +17,9 @@ public interface ProjectService {
 	List<Project> getProjectByName(String projectName) throws BusinessServiceException;
 
 	List<Project> getProjectByCategoryId(Integer categoryId) throws BusinessServiceException;
+	
+	List<Project> getProjectOverAllDetail(Integer collegeId) throws BusinessServiceException;
+	
+	List<Project> getProjectDetail(Integer projectId) throws BusinessServiceException;
+
 }

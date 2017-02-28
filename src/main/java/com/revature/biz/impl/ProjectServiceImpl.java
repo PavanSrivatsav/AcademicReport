@@ -70,5 +70,29 @@ public class ProjectServiceImpl implements ProjectService {
 		}
 		return projectByCategoryId;
 	}
+	@Override
+	public List<Project> getProjectOverAllDetail(Integer collegeId) throws BusinessServiceException {
+		List<Project> projectOverAllDetail = null;
+		try {
+			projectOverAllDetail = projectDAO.getProjectOverAllDetail(collegeId);
+			logger.info("Projects over all data retrieved successfully");
+		} catch (DataServiceException e) {
+			logger.error(e.getMessage(), e);
+			throw new BusinessServiceException(e.getMessage(), e);
+		}
+		return projectOverAllDetail;
+	}
+	@Override
+	public List<Project> getProjectDetail(Integer projectId) throws BusinessServiceException {
+		List<Project> projectDetail = null;
+		try {
+			projectDetail = projectDAO.getProjectDetail(projectId);
+			logger.info("Project data retrieved successfully");
+		} catch (DataServiceException e) {
+			logger.error(e.getMessage(), e);
+			throw new BusinessServiceException(e.getMessage(), e);
+		}
+		return projectDetail;
+	}
 
 }

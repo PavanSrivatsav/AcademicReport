@@ -91,4 +91,37 @@ public class ProjectController {
 		}
 		return projectByCategoryId;
 	}
+	@GetMapping("/list/ProjectOverAllDetail/collegeId/{collegeId}")
+	public List<Project> getProjectOverAllDetailController(@PathVariable("collegeId") Integer collegeId) {
+		List<Project> projectOverAllDetail = null;
+		try {
+			logger.info("Getting the over all project details data...");
+			projectOverAllDetail = projectService.getProjectOverAllDetail(collegeId);
+			logger.info("Over all project details data retrieval success.");
+		} catch (BusinessServiceException e) {
+			logger.error(e.getMessage(), e);
+			throw new InvalidInputException(e.getMessage(), e);
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			throw new InternalException("System has some issue...", e);
+		}
+		return projectOverAllDetail;
+	}
+	@GetMapping("/list/ProjectDetail/projectId/{projectId}")
+	public List<Project> getProjectDetailController(@PathVariable("projectId") Integer projectId) {
+		List<Project> projectDetail = null;
+		try {
+			logger.info("Getting the project details data...");
+			projectDetail = projectService.getProjectDetail(projectId);
+			logger.info("Project details data retrieval success.");
+		} catch (BusinessServiceException e) {
+			logger.error(e.getMessage(), e);
+			throw new InvalidInputException(e.getMessage(), e);
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			throw new InternalException("System has some issue...", e);
+		}
+		return projectDetail;
+	}
+
 }
