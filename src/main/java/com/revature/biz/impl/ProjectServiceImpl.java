@@ -94,5 +94,18 @@ public class ProjectServiceImpl implements ProjectService {
 		}
 		return projectDetail;
 	}
+	
+	@Override
+	public List<Project> getTotalProjectCount(Integer projectId) throws BusinessServiceException {
+		List<Project> totalProjectCount = null;
+		try {
+			totalProjectCount = projectDAO.getTotalProjectCount(projectId);
+			logger.info("Total Project Count data retrieved successfully");
+		} catch (DataServiceException e) {
+			logger.error(e.getMessage(), e);
+			throw new BusinessServiceException(e.getMessage(), e);
+		}
+		return totalProjectCount;
+	}
 
 }

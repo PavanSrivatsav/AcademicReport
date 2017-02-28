@@ -95,5 +95,17 @@ public class CourseServiceImpl implements CourseService {
 		}
 		return courseDetail;
 	}
+	@Override
+	public List<Course> getTotalCourseCount(Integer courseId) throws BusinessServiceException {
+		List<Course> totalCourseCount = null;
+		try {
+			totalCourseCount = courseDAO.getTotalCourseCount(courseId);
+			logger.info("TotalCourseCount retrieved successfully");
+		} catch (DataServiceException e) {
+			logger.error(e.getMessage(), e);
+			throw new BusinessServiceException(e.getMessage(), e);
+		}
+		return totalCourseCount;
+	}
 
 }

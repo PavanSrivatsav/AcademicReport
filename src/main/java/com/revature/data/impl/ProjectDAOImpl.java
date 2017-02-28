@@ -111,4 +111,17 @@ public class ProjectDAOImpl implements ProjectDAO {
 		}
 		return projectDetail;
 	}
+	@Override
+	public List<Project> getTotalProjectCount(Integer projectId) throws DataServiceException {
+		List<Project> totalProjectCount = null;
+		try {
+			StringBuilder sb = new StringBuilder("SELECT DISTINCT COUNT(projects.`ID`) FROM projects JOIN project_sprints ON projects.`ID`=project_sprints.`PROJECT_ID` JOIN project_sprint_activities ON project_sprints.`ID`=project_sprint_activities.`PROJECT_SPRINT_ID` WHERE projects.`IS_ACTIVE`=TRUE AND projects.`ID`=" +projectId);
+			totalProjectCount = dataRetriver.retrieveBySQL(sb.toString());
+			logger.info("TotalProjectCount data retrieval success..");
+		} catch (DataAccessException e) {
+			logger.error(e.getMessage(), e);
+			throw new DataServiceException(DataUtils.getPropertyMessage("data_retrieval_fail"), e);
+		}
+		return totalProjectCount;
+	}
 }

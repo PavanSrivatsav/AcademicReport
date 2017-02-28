@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,7 +16,7 @@ import com.revature.controller.exception.InvalidInputException;
 import com.revature.model.StudentCourse;
 
 @RestController
-
+@RequestMapping("/students/courses")
 public class StudentCourseController {
 
 	private static Logger logger = Logger.getLogger(StudentCourseController.class);
@@ -23,7 +25,7 @@ public class StudentCourseController {
 	private StudentCourseService studentCourseService;
 	
 
-	@RequestMapping("/students/courses")
+	@GetMapping("/List/All")
 	public List<StudentCourse> getStudentCourseController() {
 		List<StudentCourse> studentCourses = null;
 		try {
@@ -38,5 +40,21 @@ public class StudentCourseController {
 			throw new InternalException("System has some issue...", e);
 		}
 		return studentCourses;
+	}
+	@GetMapping("/CompletedStudentCourseCount/studentId/{studentId}/courseId/{courseId}")
+	public List<StudentCourse> getCompletedStudentCourseCountController(@PathVariable("studentId") Integer studentId,@PathVariable("courseId") Integer courseId) {
+		List<StudentCourse> completedStudentCourseCount = null;
+		try {
+			logger.info("Getting the Completed Student Course Count data...");
+			completedStudentCourseCount = studentCourseService.getCompletedStudentCourseCount(studentId,courseId);
+			logger.info("Completed Student Course Count data retrieval success.");
+		} catch (BusinessServiceException e) {
+			logger.error(e.getMessage(), e);
+			throw new InvalidInputException(e.getMessage(), e);
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			throw new InternalException("System has some issue...", e);
+		}
+		return completedStudentCourseCount;
 	}
 }

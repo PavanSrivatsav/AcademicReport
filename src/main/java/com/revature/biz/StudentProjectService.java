@@ -17,4 +17,6 @@ public interface StudentProjectService {
 	List<StudentProject> getStudentProjectByStudentId(int studentId) throws BusinessServiceException;
 
 	List<StudentProject> getStudentProjectByProjectId(int projectId) throws BusinessServiceException;
+	
+	List<StudentProject> getCompletedStudentProjectCount(int studentId) throws BusinessServiceException;
 }

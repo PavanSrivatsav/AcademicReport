@@ -22,5 +22,6 @@ public interface CourseService {
 	
 	List<Course> getCourseDetail(Integer courseId) throws BusinessServiceException;
 
+	List<Course> getTotalCourseCount(Integer courseId) throws BusinessServiceException;
 
 }

@@ -126,4 +126,21 @@ public class CourseController {
 		}
 		return courseDetail;
 	}
+	
+	@GetMapping("/TotalCourseCount/courseId/{courseId}")
+	public List<Course> getTotalCourseCountController(@PathVariable("courseId") Integer courseId) {
+		List<Course> totalCourseCount = null;
+		try {
+			logger.info("Getting the Total Course Count data...");
+			totalCourseCount = courseService.getTotalCourseCount(courseId);
+			logger.info("Total Course Count data retrieval success.");
+		} catch (BusinessServiceException e) {
+			logger.error(e.getMessage(), e);
+			throw new InvalidInputException(e.getMessage(), e);
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			throw new InternalException("System has some issue...", e);
+		}
+		return totalCourseCount;
+	}
 }

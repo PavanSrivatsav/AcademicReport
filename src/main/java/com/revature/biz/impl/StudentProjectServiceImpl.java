@@ -71,4 +71,18 @@ public class StudentProjectServiceImpl implements StudentProjectService {
 		return studentProjects;
 
 	}
+	@Override
+	public List<StudentProject> getCompletedStudentProjectCount(int studentId) throws BusinessServiceException {
+		List<StudentProject> completedStudentProjectCount = null;
+		try {
+			completedStudentProjectCount = studentProjectDAO.getCompletedStudentProjectCount(studentId);
+			logger.info("Completed Student Project Count retrieved successfully");
+		} catch (DataServiceException e) {
+			logger.error(e.getMessage(), e);
+			throw new BusinessServiceException(e.getMessage(), e);
+		}
+		return completedStudentProjectCount;
+
+	}
+
 }

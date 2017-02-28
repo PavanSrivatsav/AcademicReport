@@ -20,4 +20,5 @@ public interface StudentCourseDAO {
 
 	public List<StudentCourse> getStudentCourseByCourseId(int courseId) throws DataServiceException;
 
+	public List<StudentCourse> getCompletedStudentCourseCount(int studentId,int courseId) throws DataServiceException;
 }
