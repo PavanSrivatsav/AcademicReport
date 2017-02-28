@@ -83,4 +83,30 @@ public class CourseDAOImpl implements CourseDAO {
 		}
 		return coursesByCategoryId;
 	}
+	@Override
+	public List<Course> getCourseOverAllDetail(Integer collegeId) throws DataServiceException {
+		List<Course> courseOverAllDetail = null;
+		try {
+			StringBuilder sb = new StringBuilder("SELECT NAME,DESCRIPTION FROM courses WHERE id IN (SELECT DISTINCT courses.`ID` FROM `student_courses` JOIN `courses` ON `courses`.`ID`=`student_courses`.`COURSE_ID` JOIN `students` ON students.`ID`=student_courses.`STUDENT_ID` WHERE `students`.`COLLEGE_ID`= " +collegeId+ " )");
+			courseOverAllDetail = dataRetriver.retrieveBySQL(sb.toString());
+			logger.info("Courses over all details data retrieval success..");
+		} catch (DataAccessException e) {
+			logger.error(e.getMessage(), e);
+			throw new DataServiceException(DataUtils.getPropertyMessage("data_retrieval_fail"), e);
+		}
+		return courseOverAllDetail;
+	}
+	@Override
+	public List<Course> getCourseDetail(Integer courseId) throws DataServiceException {
+		List<Course> courseDetail = null;
+		try {
+			StringBuilder sb = new StringBuilder("SELECT c.NAME,cc.TEXT_CONTENT,v.NAME as 'videoname' FROM course_contents cc JOIN courses c ON cc.COURSE_ID=c.`ID` LEFT JOIN `videos` v ON  v.`ID`=cc.`VIDEO_ID` WHERE c.`ID`="+courseId);
+			courseDetail = dataRetriver.retrieveBySQL(sb.toString());
+			logger.info("Courses details data retrieval success..");
+		} catch (DataAccessException e) {
+			logger.error(e.getMessage(), e);
+			throw new DataServiceException(DataUtils.getPropertyMessage("data_retrieval_fail"), e);
+		}
+		return courseDetail;
+	}
 }

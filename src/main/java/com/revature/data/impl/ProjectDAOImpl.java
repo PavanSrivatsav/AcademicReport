@@ -85,5 +85,30 @@ public class ProjectDAOImpl implements ProjectDAO {
 		}
 		return projectByCategoryId;
 	}
-
+	@Override
+	public List<Project> getProjectOverAllDetail(Integer collegeId) throws DataServiceException {
+		List<Project> projectOverAllDetail = null;
+		try {
+			StringBuilder sb = new StringBuilder("SELECT NAME,DESCRIPTION FROM projects WHERE id IN (SELECT DISTINCT projects.`ID` FROM `student_projects` JOIN `projects` ON `projects`.`ID`=`student_projects`.`PROJECT_ID` JOIN `students` ON students.`ID`=student_projects.`STUDENT_ID` WHERE `students`.`COLLEGE_ID`= " +collegeId+ " )");
+			projectOverAllDetail = dataRetriver.retrieveBySQL(sb.toString());
+			logger.info("Projects over all details data retrieval success..");
+		} catch (DataAccessException e) {
+			logger.error(e.getMessage(), e);
+			throw new DataServiceException(DataUtils.getPropertyMessage("data_retrieval_fail"), e);
+		}
+		return projectOverAllDetail;
+	}
+	@Override
+	public List<Project> getProjectDetail(Integer projectId) throws DataServiceException {
+		List<Project> projectDetail = null;
+		try {
+			StringBuilder sb = new StringBuilder("SELECT  `projects`.`NAME`,`projects`.`DESCRIPTION`,`project_sprints`.`SPRINT_NAME`,`project_sprint_activities`.`ONLINE_ACTIVITY`,`project_sprint_activities`.`OFFLINE_ACTIVITY`,`quizzes`.`NAME` as 'Quiz name',`videos`.`NAME` as 'Video name' ,`courses`.`NAME` as 'Course name' FROM `projects` JOIN `project_sprints`ON `projects`.`ID`=`project_sprints`.`PROJECT_ID` JOIN `project_sprint_activities` ON `project_sprints`.`ID`=`project_sprint_activities`.`PROJECT_SPRINT_ID` LEFT JOIN `videos` ON `project_sprint_activities`.`VIDEO_ID`=`videos`.`ID` LEFT JOIN`courses` ON `project_sprint_activities`.`COURSE_ID`=`courses`.`ID`LEFT JOIN `quizzes` ON `project_sprint_activities`.`QUIZ_ID`=`quizzes`.`ID` WHERE projects.`ID`=" +projectId);
+			projectDetail = dataRetriver.retrieveBySQL(sb.toString());
+			logger.info("Projects details data retrieval success..");
+		} catch (DataAccessException e) {
+			logger.error(e.getMessage(), e);
+			throw new DataServiceException(DataUtils.getPropertyMessage("data_retrieval_fail"), e);
+		}
+		return projectDetail;
+	}
 }
