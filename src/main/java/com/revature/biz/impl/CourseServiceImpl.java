@@ -20,17 +20,16 @@ public class CourseServiceImpl implements CourseService {
 	@Autowired
 	private CourseDAO courseDAO;
 
+	
 	@Override
 	public List<Course> getAllCourses() throws BusinessServiceException {
-		List<Course> courses = null;
 		try {
-			courses = courseDAO.getAllCourses();
 			logger.info("Courses retrieved successfully");
-		} catch (DataServiceException e) {
+			return  courseDAO.getAllCourses();
+		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			throw new BusinessServiceException(e.getMessage(), e);
 		}
-		return courses;
 	}
 
 	@Override

@@ -11,6 +11,9 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 import lombok.Data;
 
 @Data
@@ -30,9 +33,11 @@ public class CourseContent {
 
 	@ManyToOne
 	@JoinColumn(name = "VIDEO_ID", nullable = true)
+	@JsonInclude(Include.NON_NULL)
 	private Video video;
 
 	@Column(name = "TEXT_CONTENT", nullable = true)
+	@JsonInclude(Include.NON_NULL)
 	private String textContent;
 
 	@NotNull

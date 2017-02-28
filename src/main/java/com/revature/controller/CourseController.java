@@ -25,11 +25,14 @@ public class CourseController {
 	private CourseService courseService;
 
 	@GetMapping("/list/all")
-	public List<Course> getActiveCoursesController() {
-		List<Course> courses = null;
+	
+	public List<?> getActiveCoursesController() {
+		
+		List<Course> list = null;
+		
 		try {
 			logger.info("Getting the courses data...");
-			courses = courseService.getAllCourses();
+			list= courseService.getAllCourses();
 			logger.info("courses data retrieval success.");
 		} catch (BusinessServiceException e) {
 			logger.error(e.getMessage(), e);
@@ -38,7 +41,7 @@ public class CourseController {
 			logger.error(e.getMessage(), e);
 			throw new InternalException("System has some issue...", e);
 		}
-		return courses;
+		return list;
 	}
 
 	@GetMapping("/list/id/{id}")

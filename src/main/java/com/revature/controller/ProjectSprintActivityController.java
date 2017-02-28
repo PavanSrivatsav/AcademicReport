@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,7 +15,7 @@ import com.revature.controller.exception.InvalidInputException;
 import com.revature.model.ProjectSprintActivity;
 
 @RestController
-
+@RequestMapping("/project/sprint/activities")
 public class ProjectSprintActivityController {
 
 	private static Logger logger = Logger.getLogger(ProjectSprintActivityController.class);
@@ -22,7 +23,7 @@ public class ProjectSprintActivityController {
 	@Autowired
 	private ProjectSprintActivityService projectSprintActivityService;
 
-	@RequestMapping("/project/sprint/activities")
+	@GetMapping("list/all")
 	public List<ProjectSprintActivity> getProjectSprintActivityController() {
 		List<ProjectSprintActivity> projectSprintActivities = null;
 		try {
