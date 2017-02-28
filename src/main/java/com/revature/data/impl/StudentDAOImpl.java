@@ -44,13 +44,11 @@ public class StudentDAOImpl implements StudentDAO {
 
 	@Override
 	public List<Student> getStudentById(int studentId) throws DataServiceException {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public List<Student> getStudentByEmailId(String sudentName) throws DataServiceException {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	@Override
