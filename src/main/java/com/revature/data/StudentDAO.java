@@ -17,5 +17,8 @@ public interface StudentDAO {
 	public List<Student> getStudentById(int studentId) throws DataServiceException;
 
 	public List<Student> getStudentByEmailId(String sudentEmailId) throws DataServiceException;
-
+	
+	public List<Student> getIndividualStudentByCourses(Integer collegeId,Integer departmentId,Integer studentId) throws DataServiceException;
+	
+	public List<Student> getIndividualStudentByProjects(Integer collegeId,Integer departmentId,Integer studentId) throws DataServiceException;
 }

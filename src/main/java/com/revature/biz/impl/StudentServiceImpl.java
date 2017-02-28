@@ -41,4 +41,28 @@ public class StudentServiceImpl implements StudentService {
 	public List<Student> getStudentByEmailId(String studentEmailId) throws BusinessServiceException {
 		return null;
 	}
+	@Override
+	public List<Student> getIndividualStudentByCourses(Integer collegeId,Integer departmentId,Integer studentId) throws BusinessServiceException {
+		List<Student> individualStudentByCourses = null;
+		try {
+			individualStudentByCourses = studentDAO.getIndividualStudentByCourses(collegeId,departmentId,studentId);
+			logger.info("Individual Student By Courses retrieved successfully");
+		} catch (DataServiceException e) {
+			logger.error(e.getMessage(), e);
+			throw new BusinessServiceException(e.getMessage(), e);
+		}
+		return individualStudentByCourses;
+	}
+	@Override
+	public List<Student> getIndividualStudentByProjects(Integer collegeId,Integer departmentId,Integer studentId) throws BusinessServiceException {
+		List<Student> individualStudentByProjects = null;
+		try {
+			individualStudentByProjects = studentDAO.getIndividualStudentByProjects(collegeId,departmentId,studentId);
+			logger.info("Individual Student By Projects retrieved successfully");
+		} catch (DataServiceException e) {
+			logger.error(e.getMessage(), e);
+			throw new BusinessServiceException(e.getMessage(), e);
+		}
+		return individualStudentByProjects;
+	}
 }
