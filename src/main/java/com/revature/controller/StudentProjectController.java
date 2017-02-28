@@ -92,5 +92,21 @@ public class StudentProjectController {
 		return studentProjectsByProjectId;
 	}
 	
+	@GetMapping("/CompletedStudentProjectCount/studentId/{studentId}")
+	public List<StudentProject> getCompletedStudentProjectCountController(@PathVariable("studentId") Integer studentId) {
+		List<StudentProject> completedStudentProjectCount = null;
+		try {
+			logger.info("Getting the Completed Student Project Count... ");
+			completedStudentProjectCount = studentProjectService.getCompletedStudentProjectCount(studentId);
+			logger.info("Getting the Completed Student Project Count retrieval success ");
+		} catch (BusinessServiceException e) {
+			logger.error(e.getMessage(), e);
+			throw new InvalidInputException(e.getMessage(), e);
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			throw new InternalException("System has some issue...", e);
+		}
+		return completedStudentProjectCount;
+	}
 	
 }

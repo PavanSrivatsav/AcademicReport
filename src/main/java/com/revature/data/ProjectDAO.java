@@ -23,5 +23,7 @@ public interface ProjectDAO {
 	public List<Project> getProjectOverAllDetail(Integer collegeId) throws DataServiceException;
 	
 	public List<Project> getProjectDetail(Integer projectId) throws DataServiceException;
+	
+	public List<Project> getTotalProjectCount(Integer projectId) throws DataServiceException;
 
 }

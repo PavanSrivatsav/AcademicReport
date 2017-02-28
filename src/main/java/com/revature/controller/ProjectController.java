@@ -123,5 +123,21 @@ public class ProjectController {
 		}
 		return projectDetail;
 	}
+	@GetMapping("/TotalProjectCount/projectId/{projectId}")
+	public List<Project> getTotalProjectCountController(@PathVariable("projectId") Integer projectId) {
+		List<Project> totalProjectCount = null;
+		try {
+			logger.info("Getting the Total Project Count data...");
+			totalProjectCount = projectService.getTotalProjectCount(projectId);
+			logger.info("Total Project Count data retrieval success.");
+		} catch (BusinessServiceException e) {
+			logger.error(e.getMessage(), e);
+			throw new InvalidInputException(e.getMessage(), e);
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			throw new InternalException("System has some issue...", e);
+		}
+		return totalProjectCount;
+	}
 
 }

@@ -22,4 +22,6 @@ public interface ProjectService {
 	
 	List<Project> getProjectDetail(Integer projectId) throws BusinessServiceException;
 
+	List<Project> getTotalProjectCount(Integer projectId) throws BusinessServiceException;
+
 }
