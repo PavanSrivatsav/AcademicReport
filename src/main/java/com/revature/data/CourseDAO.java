@@ -24,4 +24,6 @@ public interface CourseDAO {
 	
 	public List<Course> getCourseDetail(Integer courseId) throws DataServiceException;
 
+	public List<Course> getTotalCourseCount(Integer courseId) throws DataServiceException;
+
 }

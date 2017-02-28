@@ -70,4 +70,17 @@ public class StudentCourseServiceImpl implements StudentCourseService {
 		}
 		return studentCourses;
 	}
+	
+	@Override
+	public List<StudentCourse> getCompletedStudentCourseCount(int studentId,int courseId) throws BusinessServiceException {
+		List<StudentCourse> completedStudentCourseCount = null;
+		try {
+			completedStudentCourseCount = studentCourseDAO.getCompletedStudentCourseCount(studentId,courseId);
+			logger.info("Completed Student Course Count retrieved successfully");
+		} catch (DataServiceException e) {
+			logger.error(e.getMessage(), e);
+			throw new BusinessServiceException(e.getMessage(), e);
+		}
+		return completedStudentCourseCount;
+	}
 }

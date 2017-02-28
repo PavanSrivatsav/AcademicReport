@@ -17,4 +17,6 @@ public interface StudentCourseService {
 	List<StudentCourse> getStudentCourseByStudentId(int studentId) throws BusinessServiceException;
 
 	List<StudentCourse> getStudentCourseByCourseId(int courseId) throws BusinessServiceException;
+	
+	List<StudentCourse> getCompletedStudentCourseCount(int studentId,int courseId) throws BusinessServiceException;
 }

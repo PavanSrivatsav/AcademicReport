@@ -111,4 +111,17 @@ public class CourseDAOImpl implements CourseDAO {
 		}
 		return courseDetail;
 	}
+	@Override
+	public List<Course> getTotalCourseCount(Integer courseId) throws DataServiceException {
+		List<Course> totalCourseCount = null;
+		try {
+			StringBuilder sb = new StringBuilder("SELECT COUNT(courses.`ID`) FROM courses JOIN course_contents ON courses.`ID`=course_contents.`COURSE_ID` WHERE courses.`IS_ACTIVE`=TRUE AND courses.`ID`="+courseId);
+			totalCourseCount = dataRetriver.retrieveBySQL(sb.toString());
+			logger.info("Total Course Count data retrieval success..");
+		} catch (DataAccessException e) {
+			logger.error(e.getMessage(), e);
+			throw new DataServiceException(DataUtils.getPropertyMessage("data_retrieval_fail"), e);
+		}
+		return totalCourseCount;
+	}
 }
