@@ -107,5 +107,20 @@ public class CourseController {
 		}
 		return courseOverAllDetail;
 	}
-
+	@GetMapping("/list/CourseDetail/courseId/{courseId}")
+	public List<Course> getCourseDetailController(@PathVariable("courseId") Integer courseId) {
+		List<Course> courseDetail = null;
+		try {
+			logger.info("Getting the course details data...");
+			courseDetail = courseService.getCourseDetail(courseId);
+			logger.info("Course details data retrieval success.");
+		} catch (BusinessServiceException e) {
+			logger.error(e.getMessage(), e);
+			throw new InvalidInputException(e.getMessage(), e);
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			throw new InternalException("System has some issue...", e);
+		}
+		return courseDetail;
+	}
 }
