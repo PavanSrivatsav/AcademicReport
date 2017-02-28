@@ -21,4 +21,12 @@ public interface StudentDAO {
 	public List<Student> getIndividualStudentByCourses(Integer collegeId,Integer departmentId,Integer studentId) throws DataServiceException;
 	
 	public List<Student> getIndividualStudentByProjects(Integer collegeId,Integer departmentId,Integer studentId) throws DataServiceException;
+	
+	public List<Student> getOverAllStudentByCurrentCourses(Integer collegeId,Integer departmentId) throws DataServiceException;
+	
+	public List<Student> getOverAllStudentByCompletedCourses(Integer collegeId,Integer departmentId) throws DataServiceException;
+	
+	public List<Student> getOverAllStudentByCurrentProjects(Integer collegeId,Integer departmentId) throws DataServiceException;
+	
+	public List<Student> getOverAllStudentByCompletedProjects(Integer collegeId,Integer departmentId) throws DataServiceException;
 }
