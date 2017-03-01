@@ -24,7 +24,7 @@ public class StudentController {
 	@Autowired
 	private StudentService studentService;
 
-	@GetMapping("/List/All")
+	@GetMapping("/list/All")
 	public List<Student> getStudentController() {
 		List<Student> students = null;
 		try {
@@ -40,10 +40,8 @@ public class StudentController {
 		}
 		return students;
 	}
-
-	@GetMapping("/IndividualStudentByCourses/collegeId/{collegeId}/departmentId/{departmentId}/studentId/{studentId}")
-	public List<Student> getIndividualStudentByCourses(@PathVariable("collegeId") int collegeId,
-			@PathVariable("departmentId") int departmentId, @PathVariable("studentId") int studentId) {
+	@GetMapping("/individual/student/courses/collegeId/{collegeId}/departmentId/{departmentId}/studentId/{studentId}")
+	public List<Student> getIndividualStudentByCourses(@PathVariable("collegeId") int collegeId,@PathVariable("departmentId") int departmentId,@PathVariable("studentId") int studentId) {
 		List<Student> individualStudentByCourses = null;
 		try {
 			logger.info("Getting the Students data...");
@@ -59,10 +57,8 @@ public class StudentController {
 		}
 		return individualStudentByCourses;
 	}
-
-	@GetMapping("/IndividualStudentByProjects/collegeId/{collegeId}/departmentId/{departmentId}/studentId/{studentId}")
-	public List<Student> getIndividualStudentByProjects(@PathVariable("collegeId") int collegeId,
-			@PathVariable("departmentId") int departmentId, @PathVariable("studentId") int studentId) {
+	@GetMapping("/individual/student/projects/collegeId/{collegeId}/departmentId/{departmentId}/studentId/{studentId}")
+	public List<Student> getIndividualStudentByProjects(@PathVariable("collegeId") int collegeId,@PathVariable("departmentId") int departmentId,@PathVariable("studentId") int studentId) {
 		List<Student> individualStudentByProjects = null;
 		try {
 			logger.info("Getting the Individual Students by Projects data...");
@@ -78,10 +74,9 @@ public class StudentController {
 		}
 		return individualStudentByProjects;
 	}
-
-	@GetMapping("/OverAllStudentByCurrentCourses/collegeId/{collegeId}/departmentId/{departmentId}")
-	public List<Student> getOverAllStudentByCurrentCourses(@PathVariable("collegeId") int collegeId,
-			@PathVariable("departmentId") int departmentId) {
+	
+	@GetMapping("/overall/student/current/courses/collegeId/{collegeId}/departmentId/{departmentId}")
+	public List<Student> getOverAllStudentByCurrentCourses(@PathVariable("collegeId") int collegeId,@PathVariable("departmentId") int departmentId) {
 		List<Student> overAllStudentByCurrentCourses = null;
 		try {
 			logger.info("Getting the Over All Student By Current Courses data...");
@@ -96,10 +91,8 @@ public class StudentController {
 		}
 		return overAllStudentByCurrentCourses;
 	}
-
-	@GetMapping("/OverAllStudentByCompletedCourses/collegeId/{collegeId}/departmentId/{departmentId}")
-	public List<Student> getOverAllStudentByCompletedCourses(@PathVariable("collegeId") int collegeId,
-			@PathVariable("departmentId") int departmentId) {
+	@GetMapping("/overall/student/completed/courses/collegeId/{collegeId}/departmentId/{departmentId}")
+	public List<Student> getOverAllStudentByCompletedCourses(@PathVariable("collegeId") int collegeId,@PathVariable("departmentId") int departmentId) {
 		List<Student> overAllStudentByCompletedCourses = null;
 		try {
 			logger.info("Getting the Over All Student By Completed Courses data...");
@@ -115,10 +108,8 @@ public class StudentController {
 		}
 		return overAllStudentByCompletedCourses;
 	}
-
-	@GetMapping("/OverAllStudentByCurrentProjects/collegeId/{collegeId}/departmentId/{departmentId}")
-	public List<Student> getOverAllStudentByCurrentProjects(@PathVariable("collegeId") int collegeId,
-			@PathVariable("departmentId") int departmentId) {
+	@GetMapping("/overall/student/current/projects/collegeId/{collegeId}/departmentId/{departmentId}")
+	public List<Student> getOverAllStudentByCurrentProjects(@PathVariable("collegeId") int collegeId,@PathVariable("departmentId") int departmentId) {
 		List<Student> overAllStudentByCurrentProjects = null;
 		try {
 			logger.info("Getting the Over All Student By Current Projects data...");
@@ -134,10 +125,8 @@ public class StudentController {
 		}
 		return overAllStudentByCurrentProjects;
 	}
-
-	@GetMapping("/OverAllStudentByCompletedProjects/collegeId/{collegeId}/departmentId/{departmentId}")
-	public List<Student> getOverAllStudentByCompletedProjects(@PathVariable("collegeId") int collegeId,
-			@PathVariable("departmentId") int departmentId) {
+	@GetMapping("/overall/student/completed/projects/collegeId/{collegeId}/departmentId/{departmentId}")
+	public List<Student> getOverAllStudentByCompletedProjects(@PathVariable("collegeId") int collegeId,@PathVariable("departmentId") int departmentId) {
 		List<Student> overAllStudentByCompletedProjects = null;
 		try {
 			logger.info("Getting the Over All Student By Completed Projects data...");

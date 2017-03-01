@@ -91,10 +91,9 @@ public class StudentProjectController {
 		}
 		return studentProjectsByProjectId;
 	}
-
-	@GetMapping("/CompletedStudentProjectCount/studentId/{studentId}")
-	public List<StudentProject> getCompletedStudentProjectCountController(
-			@PathVariable("studentId") Integer studentId) {
+	
+	@GetMapping("/completed/student/project/count/studentId/{studentId}")
+	public List<StudentProject> getCompletedStudentProjectCountController(@PathVariable("studentId") Integer studentId) {
 		List<StudentProject> completedStudentProjectCount = null;
 		try {
 			logger.info("Getting the Completed Student Project Count... ");

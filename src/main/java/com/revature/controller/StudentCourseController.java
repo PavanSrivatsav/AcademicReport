@@ -24,7 +24,7 @@ public class StudentCourseController {
 	@Autowired
 	private StudentCourseService studentCourseService;
 
-	@GetMapping("/List/All")
+	@GetMapping("/list/all")
 	public List<StudentCourse> getStudentCourseController() {
 		List<StudentCourse> studentCourses = null;
 		try {
@@ -40,10 +40,8 @@ public class StudentCourseController {
 		}
 		return studentCourses;
 	}
-
-	@GetMapping("/CompletedStudentCourseCount/studentId/{studentId}/courseId/{courseId}")
-	public List<StudentCourse> getCompletedStudentCourseCountController(@PathVariable("studentId") Integer studentId,
-			@PathVariable("courseId") Integer courseId) {
+	@GetMapping("/completed/student/course/count/studentId/{studentId}/courseId/{courseId}")
+	public List<StudentCourse> getCompletedStudentCourseCountController(@PathVariable("studentId") Integer studentId,@PathVariable("courseId") Integer courseId) {
 		List<StudentCourse> completedStudentCourseCount = null;
 		try {
 			logger.info("Getting the Completed Student Course Count data...");

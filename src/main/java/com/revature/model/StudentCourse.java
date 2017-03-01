@@ -51,6 +51,7 @@ public class StudentCourse {
 
 	@Column(name = "COMPLETED_ON")
 	@Temporal(TemporalType.DATE)
+	@JsonInclude(Include.NON_NULL)
 	private Date completedOn;
 
 	@NotNull
