@@ -91,7 +91,7 @@ public class ProjectController {
 		}
 		return projectByCategoryId;
 	}
-	@GetMapping("/list/ProjectOverAllDetail/collegeId/{collegeId}")
+	@GetMapping("/list/project/overall/detail/collegeId/{collegeId}")
 	public List<Project> getProjectOverAllDetailController(@PathVariable("collegeId") Integer collegeId) {
 		List<Project> projectOverAllDetail = null;
 		try {
@@ -107,7 +107,7 @@ public class ProjectController {
 		}
 		return projectOverAllDetail;
 	}
-	@GetMapping("/list/ProjectDetail/projectId/{projectId}")
+	@GetMapping("/list/project/detail/projectId/{projectId}")
 	public List<Project> getProjectDetailController(@PathVariable("projectId") Integer projectId) {
 		List<Project> projectDetail = null;
 		try {
@@ -123,7 +123,7 @@ public class ProjectController {
 		}
 		return projectDetail;
 	}
-	@GetMapping("/TotalProjectCount/projectId/{projectId}")
+	@GetMapping("/total/project/count/projectId/{projectId}")
 	public List<Project> getTotalProjectCountController(@PathVariable("projectId") Integer projectId) {
 		List<Project> totalProjectCount = null;
 		try {

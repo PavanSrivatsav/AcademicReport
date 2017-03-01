@@ -91,7 +91,7 @@ public class CourseController {
 		}
 		return course;
 	}
-	@GetMapping("/list/CourseOverAllDetail/collegeId/{collegeId}")
+	@GetMapping("/list/course/overall/detail/collegeId/{collegeId}")
 	public List<Course> getCourseOverAllDetailController(@PathVariable("collegeId") Integer collegeId) {
 		List<Course> courseOverAllDetail = null;
 		try {
@@ -107,7 +107,7 @@ public class CourseController {
 		}
 		return courseOverAllDetail;
 	}
-	@GetMapping("/list/CourseDetail/courseId/{courseId}")
+	@GetMapping("/list/course/detail/courseId/{courseId}")
 	public List<Course> getCourseDetailController(@PathVariable("courseId") Integer courseId) {
 		List<Course> courseDetail = null;
 		try {
@@ -124,7 +124,7 @@ public class CourseController {
 		return courseDetail;
 	}
 	
-	@GetMapping("/TotalCourseCount/courseId/{courseId}")
+	@GetMapping("/total/course/count/courseId/{courseId}")
 	public List<Course> getTotalCourseCountController(@PathVariable("courseId") Integer courseId) {
 		List<Course> totalCourseCount = null;
 		try {
