@@ -46,7 +46,7 @@ public class StudentCourseDAOImpl implements StudentCourseDAO {
 	public List<StudentCourse> getStudentCourseById(int studentCourseId) throws DataServiceException {
 		List<StudentCourse> studentCourses = null;
 		try {
-			StringBuilder sb = new StringBuilder("select * from student_courses where ID='"+studentCourseId+"'");
+			StringBuilder sb = new StringBuilder("select * from student_courses where ID='" + studentCourseId + "'");
 			studentCourses = dataRetriver.retrieveBySQL(sb.toString());
 			logger.info("StudentCourses data retrieval success..");
 		} catch (DataAccessException e) {
@@ -60,7 +60,7 @@ public class StudentCourseDAOImpl implements StudentCourseDAO {
 	public List<StudentCourse> getStudentCourseByStudentId(int studentId) throws DataServiceException {
 		List<StudentCourse> studentCourses = null;
 		try {
-			StringBuilder sb = new StringBuilder("select * from student_courses where ID='"+studentId+"'");
+			StringBuilder sb = new StringBuilder("select * from student_courses where ID='" + studentId + "'");
 			studentCourses = dataRetriver.retrieveBySQL(sb.toString());
 			logger.info("StudentCourses data retrieval success..");
 		} catch (DataAccessException e) {
@@ -74,7 +74,7 @@ public class StudentCourseDAOImpl implements StudentCourseDAO {
 	public List<StudentCourse> getStudentCourseByCourseId(int courseId) throws DataServiceException {
 		List<StudentCourse> studentCourses = null;
 		try {
-			StringBuilder sb = new StringBuilder("select * from student_courses where ID='"+courseId+"'");
+			StringBuilder sb = new StringBuilder("select * from student_courses where ID='" + courseId + "'");
 			studentCourses = dataRetriver.retrieveBySQL(sb.toString());
 			logger.info("StudentCourses data retrieval success..");
 		} catch (DataAccessException e) {
@@ -83,12 +83,14 @@ public class StudentCourseDAOImpl implements StudentCourseDAO {
 		}
 		return studentCourses;
 	}
-	
+
 	@Override
-	public List<StudentCourse> getCompletedStudentCourseCount(int studentId,int courseId) throws DataServiceException {
+	public List<StudentCourse> getCompletedStudentCourseCount(int studentId, int courseId) throws DataServiceException {
 		List<StudentCourse> completedStudentCourseCount = null;
 		try {
-			StringBuilder sb = new StringBuilder("SELECT COUNT(courses.`ID`) FROM courses JOIN student_courses ON courses.`ID`=student_courses.`COURSE_ID` JOIN student_course_contents ON student_course_contents.`STUDENT_COURSE_ID`=student_courses.`ID` WHERE courses.`IS_ACTIVE`=TRUE AND student_course_contents.`STATUS_ID`=(SELECT id FROM `seed_status` WHERE `seed_status`.`NAME`='COMPLETED')   AND student_courses.`STUDENT_ID`="+studentId+ " AND courses.`ID`= "+courseId);
+			StringBuilder sb = new StringBuilder(
+					"SELECT COUNT(courses.`ID`) FROM courses JOIN student_courses ON courses.`ID`=student_courses.`COURSE_ID` JOIN student_course_contents ON student_course_contents.`STUDENT_COURSE_ID`=student_courses.`ID` WHERE courses.`IS_ACTIVE`=TRUE AND student_course_contents.`STATUS_ID`=(SELECT id FROM `seed_status` WHERE `seed_status`.`NAME`='COMPLETED')   AND student_courses.`STUDENT_ID`="
+							+ studentId + " AND courses.`ID`= " + courseId);
 			completedStudentCourseCount = dataRetriver.retrieveBySQL(sb.toString());
 			logger.info("Completed Student Course Count data retrieval success..");
 		} catch (DataAccessException e) {

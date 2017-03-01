@@ -19,6 +19,9 @@ import lombok.Data;
 @Entity
 @Table(name = "courses")
 public class Course {
+	private Course() {
+
+	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

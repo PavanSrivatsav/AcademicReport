@@ -26,6 +26,10 @@ import lombok.Data;
 		@UniqueConstraint(columnNames = { "STUDENT_PROJECT_ID", "PROJECT_SPRINT_ID" }) })
 public class StudentProjectSprint {
 
+	private StudentProjectSprint() {
+
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;

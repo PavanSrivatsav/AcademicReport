@@ -71,6 +71,7 @@ public class StudentProjectServiceImpl implements StudentProjectService {
 		return studentProjects;
 
 	}
+
 	@Override
 	public List<StudentProject> getCompletedStudentProjectCount(int studentId) throws BusinessServiceException {
 		List<StudentProject> completedStudentProjectCount = null;

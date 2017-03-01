@@ -15,6 +15,10 @@ import lombok.Data;
 @Table(name = "seed_status")
 public class Status {
 
+	private Status() {
+
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;

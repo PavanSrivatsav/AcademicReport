@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
 @ImportResource("classpath:spring-config.xml")
-@EnableJpaRepositories(basePackages="com.revature.data")
+@EnableJpaRepositories(basePackages = "com.revature.data")
 public class Application extends SpringBootServletInitializer {
 
 	private static Logger logger = Logger.getLogger(Application.class);
@@ -19,7 +19,5 @@ public class Application extends SpringBootServletInitializer {
 		logger.info("Initializing the spring boot");
 		return builder.sources(Application.class);
 	}
-	
-	
 
 }

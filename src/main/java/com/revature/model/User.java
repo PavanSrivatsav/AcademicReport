@@ -21,13 +21,17 @@ import lombok.Data;
 @JsonInclude(Include.NON_NULL)
 public class User {
 
+	private User() {
+
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
 	@NotNull
 	private String name;
-	
+
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "ROLE_ID")
@@ -42,13 +46,13 @@ public class User {
 
 	@NotNull
 	@Column(unique = true)
-	private Long phone;
+	private String phone;
 
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "COLLEGE_ID")
 	private College collegeId;
-	
+
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "DEPARTMENT_ID")

@@ -12,20 +12,22 @@ import com.revature.data.DashboardDAO;
 import com.revature.data.exception.DataServiceException;
 import com.revature.model.StudentCourse;
 import com.revature.model.StudentProject;
+
 @Service
 
 public class DashboardServiceImpl implements DashboardService {
-	
+
 	private static Logger logger = Logger.getLogger(DashboardServiceImpl.class);
 
 	@Autowired
 	private DashboardDAO dashboardDAO;
 
 	@Override
-	public List<StudentCourse> getActiveCourses(Integer collegeId,Integer departmentId) throws BusinessServiceException {
-		List<StudentCourse> activeCourses= null;
+	public List<StudentCourse> getActiveCourses(Integer collegeId, Integer departmentId)
+			throws BusinessServiceException {
+		List<StudentCourse> activeCourses = null;
 		try {
-			activeCourses = dashboardDAO.getActiveCourses(collegeId,departmentId);
+			activeCourses = dashboardDAO.getActiveCourses(collegeId, departmentId);
 			logger.info("Active courses retrieved successfully");
 		} catch (DataServiceException e) {
 			logger.error(e.getMessage(), e);
@@ -33,11 +35,13 @@ public class DashboardServiceImpl implements DashboardService {
 		}
 		return activeCourses;
 	}
+
 	@Override
-	public List<StudentProject> getActiveProjects(Integer collegeId,Integer departmentId) throws BusinessServiceException {
-		List<StudentProject> activeProjects= null;
+	public List<StudentProject> getActiveProjects(Integer collegeId, Integer departmentId)
+			throws BusinessServiceException {
+		List<StudentProject> activeProjects = null;
 		try {
-			activeProjects = dashboardDAO.getActiveProjects(collegeId,departmentId);
+			activeProjects = dashboardDAO.getActiveProjects(collegeId, departmentId);
 			logger.info("Active projects retrieved successfully");
 		} catch (DataServiceException e) {
 			logger.error(e.getMessage(), e);
@@ -45,9 +49,10 @@ public class DashboardServiceImpl implements DashboardService {
 		}
 		return activeProjects;
 	}
+
 	@Override
 	public List<StudentCourse> getTrendingCourses(Integer collegeId) throws BusinessServiceException {
-		List<StudentCourse> trendingCourses= null;
+		List<StudentCourse> trendingCourses = null;
 		try {
 			trendingCourses = dashboardDAO.getTrendingCourses(collegeId);
 			logger.info("Trending courses retrieved successfully");
@@ -57,9 +62,10 @@ public class DashboardServiceImpl implements DashboardService {
 		}
 		return trendingCourses;
 	}
+
 	@Override
 	public List<StudentProject> getTrendingProjects(Integer collegeId) throws BusinessServiceException {
-		List<StudentProject> trendingProject= null;
+		List<StudentProject> trendingProject = null;
 		try {
 			trendingProject = dashboardDAO.getTrendingProjects(collegeId);
 			logger.info("Trending projects retrieved successfully");

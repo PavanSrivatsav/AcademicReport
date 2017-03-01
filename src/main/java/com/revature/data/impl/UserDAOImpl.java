@@ -102,6 +102,21 @@ public class UserDAOImpl implements UserDAO {
 		return userByDepartmentId;
 	}
 
+	@Override
+	public List<User> getUserByLogin(String userEmailId, String password) throws DataServiceException {
+		List<User> user = null;
+		try {
+			StringBuilder sb = new StringBuilder("select u.name from users u where u.EMAIL_ID='" + userEmailId
+					+ "' and u.PASSWORD='" + password + "' and u.IS_ACTIVE=true");
+			user = dataRetriver.retrieveBySQL(sb.toString());
+			logger.info("Users data retrieval success..");
+		} catch (DataAccessException e) {
+			logger.error(e.getMessage(), e);
+			throw new DataServiceException(DataUtils.getPropertyMessage("data_retrieval_fail"), e);
+		}
+		return user;
+	}
+
 	/*
 	 * @Override public List<User> getValues() throws DataServiceException {
 	 * List<User> users = null; try { StringBuilder sb = new

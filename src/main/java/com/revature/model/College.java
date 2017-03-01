@@ -36,7 +36,7 @@ public class College {
 
 	@NotNull
 	@Column(unique = true)
-	private Long phone;
+	private String phone;
 
 	@NotNull
 	@Column(name = "IS_ACTIVE")

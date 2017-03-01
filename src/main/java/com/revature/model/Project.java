@@ -17,6 +17,10 @@ import lombok.Data;
 @Table(name = "projects")
 public class Project {
 
+	private Project() {
+
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;

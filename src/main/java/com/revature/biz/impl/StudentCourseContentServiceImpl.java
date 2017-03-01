@@ -13,7 +13,7 @@ import com.revature.data.exception.DataServiceException;
 import com.revature.model.StudentCourseContent;
 
 @Service
-public class StudentCourseContentServiceImpl implements StudentCourseContentService{
+public class StudentCourseContentServiceImpl implements StudentCourseContentService {
 	private static Logger logger = Logger.getLogger(StudentCourseServiceImpl.class);
 
 	@Autowired

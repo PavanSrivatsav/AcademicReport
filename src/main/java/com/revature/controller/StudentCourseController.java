@@ -23,7 +23,6 @@ public class StudentCourseController {
 
 	@Autowired
 	private StudentCourseService studentCourseService;
-	
 
 	@GetMapping("/List/All")
 	public List<StudentCourse> getStudentCourseController() {
@@ -41,12 +40,14 @@ public class StudentCourseController {
 		}
 		return studentCourses;
 	}
+
 	@GetMapping("/CompletedStudentCourseCount/studentId/{studentId}/courseId/{courseId}")
-	public List<StudentCourse> getCompletedStudentCourseCountController(@PathVariable("studentId") Integer studentId,@PathVariable("courseId") Integer courseId) {
+	public List<StudentCourse> getCompletedStudentCourseCountController(@PathVariable("studentId") Integer studentId,
+			@PathVariable("courseId") Integer courseId) {
 		List<StudentCourse> completedStudentCourseCount = null;
 		try {
 			logger.info("Getting the Completed Student Course Count data...");
-			completedStudentCourseCount = studentCourseService.getCompletedStudentCourseCount(studentId,courseId);
+			completedStudentCourseCount = studentCourseService.getCompletedStudentCourseCount(studentId, courseId);
 			logger.info("Completed Student Course Count data retrieval success.");
 		} catch (BusinessServiceException e) {
 			logger.error(e.getMessage(), e);
