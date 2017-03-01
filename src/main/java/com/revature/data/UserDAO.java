@@ -21,6 +21,6 @@ public interface UserDAO {
 
 	public List<User> getUsersByDepartmentId(Integer departmentId) throws DataServiceException;
 
-	// public List<User> getValues() throws DataServiceException;
+	public List<User> getUserByLogin(String userEmailId, String password) throws DataServiceException;
 
 }

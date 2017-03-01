@@ -21,6 +21,10 @@ import lombok.Data;
 @Table(name = "students")
 public class Student {
 
+	private Student() {
+
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
@@ -47,7 +51,7 @@ public class Student {
 
 	@NotNull
 	@Column(unique = true)
-	private Long phone;
+	private String phone;
 
 	@NotNull
 	private String batch;

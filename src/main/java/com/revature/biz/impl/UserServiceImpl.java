@@ -84,6 +84,19 @@ public class UserServiceImpl implements UserService {
 		return userByDepartmentId;
 	}
 
+	@Override
+	public List<User> getUserByLogin(String userEmailId, String password) throws BusinessServiceException {
+		List<User> user = null;
+		try {
+			user = userDAO.getUserByLogin(userEmailId, password);
+			logger.info("User retrived successfully");
+		} catch (DataServiceException e) {
+			logger.error(e.getMessage(), e);
+			throw new BusinessServiceException(e.getMessage(), e);
+		}
+		return user;
+	}
+
 	/*
 	 * @Override public List<User> getValues() throws BusinessServiceException {
 	 * List<User> users=null; try{ users=userDAO.getValues();

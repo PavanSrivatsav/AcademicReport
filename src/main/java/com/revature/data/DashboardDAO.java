@@ -12,10 +12,12 @@ public interface DashboardDAO {
 	 * @throws DataServiceException
 	 */
 
-	public List<StudentCourse> getActiveCourses(Integer collegeId,Integer departmentId) throws DataServiceException;
-	public List<StudentProject> getActiveProjects(Integer collegeId,Integer departmentId) throws DataServiceException;
-	public List<StudentCourse> getTrendingCourses(Integer collegeId) throws DataServiceException;
-	public List<StudentProject> getTrendingProjects(Integer collegeId) throws DataServiceException;
+	public List<StudentCourse> getActiveCourses(Integer collegeId, Integer departmentId) throws DataServiceException;
 
+	public List<StudentProject> getActiveProjects(Integer collegeId, Integer departmentId) throws DataServiceException;
+
+	public List<StudentCourse> getTrendingCourses(Integer collegeId) throws DataServiceException;
+
+	public List<StudentProject> getTrendingProjects(Integer collegeId) throws DataServiceException;
 
 }

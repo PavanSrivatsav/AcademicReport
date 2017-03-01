@@ -16,6 +16,10 @@ import lombok.Data;
 
 public class Role {
 
+	private Role() {
+
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;

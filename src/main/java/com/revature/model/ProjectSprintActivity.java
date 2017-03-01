@@ -20,6 +20,10 @@ import lombok.Data;
 @Table(name = "project_sprint_activities")
 public class ProjectSprintActivity {
 
+	private ProjectSprintActivity() {
+
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;

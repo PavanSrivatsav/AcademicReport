@@ -25,14 +25,14 @@ public class CourseController {
 	private CourseService courseService;
 
 	@GetMapping("/list/all")
-	
+
 	public List<?> getActiveCoursesController() {
-		
+
 		List<Course> list = null;
-		
+
 		try {
 			logger.info("Getting the courses data...");
-			list= courseService.getAllCourses();
+			list = courseService.getAllCourses();
 			logger.info("courses data retrieval success.");
 		} catch (BusinessServiceException e) {
 			logger.error(e.getMessage(), e);
@@ -94,6 +94,7 @@ public class CourseController {
 		}
 		return course;
 	}
+
 	@GetMapping("/list/CourseOverAllDetail/collegeId/{collegeId}")
 	public List<Course> getCourseOverAllDetailController(@PathVariable("collegeId") Integer collegeId) {
 		List<Course> courseOverAllDetail = null;
@@ -110,6 +111,7 @@ public class CourseController {
 		}
 		return courseOverAllDetail;
 	}
+
 	@GetMapping("/list/CourseDetail/courseId/{courseId}")
 	public List<Course> getCourseDetailController(@PathVariable("courseId") Integer courseId) {
 		List<Course> courseDetail = null;
@@ -126,7 +128,7 @@ public class CourseController {
 		}
 		return courseDetail;
 	}
-	
+
 	@GetMapping("/TotalCourseCount/courseId/{courseId}")
 	public List<Course> getTotalCourseCountController(@PathVariable("courseId") Integer courseId) {
 		List<Course> totalCourseCount = null;

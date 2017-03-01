@@ -15,6 +15,10 @@ import lombok.Data;
 @Table(name = "videos")
 public class Video {
 
+	private Video() {
+
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;

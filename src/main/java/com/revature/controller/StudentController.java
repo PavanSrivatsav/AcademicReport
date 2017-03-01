@@ -40,12 +40,15 @@ public class StudentController {
 		}
 		return students;
 	}
+
 	@GetMapping("/IndividualStudentByCourses/collegeId/{collegeId}/departmentId/{departmentId}/studentId/{studentId}")
-	public List<Student> getIndividualStudentByCourses(@PathVariable("collegeId") int collegeId,@PathVariable("departmentId") int departmentId,@PathVariable("studentId") int studentId) {
+	public List<Student> getIndividualStudentByCourses(@PathVariable("collegeId") int collegeId,
+			@PathVariable("departmentId") int departmentId, @PathVariable("studentId") int studentId) {
 		List<Student> individualStudentByCourses = null;
 		try {
 			logger.info("Getting the Students data...");
-			individualStudentByCourses = studentService.getIndividualStudentByCourses(collegeId,departmentId,studentId);
+			individualStudentByCourses = studentService.getIndividualStudentByCourses(collegeId, departmentId,
+					studentId);
 			logger.info("Individual Student By Courses data retrieval success.");
 		} catch (BusinessServiceException e) {
 			logger.error(e.getMessage(), e);
@@ -56,12 +59,15 @@ public class StudentController {
 		}
 		return individualStudentByCourses;
 	}
+
 	@GetMapping("/IndividualStudentByProjects/collegeId/{collegeId}/departmentId/{departmentId}/studentId/{studentId}")
-	public List<Student> getIndividualStudentByProjects(@PathVariable("collegeId") int collegeId,@PathVariable("departmentId") int departmentId,@PathVariable("studentId") int studentId) {
+	public List<Student> getIndividualStudentByProjects(@PathVariable("collegeId") int collegeId,
+			@PathVariable("departmentId") int departmentId, @PathVariable("studentId") int studentId) {
 		List<Student> individualStudentByProjects = null;
 		try {
 			logger.info("Getting the Individual Students by Projects data...");
-			individualStudentByProjects = studentService.getIndividualStudentByProjects(collegeId,departmentId,studentId);
+			individualStudentByProjects = studentService.getIndividualStudentByProjects(collegeId, departmentId,
+					studentId);
 			logger.info("Individual Student By Projects data retrieval success.");
 		} catch (BusinessServiceException e) {
 			logger.error(e.getMessage(), e);
@@ -72,13 +78,14 @@ public class StudentController {
 		}
 		return individualStudentByProjects;
 	}
-	
+
 	@GetMapping("/OverAllStudentByCurrentCourses/collegeId/{collegeId}/departmentId/{departmentId}")
-	public List<Student> getOverAllStudentByCurrentCourses(@PathVariable("collegeId") int collegeId,@PathVariable("departmentId") int departmentId) {
+	public List<Student> getOverAllStudentByCurrentCourses(@PathVariable("collegeId") int collegeId,
+			@PathVariable("departmentId") int departmentId) {
 		List<Student> overAllStudentByCurrentCourses = null;
 		try {
 			logger.info("Getting the Over All Student By Current Courses data...");
-			overAllStudentByCurrentCourses = studentService.getOverAllStudentByCurrentCourses(collegeId,departmentId);
+			overAllStudentByCurrentCourses = studentService.getOverAllStudentByCurrentCourses(collegeId, departmentId);
 			logger.info("Over All  Student By Current Courses data retrieval success.");
 		} catch (BusinessServiceException e) {
 			logger.error(e.getMessage(), e);
@@ -89,12 +96,15 @@ public class StudentController {
 		}
 		return overAllStudentByCurrentCourses;
 	}
+
 	@GetMapping("/OverAllStudentByCompletedCourses/collegeId/{collegeId}/departmentId/{departmentId}")
-	public List<Student> getOverAllStudentByCompletedCourses(@PathVariable("collegeId") int collegeId,@PathVariable("departmentId") int departmentId) {
+	public List<Student> getOverAllStudentByCompletedCourses(@PathVariable("collegeId") int collegeId,
+			@PathVariable("departmentId") int departmentId) {
 		List<Student> overAllStudentByCompletedCourses = null;
 		try {
 			logger.info("Getting the Over All Student By Completed Courses data...");
-			overAllStudentByCompletedCourses = studentService.getOverAllStudentByCompletedCourses(collegeId,departmentId);
+			overAllStudentByCompletedCourses = studentService.getOverAllStudentByCompletedCourses(collegeId,
+					departmentId);
 			logger.info("Over All Student By Completed Courses data retrieval success.");
 		} catch (BusinessServiceException e) {
 			logger.error(e.getMessage(), e);
@@ -105,12 +115,15 @@ public class StudentController {
 		}
 		return overAllStudentByCompletedCourses;
 	}
+
 	@GetMapping("/OverAllStudentByCurrentProjects/collegeId/{collegeId}/departmentId/{departmentId}")
-	public List<Student> getOverAllStudentByCurrentProjects(@PathVariable("collegeId") int collegeId,@PathVariable("departmentId") int departmentId) {
+	public List<Student> getOverAllStudentByCurrentProjects(@PathVariable("collegeId") int collegeId,
+			@PathVariable("departmentId") int departmentId) {
 		List<Student> overAllStudentByCurrentProjects = null;
 		try {
 			logger.info("Getting the Over All Student By Current Projects data...");
-			overAllStudentByCurrentProjects = studentService.getOverAllStudentByCurrentProjects(collegeId,departmentId);
+			overAllStudentByCurrentProjects = studentService.getOverAllStudentByCurrentProjects(collegeId,
+					departmentId);
 			logger.info("Over All  Student By Current Projects data retrieval success.");
 		} catch (BusinessServiceException e) {
 			logger.error(e.getMessage(), e);
@@ -121,12 +134,15 @@ public class StudentController {
 		}
 		return overAllStudentByCurrentProjects;
 	}
+
 	@GetMapping("/OverAllStudentByCompletedProjects/collegeId/{collegeId}/departmentId/{departmentId}")
-	public List<Student> getOverAllStudentByCompletedProjects(@PathVariable("collegeId") int collegeId,@PathVariable("departmentId") int departmentId) {
+	public List<Student> getOverAllStudentByCompletedProjects(@PathVariable("collegeId") int collegeId,
+			@PathVariable("departmentId") int departmentId) {
 		List<Student> overAllStudentByCompletedProjects = null;
 		try {
 			logger.info("Getting the Over All Student By Completed Projects data...");
-			overAllStudentByCompletedProjects = studentService.getOverAllStudentByCompletedProjects(collegeId,departmentId);
+			overAllStudentByCompletedProjects = studentService.getOverAllStudentByCompletedProjects(collegeId,
+					departmentId);
 			logger.info("Over All Student By Completed Projects data retrieval success.");
 		} catch (BusinessServiceException e) {
 			logger.error(e.getMessage(), e);

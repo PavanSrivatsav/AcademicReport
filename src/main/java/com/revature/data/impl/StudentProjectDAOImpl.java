@@ -60,7 +60,8 @@ public class StudentProjectDAOImpl implements StudentProjectDAO {
 	public List<StudentProject> getStudentProjectByStudentId(int studentId) throws DataServiceException {
 		List<StudentProject> studentProjectByStudentId = null;
 		try {
-			StringBuilder sb = new StringBuilder("select * from student_projects where STUDENT_ID=' "+ studentId +" ' ");
+			StringBuilder sb = new StringBuilder(
+					"select * from student_projects where STUDENT_ID=' " + studentId + " ' ");
 			studentProjectByStudentId = dataRetriver.retrieveBySQL(sb.toString());
 			logger.info("StudentProjects data retrieval success..");
 		} catch (DataAccessException e) {
@@ -75,7 +76,7 @@ public class StudentProjectDAOImpl implements StudentProjectDAO {
 		List<StudentProject> studentProjectByProjectId = null;
 		try {
 			StringBuilder sb = new StringBuilder(
-					" select * from student_projects where PROJECT_ID=' "+ projectId +" ' ");
+					" select * from student_projects where PROJECT_ID=' " + projectId + " ' ");
 			studentProjectByProjectId = dataRetriver.retrieveBySQL(sb.toString());
 			logger.info("StudentProjects data retrieval success..");
 		} catch (DataAccessException e) {
@@ -84,11 +85,14 @@ public class StudentProjectDAOImpl implements StudentProjectDAO {
 		}
 		return studentProjectByProjectId;
 	}
+
 	@Override
 	public List<StudentProject> getCompletedStudentProjectCount(int studentId) throws DataServiceException {
 		List<StudentProject> completedStudentProjectCount = null;
 		try {
-			StringBuilder sb = new StringBuilder("SELECT COUNT(projects.`ID`) FROM projects JOIN student_projects ON projects.`ID`=student_projects.`PROJECT_ID` JOIN student_project_sprints ON student_projects.`ID`=student_project_sprints.`STUDENT_PROJECT_ID` JOIN student_project_sprint_activities ON student_project_sprints.`ID`=student_project_sprint_activities.`STUDENT_PROJECT_SPRINT_ID` WHERE projects.`IS_ACTIVE`=TRUE AND student_project_sprint_activities.`STATUS_ID`=(SELECT id FROM `seed_status` WHERE `seed_status`.`NAME`='COMPLETED') AND student_projects.`STUDENT_ID` ="+ studentId );
+			StringBuilder sb = new StringBuilder(
+					"SELECT COUNT(projects.`ID`) FROM projects JOIN student_projects ON projects.`ID`=student_projects.`PROJECT_ID` JOIN student_project_sprints ON student_projects.`ID`=student_project_sprints.`STUDENT_PROJECT_ID` JOIN student_project_sprint_activities ON student_project_sprints.`ID`=student_project_sprint_activities.`STUDENT_PROJECT_SPRINT_ID` WHERE projects.`IS_ACTIVE`=TRUE AND student_project_sprint_activities.`STATUS_ID`=(SELECT id FROM `seed_status` WHERE `seed_status`.`NAME`='COMPLETED') AND student_projects.`STUDENT_ID` ="
+							+ studentId);
 			completedStudentProjectCount = dataRetriver.retrieveBySQL(sb.toString());
 			logger.info("Completed Student Project Count data retrieval success..");
 		} catch (DataAccessException e) {

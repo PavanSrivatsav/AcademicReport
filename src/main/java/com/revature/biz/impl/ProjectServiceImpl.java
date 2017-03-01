@@ -70,6 +70,7 @@ public class ProjectServiceImpl implements ProjectService {
 		}
 		return projectByCategoryId;
 	}
+
 	@Override
 	public List<Project> getProjectOverAllDetail(Integer collegeId) throws BusinessServiceException {
 		List<Project> projectOverAllDetail = null;
@@ -82,6 +83,7 @@ public class ProjectServiceImpl implements ProjectService {
 		}
 		return projectOverAllDetail;
 	}
+
 	@Override
 	public List<Project> getProjectDetail(Integer projectId) throws BusinessServiceException {
 		List<Project> projectDetail = null;
@@ -94,7 +96,7 @@ public class ProjectServiceImpl implements ProjectService {
 		}
 		return projectDetail;
 	}
-	
+
 	@Override
 	public List<Project> getTotalProjectCount(Integer projectId) throws BusinessServiceException {
 		List<Project> totalProjectCount = null;

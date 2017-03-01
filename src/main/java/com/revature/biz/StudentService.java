@@ -15,16 +15,22 @@ public interface StudentService {
 	List<Student> getStudentById(int studentId) throws BusinessServiceException;
 
 	List<Student> getStudentByEmailId(String studentEmailId) throws BusinessServiceException;
-	
-	List<Student> getIndividualStudentByCourses(Integer collegeId,Integer departmentId,Integer studentId) throws BusinessServiceException;
-	
-	List<Student> getIndividualStudentByProjects(Integer collegeId,Integer departmentId,Integer studentId) throws BusinessServiceException;
 
-	List<Student> getOverAllStudentByCurrentCourses(Integer collegeId,Integer departmentId) throws BusinessServiceException;
-	
-	List<Student> getOverAllStudentByCompletedCourses(Integer collegeId,Integer departmentId) throws BusinessServiceException;
-	
-	List<Student> getOverAllStudentByCurrentProjects(Integer collegeId,Integer departmentId) throws BusinessServiceException;
-	
-	List<Student> getOverAllStudentByCompletedProjects(Integer collegeId,Integer departmentId) throws BusinessServiceException;
+	List<Student> getIndividualStudentByCourses(Integer collegeId, Integer departmentId, Integer studentId)
+			throws BusinessServiceException;
+
+	List<Student> getIndividualStudentByProjects(Integer collegeId, Integer departmentId, Integer studentId)
+			throws BusinessServiceException;
+
+	List<Student> getOverAllStudentByCurrentCourses(Integer collegeId, Integer departmentId)
+			throws BusinessServiceException;
+
+	List<Student> getOverAllStudentByCompletedCourses(Integer collegeId, Integer departmentId)
+			throws BusinessServiceException;
+
+	List<Student> getOverAllStudentByCurrentProjects(Integer collegeId, Integer departmentId)
+			throws BusinessServiceException;
+
+	List<Student> getOverAllStudentByCompletedProjects(Integer collegeId, Integer departmentId)
+			throws BusinessServiceException;
 }

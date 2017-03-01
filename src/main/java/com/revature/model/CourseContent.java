@@ -22,6 +22,10 @@ import lombok.Data;
 		@UniqueConstraint(columnNames = { "COURSE_ID", "TEXT_CONTENT" }) })
 public class CourseContent {
 
+	private CourseContent() {
+
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
