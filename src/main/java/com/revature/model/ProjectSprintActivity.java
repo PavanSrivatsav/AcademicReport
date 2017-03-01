@@ -10,12 +10,19 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 import lombok.Data;
 
 @Data
 @Entity
 @Table(name = "project_sprint_activities")
 public class ProjectSprintActivity {
+
+	private ProjectSprintActivity() {
+
+	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -28,20 +35,25 @@ public class ProjectSprintActivity {
 
 	@ManyToOne
 	@JoinColumn(name = "VIDEO_ID", nullable = true)
+	@JsonInclude(Include.NON_NULL)
 	private Video video;
 
 	@ManyToOne
 	@JoinColumn(name = "COURSE_ID", nullable = true)
+	@JsonInclude(Include.NON_NULL)
 	private Course course;
 
 	@ManyToOne
 	@JoinColumn(name = "QUIZ_ID", nullable = true)
+	@JsonInclude(Include.NON_NULL)
 	private Quiz quiz;
 
 	@Column(name = "ONLINE_ACTIVITY", nullable = true)
+	@JsonInclude(Include.NON_NULL)
 	private String onlineActivity;
 
 	@Column(name = "OFFLINE_ACTIVITY", nullable = true)
+	@JsonInclude(Include.NON_NULL)
 	private String offlineActivity;
 
 	@NotNull

@@ -107,6 +107,7 @@ public class ProjectController {
 		}
 		return projectOverAllDetail;
 	}
+
 	@GetMapping("/list/project/detail/projectId/{projectId}")
 	public List<Project> getProjectDetailController(@PathVariable("projectId") Integer projectId) {
 		List<Project> projectDetail = null;

@@ -10,13 +10,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 import lombok.Data;
 
 @Data
 @Entity
 @Table(name = "courses")
 public class Course {
-
 	private Course() {
 
 	}
@@ -35,6 +37,7 @@ public class Course {
 	private Category category;
 
 	@NotNull
+	@JsonInclude(Include.NON_NULL)
 	private String description;
 
 	@NotNull

@@ -15,6 +15,7 @@ import com.revature.controller.exception.InternalException;
 import com.revature.controller.exception.InvalidInputException;
 import com.revature.model.StudentCourse;
 import com.revature.model.StudentProject;
+
 @RestController
 @RequestMapping("/dashboard")
 public class DashboardController {
@@ -24,11 +25,12 @@ public class DashboardController {
 	private DashboardService dashboardService;
 
 	@GetMapping("/activecourse/collegeId/{collegeId}/departmentId/{departmentId}")
-	public List<StudentCourse> getActiveCoursesController(@PathVariable("collegeId") int collegeId,@PathVariable("departmentId") int departmentId) {
+	public List<StudentCourse> getActiveCoursesController(@PathVariable("collegeId") int collegeId,
+			@PathVariable("departmentId") int departmentId) {
 		List<StudentCourse> activeCourse = null;
 		try {
 			logger.info("Getting the active course data...");
-			activeCourse = dashboardService.getActiveCourses(collegeId,departmentId);
+			activeCourse = dashboardService.getActiveCourses(collegeId, departmentId);
 			logger.info("Active course data retrieval success.");
 		} catch (BusinessServiceException e) {
 			logger.error(e.getMessage(), e);
@@ -39,12 +41,14 @@ public class DashboardController {
 		}
 		return activeCourse;
 	}
+
 	@GetMapping("/activeproject/collegeId/{collegeId}/departmentId/{departmentId}")
-	public List<StudentProject> getActiveProjectsController(@PathVariable("collegeId") int collegeId,@PathVariable("departmentId") int departmentId) {
+	public List<StudentProject> getActiveProjectsController(@PathVariable("collegeId") int collegeId,
+			@PathVariable("departmentId") int departmentId) {
 		List<StudentProject> activeProjects = null;
 		try {
 			logger.info("Getting the active projects data...");
-			activeProjects = dashboardService.getActiveProjects(collegeId,departmentId);
+			activeProjects = dashboardService.getActiveProjects(collegeId, departmentId);
 			logger.info("Active projects data retrieval success.");
 		} catch (BusinessServiceException e) {
 			logger.error(e.getMessage(), e);
@@ -55,6 +59,7 @@ public class DashboardController {
 		}
 		return activeProjects;
 	}
+
 	@GetMapping("/trendingcourse/collegeId/{collegeId}")
 	public List<StudentCourse> getTrendingCoursesController(@PathVariable("collegeId") int collegeId) {
 		List<StudentCourse> trendingCourse = null;
@@ -71,6 +76,7 @@ public class DashboardController {
 		}
 		return trendingCourse;
 	}
+
 	@GetMapping("/trendingproject/collegeId/{collegeId}")
 	public List<StudentProject> getTrendingProjectsController(@PathVariable("collegeId") int collegeId) {
 		List<StudentProject> trendingProject = null;

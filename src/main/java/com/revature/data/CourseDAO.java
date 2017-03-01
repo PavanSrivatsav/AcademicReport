@@ -2,11 +2,13 @@ package com.revature.data;
 
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import com.revature.data.exception.DataServiceException;
 import com.revature.model.Course;
 
+@Repository
 public interface CourseDAO {
-
 	/**
 	 * @return
 	 * @throws DataServiceException

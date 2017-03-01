@@ -22,15 +22,13 @@ public class CourseServiceImpl implements CourseService {
 
 	@Override
 	public List<Course> getAllCourses() throws BusinessServiceException {
-		List<Course> courses = null;
 		try {
-			courses = courseDAO.getAllCourses();
 			logger.info("Courses retrieved successfully");
-		} catch (DataServiceException e) {
+			return courseDAO.getAllCourses();
+		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			throw new BusinessServiceException(e.getMessage(), e);
 		}
-		return courses;
 	}
 
 	@Override
@@ -44,7 +42,7 @@ public class CourseServiceImpl implements CourseService {
 			throw new BusinessServiceException(e.getMessage(), e);
 		}
 		return coursesById;
-		
+
 	}
 
 	@Override
@@ -72,6 +70,7 @@ public class CourseServiceImpl implements CourseService {
 		}
 		return coursesByCategoryId;
 	}
+
 	@Override
 	public List<Course> getCourseOverAllDetail(Integer collegeId) throws BusinessServiceException {
 		List<Course> courseOverAllDetail = null;
@@ -84,6 +83,7 @@ public class CourseServiceImpl implements CourseService {
 		}
 		return courseOverAllDetail;
 	}
+
 	@Override
 	public List<Course> getCourseDetail(Integer courseId) throws BusinessServiceException {
 		List<Course> courseDetail = null;
@@ -96,6 +96,7 @@ public class CourseServiceImpl implements CourseService {
 		}
 		return courseDetail;
 	}
+
 	@Override
 	public List<Course> getTotalCourseCount(Integer courseId) throws BusinessServiceException {
 		List<Course> totalCourseCount = null;

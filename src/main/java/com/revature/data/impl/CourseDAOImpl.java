@@ -30,16 +30,14 @@ public class CourseDAOImpl implements CourseDAO {
 
 	@Override
 	public List<Course> getAllCourses() throws DataServiceException {
-		List<Course> courses = null;
 		try {
 			StringBuilder sb = new StringBuilder("select * from courses c where c.IS_ACTIVE=true");
-			courses = dataRetriver.retrieveBySQL(sb.toString());
 			logger.info("Courses data retrieval success..");
+			return dataRetriver.retrieveBySQL(sb.toString());
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
 			throw new DataServiceException(DataUtils.getPropertyMessage("data_retrieval_fail"), e);
 		}
-		return courses;
 	}
 
 	@Override
@@ -85,11 +83,14 @@ public class CourseDAOImpl implements CourseDAO {
 		}
 		return coursesByCategoryId;
 	}
+
 	@Override
 	public List<Course> getCourseOverAllDetail(Integer collegeId) throws DataServiceException {
 		List<Course> courseOverAllDetail = null;
 		try {
-			StringBuilder sb = new StringBuilder("SELECT NAME,DESCRIPTION FROM courses WHERE id IN (SELECT DISTINCT courses.`ID` FROM `student_courses` JOIN `courses` ON `courses`.`ID`=`student_courses`.`COURSE_ID` JOIN `students` ON students.`ID`=student_courses.`STUDENT_ID` WHERE `students`.`COLLEGE_ID`= " +collegeId+ " )");
+			StringBuilder sb = new StringBuilder(
+					"SELECT NAME,DESCRIPTION FROM courses WHERE id IN (SELECT DISTINCT courses.`ID` FROM `student_courses` JOIN `courses` ON `courses`.`ID`=`student_courses`.`COURSE_ID` JOIN `students` ON students.`ID`=student_courses.`STUDENT_ID` WHERE `students`.`COLLEGE_ID`= "
+							+ collegeId + " )");
 			courseOverAllDetail = dataRetriver.retrieveBySQL(sb.toString());
 			logger.info("Courses over all details data retrieval success..");
 		} catch (DataAccessException e) {
@@ -98,11 +99,14 @@ public class CourseDAOImpl implements CourseDAO {
 		}
 		return courseOverAllDetail;
 	}
+
 	@Override
 	public List<Course> getCourseDetail(Integer courseId) throws DataServiceException {
 		List<Course> courseDetail = null;
 		try {
-			StringBuilder sb = new StringBuilder("SELECT c.NAME,cc.TEXT_CONTENT,v.NAME as 'videoname' FROM course_contents cc JOIN courses c ON cc.COURSE_ID=c.`ID` LEFT JOIN `videos` v ON  v.`ID`=cc.`VIDEO_ID` WHERE c.`ID`="+courseId);
+			StringBuilder sb = new StringBuilder(
+					"SELECT c.NAME,cc.TEXT_CONTENT,v.NAME as 'videoname' FROM course_contents cc JOIN courses c ON cc.COURSE_ID=c.`ID` LEFT JOIN `videos` v ON  v.`ID`=cc.`VIDEO_ID` WHERE c.`ID`="
+							+ courseId);
 			courseDetail = dataRetriver.retrieveBySQL(sb.toString());
 			logger.info("Courses details data retrieval success..");
 		} catch (DataAccessException e) {
@@ -111,11 +115,14 @@ public class CourseDAOImpl implements CourseDAO {
 		}
 		return courseDetail;
 	}
+
 	@Override
 	public List<Course> getTotalCourseCount(Integer courseId) throws DataServiceException {
 		List<Course> totalCourseCount = null;
 		try {
-			StringBuilder sb = new StringBuilder("SELECT COUNT(courses.`ID`) FROM courses JOIN course_contents ON courses.`ID`=course_contents.`COURSE_ID` WHERE courses.`IS_ACTIVE`=TRUE AND courses.`ID`="+courseId);
+			StringBuilder sb = new StringBuilder(
+					"SELECT COUNT(courses.`ID`) FROM courses JOIN course_contents ON courses.`ID`=course_contents.`COURSE_ID` WHERE courses.`IS_ACTIVE`=TRUE AND courses.`ID`="
+							+ courseId);
 			totalCourseCount = dataRetriver.retrieveBySQL(sb.toString());
 			logger.info("Total Course Count data retrieval success..");
 		} catch (DataAccessException e) {

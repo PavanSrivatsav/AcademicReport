@@ -23,7 +23,6 @@ public class StudentCourseController {
 
 	@Autowired
 	private StudentCourseService studentCourseService;
-	
 
 	@GetMapping("/list/all")
 	public List<StudentCourse> getStudentCourseController() {
@@ -46,7 +45,7 @@ public class StudentCourseController {
 		List<StudentCourse> completedStudentCourseCount = null;
 		try {
 			logger.info("Getting the Completed Student Course Count data...");
-			completedStudentCourseCount = studentCourseService.getCompletedStudentCourseCount(studentId,courseId);
+			completedStudentCourseCount = studentCourseService.getCompletedStudentCourseCount(studentId, courseId);
 			logger.info("Completed Student Course Count data retrieval success.");
 		} catch (BusinessServiceException e) {
 			logger.error(e.getMessage(), e);

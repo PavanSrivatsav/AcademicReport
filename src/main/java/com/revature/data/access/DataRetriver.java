@@ -6,7 +6,7 @@ import com.revature.data.access.exception.DataAccessException;
 
 public interface DataRetriver {
 	/**
-	 * Used to get the data by hql query.
+	 * Used to get the data by sql query.
 	 * 
 	 * @param query
 	 *            query to execute

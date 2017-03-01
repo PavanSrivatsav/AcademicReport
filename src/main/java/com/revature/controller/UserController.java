@@ -23,6 +23,24 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
+	@GetMapping("/login/{emailId}/{password}")
+	public List<User> loginController(@PathVariable("emailId") String emailId,
+			@PathVariable("password") String password) {
+		List<User> user = null;
+		try {
+			logger.info("Getting the Users data...");
+			user = userService.getUserByLogin(emailId, password);
+			logger.info("Users data retrieval success.");
+		} catch (BusinessServiceException e) {
+			logger.error(e.getMessage(), e);
+			throw new InvalidInputException(e.getMessage(), e);
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			throw new InternalException("System has some issue...", e);
+		}
+		return user;
+	}
+
 	@GetMapping("/list/all")
 	public List<User> getActiveUsersController() {
 		List<User> users = null;

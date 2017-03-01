@@ -15,15 +15,21 @@ import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 @Entity
 @Table(name = "student_course_contents", uniqueConstraints = {
 		@UniqueConstraint(columnNames = { "STUDENT_COURSE_ID", "COURSE_CONTENT_ID" }) })
 public class StudentCourseContent {
 
+	private StudentCourseContent() {
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
+
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "STUDENT_COURSE_ID")
@@ -41,6 +47,7 @@ public class StudentCourseContent {
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "COMPLETED_ON", nullable = true)
+	@JsonInclude(Include.NON_NULL)
 	private Date completedOn;
 
 	@NotNull

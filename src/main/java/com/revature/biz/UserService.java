@@ -20,5 +20,6 @@ public interface UserService {
 
 	List<User> getUsersByDepartmentId(Integer departmentId) throws BusinessServiceException;
 
-	// List<User> getValues() throws BusinessServiceException;
+	List<User> getUserByLogin(String userEmailId, String password) throws BusinessServiceException;
+
 }

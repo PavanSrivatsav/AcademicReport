@@ -11,6 +11,9 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 import lombok.Data;
 
 @Data
@@ -18,6 +21,10 @@ import lombok.Data;
 @Table(name = "course_contents", uniqueConstraints = { @UniqueConstraint(columnNames = { "COURSE_ID", "VIDEO_ID" }),
 		@UniqueConstraint(columnNames = { "COURSE_ID", "TEXT_CONTENT" }) })
 public class CourseContent {
+
+	private CourseContent() {
+
+	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -30,9 +37,11 @@ public class CourseContent {
 
 	@ManyToOne
 	@JoinColumn(name = "VIDEO_ID", nullable = true)
+	@JsonInclude(Include.NON_NULL)
 	private Video video;
 
 	@Column(name = "TEXT_CONTENT", nullable = true)
+	@JsonInclude(Include.NON_NULL)
 	private String textContent;
 
 	@NotNull

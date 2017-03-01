@@ -45,7 +45,8 @@ public class StudentController {
 		List<Student> individualStudentByCourses = null;
 		try {
 			logger.info("Getting the Students data...");
-			individualStudentByCourses = studentService.getIndividualStudentByCourses(collegeId,departmentId,studentId);
+			individualStudentByCourses = studentService.getIndividualStudentByCourses(collegeId, departmentId,
+					studentId);
 			logger.info("Individual Student By Courses data retrieval success.");
 		} catch (BusinessServiceException e) {
 			logger.error(e.getMessage(), e);
@@ -61,7 +62,8 @@ public class StudentController {
 		List<Student> individualStudentByProjects = null;
 		try {
 			logger.info("Getting the Individual Students by Projects data...");
-			individualStudentByProjects = studentService.getIndividualStudentByProjects(collegeId,departmentId,studentId);
+			individualStudentByProjects = studentService.getIndividualStudentByProjects(collegeId, departmentId,
+					studentId);
 			logger.info("Individual Student By Projects data retrieval success.");
 		} catch (BusinessServiceException e) {
 			logger.error(e.getMessage(), e);
@@ -78,7 +80,7 @@ public class StudentController {
 		List<Student> overAllStudentByCurrentCourses = null;
 		try {
 			logger.info("Getting the Over All Student By Current Courses data...");
-			overAllStudentByCurrentCourses = studentService.getOverAllStudentByCurrentCourses(collegeId,departmentId);
+			overAllStudentByCurrentCourses = studentService.getOverAllStudentByCurrentCourses(collegeId, departmentId);
 			logger.info("Over All  Student By Current Courses data retrieval success.");
 		} catch (BusinessServiceException e) {
 			logger.error(e.getMessage(), e);
@@ -94,7 +96,8 @@ public class StudentController {
 		List<Student> overAllStudentByCompletedCourses = null;
 		try {
 			logger.info("Getting the Over All Student By Completed Courses data...");
-			overAllStudentByCompletedCourses = studentService.getOverAllStudentByCompletedCourses(collegeId,departmentId);
+			overAllStudentByCompletedCourses = studentService.getOverAllStudentByCompletedCourses(collegeId,
+					departmentId);
 			logger.info("Over All Student By Completed Courses data retrieval success.");
 		} catch (BusinessServiceException e) {
 			logger.error(e.getMessage(), e);
@@ -110,7 +113,8 @@ public class StudentController {
 		List<Student> overAllStudentByCurrentProjects = null;
 		try {
 			logger.info("Getting the Over All Student By Current Projects data...");
-			overAllStudentByCurrentProjects = studentService.getOverAllStudentByCurrentProjects(collegeId,departmentId);
+			overAllStudentByCurrentProjects = studentService.getOverAllStudentByCurrentProjects(collegeId,
+					departmentId);
 			logger.info("Over All  Student By Current Projects data retrieval success.");
 		} catch (BusinessServiceException e) {
 			logger.error(e.getMessage(), e);
@@ -126,7 +130,8 @@ public class StudentController {
 		List<Student> overAllStudentByCompletedProjects = null;
 		try {
 			logger.info("Getting the Over All Student By Completed Projects data...");
-			overAllStudentByCompletedProjects = studentService.getOverAllStudentByCompletedProjects(collegeId,departmentId);
+			overAllStudentByCompletedProjects = studentService.getOverAllStudentByCompletedProjects(collegeId,
+					departmentId);
 			logger.info("Over All Student By Completed Projects data retrieval success.");
 		} catch (BusinessServiceException e) {
 			logger.error(e.getMessage(), e);

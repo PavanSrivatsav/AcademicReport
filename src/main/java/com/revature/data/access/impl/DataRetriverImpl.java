@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.hibernate.SessionFactory;
+import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -22,7 +23,8 @@ public class DataRetriverImpl implements DataRetriver {
 	public <E> List<E> retrieveBySQL(String queryString) throws DataAccessException {
 		List<E> list = null;
 		try {
-			list = sessionFactory.getCurrentSession().createSQLQuery(queryString).list();
+			list = sessionFactory.getCurrentSession().createSQLQuery(queryString)
+					.setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP).list();
 			logger.info("data retrieval success..");
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);

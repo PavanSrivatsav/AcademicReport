@@ -16,8 +16,10 @@ public interface StudentProjectSprintDAO {
 
 	public List<StudentProjectSprint> getStudentProjectSprintsById(int Id) throws DataServiceException;
 
-	public List<StudentProjectSprint> getStudentProjectSprintsByProjectSprintId(int sprintId) throws DataServiceException;
+	public List<StudentProjectSprint> getStudentProjectSprintsByProjectSprintId(int sprintId)
+			throws DataServiceException;
 
-	public List<StudentProjectSprint> getStudentProjectSprintsByStudentProjectId(int projectId) throws DataServiceException;
+	public List<StudentProjectSprint> getStudentProjectSprintsByStudentProjectId(int projectId)
+			throws DataServiceException;
 
 }
