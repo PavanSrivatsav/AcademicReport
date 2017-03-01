@@ -23,6 +23,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "student_courses", uniqueConstraints = { @UniqueConstraint(columnNames = { "STUDENT_ID", "COURSE_ID" }) })
+@JsonInclude(Include.NON_NULL)
 public class StudentCourse {
 
 	private StudentCourse() {
@@ -48,9 +49,9 @@ public class StudentCourse {
 	@Temporal(TemporalType.DATE)
 	private Date startedOn;
 
-	@Column(name = "COMPLETED_ON", nullable = true)
-	@JsonInclude(Include.NON_NULL)
+	@Column(name = "COMPLETED_ON")
 	@Temporal(TemporalType.DATE)
+	@JsonInclude(Include.NON_NULL)
 	private Date completedOn;
 
 	@NotNull
