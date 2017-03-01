@@ -89,7 +89,7 @@ public class CourseDAOImpl implements CourseDAO {
 		List<Course> courseOverAllDetail = null;
 		try {
 			StringBuilder sb = new StringBuilder(
-					"SELECT NAME,DESCRIPTION FROM courses WHERE id IN (SELECT DISTINCT courses.`ID` FROM `student_courses` JOIN `courses` ON `courses`.`ID`=`student_courses`.`COURSE_ID` JOIN `students` ON students.`ID`=student_courses.`STUDENT_ID` WHERE `students`.`COLLEGE_ID`= "
+					"SELECT NAME,DESCRIPTION FROM courses WHERE id IN (SELECT DISTINCT courses.`ID` FROM `student_courses` JOIN `courses` ON `courses`.`ID`=`student_courses`.`COURSE_ID` JOIN `students` ON students.`ID`=student_courses.`STUDENT_ID` WHERE `students`.`IS_ACTIVE`=TRUE AND `courses`.`IS_ACTIVE`=TRUE AND `students`.`COLLEGE_ID`= "
 							+ collegeId + " )");
 			courseOverAllDetail = dataRetriver.retrieveBySQL(sb.toString());
 			logger.info("Courses over all details data retrieval success..");
@@ -105,7 +105,7 @@ public class CourseDAOImpl implements CourseDAO {
 		List<Course> courseDetail = null;
 		try {
 			StringBuilder sb = new StringBuilder(
-					"SELECT c.NAME,cc.TEXT_CONTENT,v.NAME as 'videoname' FROM course_contents cc JOIN courses c ON cc.COURSE_ID=c.`ID` LEFT JOIN `videos` v ON  v.`ID`=cc.`VIDEO_ID` WHERE c.`ID`="
+					"SELECT c.NAME,cc.TEXT_CONTENT,v.NAME as 'videoname',v.`URL` FROM course_contents cc JOIN courses c ON cc.COURSE_ID=c.`ID` LEFT JOIN `videos` v ON  v.`ID`=cc.`VIDEO_ID` WHERE `courses`.`IS_ACTIVE`=TRUE  AND c.`ID`="
 							+ courseId);
 			courseDetail = dataRetriver.retrieveBySQL(sb.toString());
 			logger.info("Courses details data retrieval success..");
@@ -121,7 +121,7 @@ public class CourseDAOImpl implements CourseDAO {
 		List<Course> totalCourseCount = null;
 		try {
 			StringBuilder sb = new StringBuilder(
-					"SELECT COUNT(courses.`ID`) FROM courses JOIN course_contents ON courses.`ID`=course_contents.`COURSE_ID` WHERE courses.`IS_ACTIVE`=TRUE AND courses.`ID`="
+					"SELECT COUNT(courses.`ID`) as 'course count' FROM courses JOIN course_contents ON courses.`ID`=course_contents.`COURSE_ID` WHERE courses.`IS_ACTIVE`=TRUE AND courses.`ID`="
 							+ courseId);
 			totalCourseCount = dataRetriver.retrieveBySQL(sb.toString());
 			logger.info("Total Course Count data retrieval success..");

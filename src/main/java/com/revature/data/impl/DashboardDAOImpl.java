@@ -34,7 +34,7 @@ public class DashboardDAOImpl implements DashboardDAO {
 		List<StudentCourse> activeCourses = null;
 		try {
 			StringBuilder sb = new StringBuilder(
-					"SELECT students.`NAME` FROM `students` JOIN `student_courses` ON  `student_courses`.`STUDENT_ID`=`students`.`ID` WHERE `student_courses`.`STATUS_ID`=(SELECT id FROM seed_status WHERE NAME='COMPLETED') AND `students`.`DEPARTMENT_ID`="
+					"SELECT students.`NAME` FROM `students` JOIN `student_courses` ON  `student_courses`.`STUDENT_ID`=`students`.`ID` WHERE `student_courses`.`STATUS_ID`=(SELECT id FROM seed_status WHERE NAME='COMPLETED') AND  `students`.`IS_ACTIVE`=TRUE AND `students`.`DEPARTMENT_ID`="
 							+ departmentId + " AND `students`.`COLLEGE_ID`=" + collegeId
 							+ " GROUP BY `STUDENT_ID` ORDER BY COUNT(`COURSE_ID`) DESC LIMIT 5");
 			activeCourses = dataRetriver.retrieveBySQL(sb.toString());
@@ -51,7 +51,7 @@ public class DashboardDAOImpl implements DashboardDAO {
 		List<StudentProject> activeProjects = null;
 		try {
 			StringBuilder sb = new StringBuilder(
-					"SELECT students.`NAME` FROM `students` JOIN `student_projects` ON `student_projects`.`STUDENT_ID`=`students`.`ID`WHERE `student_projects`.`STATUS_ID`=(SELECT id FROM seed_status WHERE NAME='COMPLETED') AND `students`.`DEPARTMENT_ID`="
+					"SELECT students.`NAME` FROM `students` JOIN `student_projects` ON `student_projects`.`STUDENT_ID`=`students`.`ID`WHERE `student_projects`.`STATUS_ID`=(SELECT id FROM seed_status WHERE NAME='COMPLETED') AND  `students`.`IS_ACTIVE`=TRUE AND `students`.`DEPARTMENT_ID`="
 							+ departmentId + "  AND `students`.`COLLEGE_ID`=" + collegeId
 							+ " GROUP BY `STUDENT_ID` ORDER BY COUNT(`PROJECT_ID`) DESC LIMIT 5");
 			activeProjects = dataRetriver.retrieveBySQL(sb.toString());
@@ -68,7 +68,7 @@ public class DashboardDAOImpl implements DashboardDAO {
 		List<StudentCourse> trendingCourses = null;
 		try {
 			StringBuilder sb = new StringBuilder(
-					"SELECT courses.`NAME` ,COUNT(`student_id`) FROM `student_courses` JOIN `courses` ON `courses`.`ID`=`student_courses`.`COURSE_ID` JOIN `students`  ON students.`ID`=student_courses.`STUDENT_ID` WHERE `students`.`COLLEGE_ID`="
+					"SELECT courses.`NAME` ,COUNT(`student_id`) as 'Trending course count' FROM `student_courses` JOIN `courses` ON `courses`.`ID`=`student_courses`.`COURSE_ID` JOIN `students`  ON students.`ID`=student_courses.`STUDENT_ID` WHERE `courses`.`IS_ACTIVE`=TRUE AND `students`.`COLLEGE_ID`="
 							+ collegeId
 							+ " GROUP BY `student_courses`.`COURSE_ID` ORDER BY COUNT(`COURSE_ID`) DESC LIMIT 5");
 			trendingCourses = dataRetriver.retrieveBySQL(sb.toString());
@@ -85,7 +85,7 @@ public class DashboardDAOImpl implements DashboardDAO {
 		List<StudentProject> trendingProjects = null;
 		try {
 			StringBuilder sb = new StringBuilder(
-					"SELECT projects.`NAME`  ,COUNT(`student_id`) FROM `student_projects` JOIN `projects` ON `projects`.`ID`=`student_projects`.`PROJECT_ID` JOIN `students` ON students.`ID`=student_projects.`STUDENT_ID` WHERE `students`.`COLLEGE_ID`="
+					"SELECT projects.`NAME`  ,COUNT(`student_id`) as 'Trending project count' FROM `student_projects` JOIN `projects` ON `projects`.`ID`=`student_projects`.`PROJECT_ID` JOIN `students` ON students.`ID`=student_projects.`STUDENT_ID` WHERE projects.`IS_ACTIVE`=TRUE AND `students`.`COLLEGE_ID`="
 							+ collegeId
 							+ " GROUP BY `student_projects`.`PROJECT_ID` ORDER BY COUNT(`PROJECT_ID`) DESC LIMIT 5");
 			trendingProjects = dataRetriver.retrieveBySQL(sb.toString());
