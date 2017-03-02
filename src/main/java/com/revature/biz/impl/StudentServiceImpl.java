@@ -71,6 +71,21 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	@Override
+	public List<Student> getOverAllStudentDetail(Integer collegeId, Integer departmentId)
+			throws BusinessServiceException {
+		List<Student> overAllStudentDetail = null;
+		try {
+			overAllStudentDetail = studentDAO.getOverAllStudentDetail(collegeId, departmentId);
+			logger.info("Over All Student Detail retrieved successfully");
+		} catch (DataServiceException e) {
+			logger.error(e.getMessage(), e);
+			throw new BusinessServiceException(e.getMessage(), e);
+		}
+		return overAllStudentDetail;
+	}
+
+	
+	@Override
 	public List<Student> getOverAllStudentByCurrentCourses(Integer collegeId, Integer departmentId)
 			throws BusinessServiceException {
 		List<Student> overAllStudentByCurrentCourses = null;

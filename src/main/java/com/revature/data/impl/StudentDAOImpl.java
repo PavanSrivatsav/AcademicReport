@@ -108,6 +108,23 @@ public class StudentDAOImpl implements StudentDAO {
 		}
 		return individualStudentByProjects;
 	}
+	@Override
+	public List<Student> getOverAllStudentDetail(Integer collegeId, Integer departmentId)
+			throws DataServiceException {
+		List<Student> overAllStudentDetail = null;
+		try {
+			StringBuilder sb = new StringBuilder(
+					"SELECT students.`NAME`,seed_departments.`NAME` as 'department name',`students`.`EMAIL_ID` FROM  students JOIN `seed_departments` ON `students`.`DEPARTMENT_ID`=`seed_departments`.`ID` AND `seed_departments`.`IS_ACTIVE`=TRUE  WHERE students.`COLLEGE_ID`="
+							+ collegeId + " AND students.`DEPARTMENT_ID`=" + departmentId
+							+ " AND student_courses.`STATUS_ID`=(SELECT id FROM `seed_status` WHERE `seed_status`.`NAME`='IN PROGRESS')");
+			overAllStudentDetail = dataRetriver.retrieveBySQL(sb.toString());
+			logger.info("Over All Student By Current Courses data retrieval success..");
+		} catch (DataAccessException e) {
+			logger.error(e.getMessage(), e);
+			throw new DataServiceException(DataUtils.getPropertyMessage("data_retrieval_fail"), e);
+		}
+		return overAllStudentDetail;
+	}
 
 	@Override
 	public List<Student> getOverAllStudentByCurrentCourses(Integer collegeId, Integer departmentId)
@@ -115,7 +132,7 @@ public class StudentDAOImpl implements StudentDAO {
 		List<Student> overAllStudentByCurrentCourses = null;
 		try {
 			StringBuilder sb = new StringBuilder(
-					"SELECT students.`NAME`,seed_departments.`NAME` as 'department name',`students`.`EMAIL_ID`,courses.`NAME` as 'Current courses name' FROM students JOIN student_courses ON students.`ID`=student_courses.`STUDENT_ID` AND `students`.`IS_ACTIVE`=TRUE JOIN `seed_departments` ON `students`.`DEPARTMENT_ID`=`seed_departments`.`ID` AND `seed_departments`.`IS_ACTIVE`=TRUE JOIN courses ON courses.`ID`=student_courses.`COURSE_ID` AND `courses`.`IS_ACTIVE`=TRUE WHERE students.`COLLEGE_ID`="
+					"SELECT DISTINCT courses.`NAME` as 'Current courses name' FROM students JOIN student_courses ON students.`ID`=student_courses.`STUDENT_ID` AND `students`.`IS_ACTIVE`=TRUE JOIN `seed_departments` ON `students`.`DEPARTMENT_ID`=`seed_departments`.`ID` AND `seed_departments`.`IS_ACTIVE`=TRUE JOIN courses ON courses.`ID`=student_courses.`COURSE_ID` AND `courses`.`IS_ACTIVE`=TRUE WHERE students.`COLLEGE_ID`="
 							+ collegeId + " AND students.`DEPARTMENT_ID`=" + departmentId
 							+ " AND student_courses.`STATUS_ID`=(SELECT id FROM `seed_status` WHERE `seed_status`.`NAME`='IN PROGRESS')");
 			overAllStudentByCurrentCourses = dataRetriver.retrieveBySQL(sb.toString());
@@ -133,7 +150,7 @@ public class StudentDAOImpl implements StudentDAO {
 		List<Student> overAllStudentByCompletedCourses = null;
 		try {
 			StringBuilder sb = new StringBuilder(
-					"SELECT students.`NAME`,seed_departments.`NAME` as 'department name',`students`.`EMAIL_ID`,courses.`NAME` as 'Completed courses name' FROM students JOIN student_courses ON students.`ID`=student_courses.`STUDENT_ID` AND `students`.`IS_ACTIVE`=TRUE JOIN `seed_departments` ON `students`.`DEPARTMENT_ID`=`seed_departments`.`ID` AND `seed_departments`.`IS_ACTIVE`=TRUE JOIN courses ON courses.`ID`=student_courses.`COURSE_ID` AND `courses`.`IS_ACTIVE`=TRUE WHERE students.`COLLEGE_ID`="
+					"SELECT DISTINCT courses.`NAME` as 'Completed courses name' FROM students JOIN student_courses ON students.`ID`=student_courses.`STUDENT_ID` AND `students`.`IS_ACTIVE`=TRUE JOIN `seed_departments` ON `students`.`DEPARTMENT_ID`=`seed_departments`.`ID` AND `seed_departments`.`IS_ACTIVE`=TRUE JOIN courses ON courses.`ID`=student_courses.`COURSE_ID` AND `courses`.`IS_ACTIVE`=TRUE WHERE students.`COLLEGE_ID`="
 							+ collegeId + " AND students.`DEPARTMENT_ID`=" + departmentId
 							+ " AND student_courses.`STATUS_ID`=(SELECT id FROM `seed_status` WHERE `seed_status`.`NAME`='COMPLETED') ");
 			overAllStudentByCompletedCourses = dataRetriver.retrieveBySQL(sb.toString());
@@ -151,7 +168,7 @@ public class StudentDAOImpl implements StudentDAO {
 		List<Student> overAllStudentByCurrentProjects = null;
 		try {
 			StringBuilder sb = new StringBuilder(
-					"SELECT students.`NAME`,seed_departments.`NAME` as 'department name',`students`.`EMAIL_ID`,projects.`NAME` as 'Current projects name' FROM students JOIN `student_projects` ON students.`ID`=student_projects.`STUDENT_ID` AND `students`.`IS_ACTIVE`=TRUE JOIN `seed_departments` ON `students`.`DEPARTMENT_ID`=`seed_departments`.`ID` AND `seed_departments`.`IS_ACTIVE`=TRUE JOIN `projects` ON projects.`ID`=`student_projects`.`PROJECT_ID` AND projects.`IS_ACTIVE`=TRUE WHERE students.`COLLEGE_ID`="
+					"SELECT DISTINCT projects.`NAME` as 'Current projects name' FROM students JOIN `student_projects` ON students.`ID`=student_projects.`STUDENT_ID` AND `students`.`IS_ACTIVE`=TRUE JOIN `seed_departments` ON `students`.`DEPARTMENT_ID`=`seed_departments`.`ID` AND `seed_departments`.`IS_ACTIVE`=TRUE JOIN `projects` ON projects.`ID`=`student_projects`.`PROJECT_ID` AND projects.`IS_ACTIVE`=TRUE WHERE students.`COLLEGE_ID`="
 							+ collegeId + " AND students.`DEPARTMENT_ID`=" + departmentId
 							+ " AND student_projects.`STATUS_ID`=(SELECT id FROM `seed_status` WHERE `seed_status`.`NAME`='IN PROGRESS')");
 			overAllStudentByCurrentProjects = dataRetriver.retrieveBySQL(sb.toString());
@@ -169,7 +186,7 @@ public class StudentDAOImpl implements StudentDAO {
 		List<Student> overAllStudentByCompletedProjects = null;
 		try {
 			StringBuilder sb = new StringBuilder(
-					"SELECT students.`NAME`,seed_departments.`NAME` as 'department name',`students`.`EMAIL_ID`,projects.`NAME` as 'Completed projects name' FROM students JOIN `student_projects` ON students.`ID`=student_projects.`STUDENT_ID` AND `students`.`IS_ACTIVE`=TRUE JOIN `seed_departments` ON `students`.`DEPARTMENT_ID`=`seed_departments`.`ID` AND `seed_departments`.`IS_ACTIVE`=TRUE JOIN `projects` ON projects.`ID`=`student_projects`.`PROJECT_ID` AND projects.`IS_ACTIVE`=TRUE WHERE students.`COLLEGE_ID`="
+					"SELECT DISTINCT projects.`NAME` as 'Completed projects name' FROM students JOIN `student_projects` ON students.`ID`=student_projects.`STUDENT_ID` AND `students`.`IS_ACTIVE`=TRUE JOIN `seed_departments` ON `students`.`DEPARTMENT_ID`=`seed_departments`.`ID` AND `seed_departments`.`IS_ACTIVE`=TRUE JOIN `projects` ON projects.`ID`=`student_projects`.`PROJECT_ID` AND projects.`IS_ACTIVE`=TRUE WHERE students.`COLLEGE_ID`="
 							+ collegeId + " AND students.`DEPARTMENT_ID`=" + departmentId
 							+ " AND student_projects.`STATUS_ID`=(SELECT id FROM `seed_status` WHERE `seed_status`.`NAME`='COMPLETED')");
 			overAllStudentByCompletedProjects = dataRetriver.retrieveBySQL(sb.toString());
