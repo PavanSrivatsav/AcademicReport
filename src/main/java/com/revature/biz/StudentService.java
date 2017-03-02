@@ -33,4 +33,7 @@ public interface StudentService {
 
 	List<Student> getOverAllStudentByCompletedProjects(Integer collegeId, Integer departmentId)
 			throws BusinessServiceException;
+	
+	List<Student> getOverAllStudentDetail(Integer collegeId, Integer departmentId)
+			throws BusinessServiceException;
 }

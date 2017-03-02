@@ -74,6 +74,22 @@ public class StudentController {
 		}
 		return individualStudentByProjects;
 	}
+	@GetMapping("/overall/student/detail/collegeId/{collegeId}/departmentId/{departmentId}")
+	public List<Student> getOverAllStudentDetail(@PathVariable("collegeId") int collegeId,@PathVariable("departmentId") int departmentId) {
+		List<Student> overAllStudentDetail = null;
+		try {
+			logger.info("Getting the Over All Student Detail data...");
+			overAllStudentDetail = studentService.getOverAllStudentDetail(collegeId, departmentId);
+			logger.info("Over All Student Detail data retrieval success.");
+		} catch (BusinessServiceException e) {
+			logger.error(e.getMessage(), e);
+			throw new InvalidInputException(e.getMessage(), e);
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			throw new InternalException("System has some issue...", e);
+		}
+		return overAllStudentDetail;
+	}
 	
 	@GetMapping("/overall/student/current/courses/collegeId/{collegeId}/departmentId/{departmentId}")
 	public List<Student> getOverAllStudentByCurrentCourses(@PathVariable("collegeId") int collegeId,@PathVariable("departmentId") int departmentId) {

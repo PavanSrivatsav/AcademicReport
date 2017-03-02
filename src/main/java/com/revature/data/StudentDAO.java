@@ -35,5 +35,7 @@ public interface StudentDAO {
 
 	public List<Student> getOverAllStudentByCompletedProjects(Integer collegeId, Integer departmentId)
 			throws DataServiceException;
+	public List<Student> getOverAllStudentDetail(Integer collegeId, Integer departmentId)
+			throws DataServiceException;
 
 }
