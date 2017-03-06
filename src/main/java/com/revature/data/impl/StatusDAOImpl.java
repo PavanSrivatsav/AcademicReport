@@ -33,7 +33,7 @@ public class StatusDAOImpl implements StatusDAO {
 		List<Status> status = null;
 		try {
 			StringBuilder sb = new StringBuilder("select * from seed_status");
-			status = dataRetriver.retrieveBySQL(sb.toString());
+			status = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
 			logger.info("Status data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
@@ -47,7 +47,7 @@ public class StatusDAOImpl implements StatusDAO {
 		List<Status> statusById = null;
 		try {
 			StringBuilder sb = new StringBuilder("select * from seed_status where ID=" + id);
-			statusById = dataRetriver.retrieveBySQL(sb.toString());
+			statusById = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
 			logger.info("Status by id data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
@@ -61,7 +61,7 @@ public class StatusDAOImpl implements StatusDAO {
 		List<Status> statusByName = null;
 		try {
 			StringBuilder sb = new StringBuilder("select * from seed_status where Name='" + name + "'");
-			statusByName = dataRetriver.retrieveBySQL(sb.toString());
+			statusByName = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
 			logger.info("Status by name data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);

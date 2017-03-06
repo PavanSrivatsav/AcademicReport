@@ -33,7 +33,7 @@ public class ProjectDAOImpl implements ProjectDAO {
 		List<Project> projects = null;
 		try {
 			StringBuilder sb = new StringBuilder("select * from projects p where p.IS_ACTIVE=true");
-			projects = dataRetriver.retrieveBySQL(sb.toString());
+			projects = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
 			logger.info("Projects data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
@@ -47,7 +47,7 @@ public class ProjectDAOImpl implements ProjectDAO {
 		List<Project> projectById = null;
 		try {
 			StringBuilder sb = new StringBuilder("select * from projects p where ID=" + id + " and p.IS_ACTIVE=true");
-			projectById = dataRetriver.retrieveBySQL(sb.toString());
+			projectById = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
 			logger.info("Projects by id data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
@@ -62,7 +62,7 @@ public class ProjectDAOImpl implements ProjectDAO {
 		try {
 			StringBuilder sb = new StringBuilder(
 					"select * from projects p where NAME='" + projectName + "' and p.IS_ACTIVE=true");
-			projectByName = dataRetriver.retrieveBySQL(sb.toString());
+			projectByName = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
 			logger.info("Projects by name data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
@@ -77,7 +77,7 @@ public class ProjectDAOImpl implements ProjectDAO {
 		try {
 			StringBuilder sb = new StringBuilder(
 					"select * from projects p where CATEGORY_ID=" + categoryId + " and p.IS_ACTIVE=true");
-			projectByCategoryId = dataRetriver.retrieveBySQL(sb.toString());
+			projectByCategoryId = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
 			logger.info("Projects by category id data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
@@ -93,7 +93,7 @@ public class ProjectDAOImpl implements ProjectDAO {
 			StringBuilder sb = new StringBuilder(
 					"SELECT NAME,DESCRIPTION FROM projects WHERE id IN (SELECT DISTINCT projects.`ID` FROM `student_projects` JOIN `projects` ON `projects`.`ID`=`student_projects`.`PROJECT_ID` JOIN `students` ON students.`ID`=student_projects.`STUDENT_ID` WHERE `students`.`IS_ACTIVE`=TRUE AND projects.`IS_ACTIVE`=TRUE AND `students`.`COLLEGE_ID`= "
 							+ collegeId + " )");
-			projectOverAllDetail = dataRetriver.retrieveBySQL(sb.toString());
+			projectOverAllDetail = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
 			logger.info("Projects over all details data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
@@ -109,7 +109,7 @@ public class ProjectDAOImpl implements ProjectDAO {
 			StringBuilder sb = new StringBuilder(
 					"SELECT  `projects`.`NAME`,`projects`.`DESCRIPTION`,`project_sprints`.`SPRINT_NAME`,`project_sprint_activities`.`ONLINE_ACTIVITY`,`project_sprint_activities`.`OFFLINE_ACTIVITY`,`quizzes`.`NAME` as 'Quiz name',`videos`.`NAME` as 'Video name',`videos`.`URL` ,`courses`.`NAME` as 'Course name' FROM `projects` JOIN `project_sprints`ON `projects`.`ID`=`project_sprints`.`PROJECT_ID` JOIN `project_sprint_activities` ON `project_sprints`.`ID`=`project_sprint_activities`.`PROJECT_SPRINT_ID` LEFT JOIN `videos` ON `project_sprint_activities`.`VIDEO_ID`=`videos`.`ID` LEFT JOIN`courses` ON `project_sprint_activities`.`COURSE_ID`=`courses`.`ID`LEFT JOIN `quizzes` ON `project_sprint_activities`.`QUIZ_ID`=`quizzes`.`ID` WHERE projects.`IS_ACTIVE`=TRUE AND projects.`ID`="
 							+ projectId);
-			projectDetail = dataRetriver.retrieveBySQL(sb.toString());
+			projectDetail = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
 			logger.info("Projects details data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
@@ -125,7 +125,7 @@ public class ProjectDAOImpl implements ProjectDAO {
 			StringBuilder sb = new StringBuilder(
 					"SELECT DISTINCT COUNT(projects.`ID`) as 'Project Count' FROM projects JOIN project_sprints ON projects.`ID`=project_sprints.`PROJECT_ID` JOIN project_sprint_activities ON project_sprints.`ID`=project_sprint_activities.`PROJECT_SPRINT_ID` WHERE projects.`IS_ACTIVE`=TRUE AND projects.`ID`="
 							+ projectId);
-			totalProjectCount = dataRetriver.retrieveBySQL(sb.toString());
+			totalProjectCount = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
 			logger.info("TotalProjectCount data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);

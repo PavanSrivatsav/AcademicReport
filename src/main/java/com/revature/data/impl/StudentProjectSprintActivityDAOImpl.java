@@ -33,7 +33,7 @@ public class StudentProjectSprintActivityDAOImpl implements StudentProjectSprint
 		List<StudentProjectSprintActivity> studentProjectsSprint = null;
 		try {
 			StringBuilder sb = new StringBuilder("select * from student_project_sprint_activities");
-			studentProjectsSprint = dataRetriver.retrieveBySQL(sb.toString());
+			studentProjectsSprint = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
 			logger.info("StudentProjectsSprintActivities data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
@@ -49,7 +49,7 @@ public class StudentProjectSprintActivityDAOImpl implements StudentProjectSprint
 		try {
 			StringBuilder sb = new StringBuilder(
 					"select * from student_project_sprint_activities where ID='" + id + "'");
-			studentProjectSprintActivitiesById = dataRetriver.retrieveBySQL(sb.toString());
+			studentProjectSprintActivitiesById = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
 			logger.info("StudentProjectsSprints data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
@@ -66,7 +66,7 @@ public class StudentProjectSprintActivityDAOImpl implements StudentProjectSprint
 			StringBuilder sb = new StringBuilder(
 					"select * from student_project_sprint_activities where PROJECT_SPRINT_ACTIVITY_ID=' "
 							+ projectSprintActivityId + " ' ");
-			studentProjectSprintActivitiesByProjectSprintActivityId = dataRetriver.retrieveBySQL(sb.toString());
+			studentProjectSprintActivitiesByProjectSprintActivityId = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
 			logger.info("StudentProjectsSprints data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
@@ -83,7 +83,7 @@ public class StudentProjectSprintActivityDAOImpl implements StudentProjectSprint
 			StringBuilder sb = new StringBuilder(
 					" select * from student_project_sprint_activities where STUDENT_PROJECT_SPRINT_ID=' "
 							+ studentProjectSprintId + " ' ");
-			studentProjectSprintActivitiesByStudentProjectSprintId = dataRetriver.retrieveBySQL(sb.toString());
+			studentProjectSprintActivitiesByStudentProjectSprintId = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
 			logger.info("StudentProjectsSprints data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);

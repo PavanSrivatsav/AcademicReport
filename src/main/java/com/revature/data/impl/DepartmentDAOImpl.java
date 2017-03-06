@@ -33,7 +33,7 @@ public class DepartmentDAOImpl implements DepartmentDAO {
 		List<Department> departments = null;
 		try {
 			StringBuilder sb = new StringBuilder("select * from seed_departments d where d.IS_ACTIVE=true");
-			departments = dataRetriver.retrieveBySQL(sb.toString());
+			departments = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
 			logger.info("Departments data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
@@ -48,7 +48,7 @@ public class DepartmentDAOImpl implements DepartmentDAO {
 		try {
 			StringBuilder sb = new StringBuilder(
 					"select * from seed_departments d where ID=" + id + " and d.IS_ACTIVE=true");
-			departmentsById = dataRetriver.retrieveBySQL(sb.toString());
+			departmentsById = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
 			logger.info("Departments by id data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
@@ -63,7 +63,7 @@ public class DepartmentDAOImpl implements DepartmentDAO {
 		try {
 			StringBuilder sb = new StringBuilder(
 					"select * from seed_departments d where NAME='" + departmentName + "' and d.IS_ACTIVE=true");
-			departmentsByName = dataRetriver.retrieveBySQL(sb.toString());
+			departmentsByName = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
 			logger.info("Departments by name data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);

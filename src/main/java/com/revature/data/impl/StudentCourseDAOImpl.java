@@ -33,7 +33,7 @@ public class StudentCourseDAOImpl implements StudentCourseDAO {
 		List<StudentCourse> studentCourses = null;
 		try {
 			StringBuilder sb = new StringBuilder("select * from student_courses");
-			studentCourses = dataRetriver.retrieveBySQL(sb.toString());
+			studentCourses = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
 			logger.info("StudentCourses data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
@@ -47,7 +47,7 @@ public class StudentCourseDAOImpl implements StudentCourseDAO {
 		List<StudentCourse> studentCourses = null;
 		try {
 			StringBuilder sb = new StringBuilder("select * from student_courses where ID='" + studentCourseId + "'");
-			studentCourses = dataRetriver.retrieveBySQL(sb.toString());
+			studentCourses = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
 			logger.info("StudentCourses data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
@@ -61,7 +61,7 @@ public class StudentCourseDAOImpl implements StudentCourseDAO {
 		List<StudentCourse> studentCourses = null;
 		try {
 			StringBuilder sb = new StringBuilder("select * from student_courses where ID='" + studentId + "'");
-			studentCourses = dataRetriver.retrieveBySQL(sb.toString());
+			studentCourses = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
 			logger.info("StudentCourses data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
@@ -75,7 +75,7 @@ public class StudentCourseDAOImpl implements StudentCourseDAO {
 		List<StudentCourse> studentCourses = null;
 		try {
 			StringBuilder sb = new StringBuilder("select * from student_courses where ID='" + courseId + "'");
-			studentCourses = dataRetriver.retrieveBySQL(sb.toString());
+			studentCourses = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
 			logger.info("StudentCourses data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
@@ -91,7 +91,7 @@ public class StudentCourseDAOImpl implements StudentCourseDAO {
 			StringBuilder sb = new StringBuilder(
 					"SELECT COUNT(courses.`ID`) FROM courses JOIN student_courses ON courses.`ID`=student_courses.`COURSE_ID` JOIN student_course_contents ON student_course_contents.`STUDENT_COURSE_ID`=student_courses.`ID` WHERE courses.`IS_ACTIVE`=TRUE AND student_course_contents.`STATUS_ID`=(SELECT id FROM `seed_status` WHERE `seed_status`.`NAME`='COMPLETED')   AND student_courses.`STUDENT_ID`="
 							+ studentId + " AND courses.`ID`= " + courseId);
-			completedStudentCourseCount = dataRetriver.retrieveBySQL(sb.toString());
+			completedStudentCourseCount = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
 			logger.info("Completed Student Course Count data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);

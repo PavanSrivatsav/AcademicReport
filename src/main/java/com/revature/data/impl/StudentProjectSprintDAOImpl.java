@@ -33,7 +33,7 @@ public class StudentProjectSprintDAOImpl implements StudentProjectSprintDAO {
 		List<StudentProjectSprint> studentProjectsSprint = null;
 		try {
 			StringBuilder sb = new StringBuilder("select * from student_project_sprints");
-			studentProjectsSprint = dataRetriver.retrieveBySQL(sb.toString());
+			studentProjectsSprint = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
 			logger.info("StudentProjectsSprints data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
@@ -49,7 +49,7 @@ public class StudentProjectSprintDAOImpl implements StudentProjectSprintDAO {
 		try {
 			StringBuilder sb = new StringBuilder(
 					"select * from student_project_sprints where ID='" + studentProjectSprintId + "'");
-			studentProjectById = dataRetriver.retrieveBySQL(sb.toString());
+			studentProjectById = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
 			logger.info("StudentProjectsSprints data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
@@ -65,7 +65,7 @@ public class StudentProjectSprintDAOImpl implements StudentProjectSprintDAO {
 		try {
 			StringBuilder sb = new StringBuilder(
 					"select * from student_project_sprints where PROJECT_SPRINT_ID=' " + sprintId + " ' ");
-			studentProjectBySprntId = dataRetriver.retrieveBySQL(sb.toString());
+			studentProjectBySprntId = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
 			logger.info("StudentProjectsSprints data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
@@ -81,7 +81,7 @@ public class StudentProjectSprintDAOImpl implements StudentProjectSprintDAO {
 		try {
 			StringBuilder sb = new StringBuilder(
 					" select * from student_project_sprints where STUDENT_PROJECT_ID=' " + projectId + " ' ");
-			studentProjectByStudentProjId = dataRetriver.retrieveBySQL(sb.toString());
+			studentProjectByStudentProjId = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
 			logger.info("StudentProjectsSprints data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);

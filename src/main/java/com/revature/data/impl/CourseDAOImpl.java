@@ -33,7 +33,7 @@ public class CourseDAOImpl implements CourseDAO {
 		try {
 			StringBuilder sb = new StringBuilder("select * from courses c where c.IS_ACTIVE=true");
 			logger.info("Courses data retrieval success..");
-			return dataRetriver.retrieveBySQL(sb.toString());
+			return dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
 			throw new DataServiceException(DataUtils.getPropertyMessage("data_retrieval_fail"), e);
@@ -45,7 +45,7 @@ public class CourseDAOImpl implements CourseDAO {
 		List<Course> coursesById = null;
 		try {
 			StringBuilder sb = new StringBuilder("select * from courses c where c.ID=" + id + " and c.IS_ACTIVE=true");
-			coursesById = dataRetriver.retrieveBySQL(sb.toString());
+			coursesById = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
 			logger.info("Courses by id data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
@@ -60,7 +60,7 @@ public class CourseDAOImpl implements CourseDAO {
 		try {
 			StringBuilder sb = new StringBuilder(
 					"select * from courses c where c.NAME='" + courseName + "' and c.IS_ACTIVE=true");
-			coursesByName = dataRetriver.retrieveBySQL(sb.toString());
+			coursesByName = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
 			logger.info("Courses by course name data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
@@ -75,7 +75,7 @@ public class CourseDAOImpl implements CourseDAO {
 		try {
 			StringBuilder sb = new StringBuilder(
 					"select * from courses c where c.CATEGORY_ID=" + categoryId + " and c.IS_ACTIVE=true");
-			coursesByCategoryId = dataRetriver.retrieveBySQL(sb.toString());
+			coursesByCategoryId = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
 			logger.info("Courses by category id data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
@@ -91,7 +91,7 @@ public class CourseDAOImpl implements CourseDAO {
 			StringBuilder sb = new StringBuilder(
 					"SELECT NAME,DESCRIPTION FROM courses WHERE id IN (SELECT DISTINCT courses.`ID` FROM `student_courses` JOIN `courses` ON `courses`.`ID`=`student_courses`.`COURSE_ID` JOIN `students` ON students.`ID`=student_courses.`STUDENT_ID` WHERE `students`.`IS_ACTIVE`=TRUE AND `courses`.`IS_ACTIVE`=TRUE AND `students`.`COLLEGE_ID`= "
 							+ collegeId + " )");
-			courseOverAllDetail = dataRetriver.retrieveBySQL(sb.toString());
+			courseOverAllDetail = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
 			logger.info("Courses over all details data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
@@ -107,7 +107,7 @@ public class CourseDAOImpl implements CourseDAO {
 			StringBuilder sb = new StringBuilder(
 					"SELECT c.NAME,cc.TEXT_CONTENT,v.NAME as 'videoname',v.`URL` FROM course_contents cc JOIN courses c ON cc.COURSE_ID=c.`ID` LEFT JOIN `videos` v ON  v.`ID`=cc.`VIDEO_ID` WHERE `courses`.`IS_ACTIVE`=TRUE  AND c.`ID`="
 							+ courseId);
-			courseDetail = dataRetriver.retrieveBySQL(sb.toString());
+			courseDetail = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
 			logger.info("Courses details data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
@@ -123,7 +123,7 @@ public class CourseDAOImpl implements CourseDAO {
 			StringBuilder sb = new StringBuilder(
 					"SELECT COUNT(courses.`ID`) as 'course count' FROM courses JOIN course_contents ON courses.`ID`=course_contents.`COURSE_ID` WHERE courses.`IS_ACTIVE`=TRUE AND courses.`ID`="
 							+ courseId);
-			totalCourseCount = dataRetriver.retrieveBySQL(sb.toString());
+			totalCourseCount = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
 			logger.info("Total Course Count data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);

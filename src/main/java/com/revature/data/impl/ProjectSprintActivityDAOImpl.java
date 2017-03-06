@@ -33,7 +33,7 @@ public class ProjectSprintActivityDAOImpl implements ProjectSprintActivityDAO {
 		List<ProjectSprintActivity> projectSprintActivities = null;
 		try {
 			StringBuilder sb = new StringBuilder("select * from project_sprint_activities p where p.IS_ACTIVE=true");
-			projectSprintActivities = dataRetriver.retrieveBySQL(sb.toString());
+			projectSprintActivities = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
 			logger.info("ProjectSprintActivitys data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);

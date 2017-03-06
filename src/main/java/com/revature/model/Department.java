@@ -15,7 +15,7 @@ import lombok.Data;
 @Table(name = "seed_departments")
 public class Department {
 
-	private Department() {
+	public Department() {
 
 	}
 

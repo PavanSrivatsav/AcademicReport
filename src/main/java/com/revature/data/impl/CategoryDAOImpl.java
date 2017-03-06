@@ -32,7 +32,7 @@ public class CategoryDAOImpl implements CategoryDAO {
 		List<Category> categories = null;
 		try {
 			StringBuilder sb = new StringBuilder("select * from seed_categories c where c.IS_ACTIVE=true");
-			categories = dataRetriver.retrieveBySQL(sb.toString());
+			categories = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
 			logger.info("Categories data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
@@ -47,7 +47,7 @@ public class CategoryDAOImpl implements CategoryDAO {
 		try {
 			StringBuilder sb = new StringBuilder(
 					"select * from seed_categories c where c.ID='" + categoryId + "' and c.IS_ACTIVE=true");
-			categoriesById = dataRetriver.retrieveBySQL(sb.toString());
+			categoriesById = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
 			logger.info("Category data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
@@ -62,7 +62,7 @@ public class CategoryDAOImpl implements CategoryDAO {
 		try {
 			StringBuilder sb = new StringBuilder(
 					"select * from seed_categories c where c.NAME='" + categoryName + "' and c.IS_ACTIVE=true");
-			categoriesByName = dataRetriver.retrieveBySQL(sb.toString());
+			categoriesByName = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
 			logger.info("Category data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);

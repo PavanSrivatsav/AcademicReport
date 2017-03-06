@@ -3,23 +3,27 @@ package com.revature.biz;
 import java.util.List;
 
 import com.revature.biz.exception.BusinessServiceException;
-import com.revature.model.User;
+import com.revature.model.dto.UserDTO;
 
 public interface UserService {
 	/**
 	 * @return
 	 * @throws BusinessServiceException
 	 */
-	List<User> getAllUsers() throws BusinessServiceException;
+	List<UserDTO> getAllUsers() throws BusinessServiceException;
 
-	List<User> getUserById(Integer userId) throws BusinessServiceException;
+	UserDTO getUserById(UserDTO userDTO) throws BusinessServiceException;
 
-	List<User> getUserByEmailId(String userEmailId) throws BusinessServiceException;
+	UserDTO getUserByEmailId(UserDTO userDTO) throws BusinessServiceException;
 
-	List<User> getUsersByCollegeId(Integer collegeId) throws BusinessServiceException;
+	List<UserDTO> getUsersByCollegeId(UserDTO userDTO) throws BusinessServiceException;
 
-	List<User> getUsersByDepartmentId(Integer departmentId) throws BusinessServiceException;
+	List<UserDTO> getUsersByDepartmentId(UserDTO userDTO) throws BusinessServiceException;
 
-	List<User> getUserByLogin(String userEmailId, String password) throws BusinessServiceException;
+	UserDTO getUserByLogin(UserDTO userDTO) throws BusinessServiceException;
+
+	String updateUserPassword(UserDTO userDTO, String newPassword) throws BusinessServiceException;
+
+	String insertUserPassword(UserDTO userDTO) throws BusinessServiceException;
 
 }

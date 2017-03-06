@@ -33,7 +33,7 @@ public class RoleDAOImpl implements RoleDAO {
 		List<Role> roles = null;
 		try {
 			StringBuilder sb = new StringBuilder("select * from seed_roles");
-			roles = dataRetriver.retrieveBySQL(sb.toString());
+			roles = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
 			logger.info("Roles data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
@@ -47,7 +47,7 @@ public class RoleDAOImpl implements RoleDAO {
 		List<Role> roleById = null;
 		try {
 			StringBuilder sb = new StringBuilder("select * from seed_roles where ID=" + id);
-			roleById = dataRetriver.retrieveBySQL(sb.toString());
+			roleById = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
 			logger.info("Role by id data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
@@ -61,7 +61,7 @@ public class RoleDAOImpl implements RoleDAO {
 		List<Role> roleByName = null;
 		try {
 			StringBuilder sb = new StringBuilder("select * from seed_roles where Name='" + name + "'");
-			roleByName = dataRetriver.retrieveBySQL(sb.toString());
+			roleByName = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
 			logger.info("Role by name data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);

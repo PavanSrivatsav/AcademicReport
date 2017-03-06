@@ -33,7 +33,7 @@ public class QuizDAOImpl implements QuizDAO {
 		List<Quiz> quizzes = null;
 		try {
 			StringBuilder sb = new StringBuilder("select * from quizzes q where q.IS_ACTIVE=true");
-			quizzes = dataRetriver.retrieveBySQL(sb.toString());
+			quizzes = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
 			logger.info("Quizzes data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
@@ -47,7 +47,7 @@ public class QuizDAOImpl implements QuizDAO {
 		List<Quiz> quizById = null;
 		try {
 			StringBuilder sb = new StringBuilder("select * from quizzes q where ID=" + id + " and q.IS_ACTIVE=true");
-			quizById = dataRetriver.retrieveBySQL(sb.toString());
+			quizById = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
 			logger.info("Quiz by id data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
@@ -62,7 +62,7 @@ public class QuizDAOImpl implements QuizDAO {
 		try {
 			StringBuilder sb = new StringBuilder(
 					"select * from quizzes q where NAME='" + name + "' and q.IS_ACTIVE=true");
-			quizByName = dataRetriver.retrieveBySQL(sb.toString());
+			quizByName = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
 			logger.info("Quiz by name data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);

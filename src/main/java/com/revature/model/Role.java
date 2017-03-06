@@ -16,7 +16,7 @@ import lombok.Data;
 
 public class Role {
 
-	private Role() {
+	public Role() {
 
 	}
 
