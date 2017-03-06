@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.revature.data.access.DataRetriver;
 import com.revature.data.access.exception.DataAccessException;
+import com.revature.model.dto.UserDTO;
 
 @Repository
 @SuppressWarnings("unchecked")
@@ -20,7 +21,38 @@ public class DataRetriverImpl implements DataRetriver {
 	@Autowired
 	private SessionFactory sessionFactory;
 
-	public <E> List<E> retrieveBySQL(String queryString) throws DataAccessException {
+	@SuppressWarnings("rawtypes")
+	@Override
+	public <E> List<E> retrieveBySQLAsJSON(String query, Class className) throws DataAccessException {
+		List<E> list = null;
+		try {
+			list = sessionFactory.getCurrentSession().createSQLQuery(query)
+					.setResultTransformer(Transformers.aliasToBean(className)).list();
+			logger.info("data retrieval success..");
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			throw new DataAccessException(e.getMessage(), e);
+		}
+		return list;
+	}
+
+	@SuppressWarnings("rawtypes")
+	@Override
+	public <E> Object retrieveBySQLAsObject(String query, Class className) throws DataAccessException {
+		UserDTO user = new UserDTO();
+		try {
+			user = (UserDTO) sessionFactory.getCurrentSession().createSQLQuery(query)
+					.setResultTransformer(Transformers.aliasToBean(className)).uniqueResult();
+			logger.info("data retrieval success..");
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			throw new DataAccessException(e.getMessage(), e);
+		}
+		return user;
+	}
+	
+	@Override
+	public <E> List<E> retrieveBySQLAsJSONInDAO(String queryString) throws DataAccessException {
 		List<E> list = null;
 		try {
 			list = sessionFactory.getCurrentSession().createSQLQuery(queryString)

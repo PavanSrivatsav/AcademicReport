@@ -33,7 +33,7 @@ public class CourseContentDAOImpl implements CourseContentDAO {
 		List<CourseContent> courseContents = null;
 		try {
 			StringBuilder sb = new StringBuilder("select * from course_contents c where c.IS_ACTIVE=true");
-			courseContents = dataRetriver.retrieveBySQL(sb.toString());
+			courseContents = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
 			logger.info("Course contents data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
@@ -48,7 +48,7 @@ public class CourseContentDAOImpl implements CourseContentDAO {
 		try {
 			StringBuilder sb = new StringBuilder(
 					"select * from course_contents c where c.ID=" + id + " and c.IS_ACTIVE=true");
-			courseContentsById = dataRetriver.retrieveBySQL(sb.toString());
+			courseContentsById = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
 			logger.info("Course contents by id data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
@@ -63,7 +63,7 @@ public class CourseContentDAOImpl implements CourseContentDAO {
 		try {
 			StringBuilder sb = new StringBuilder(
 					"select * from course_contents c where c.COURSE_ID=" + courseId + " and c.IS_ACTIVE=true");
-			courseContentByCourseId = dataRetriver.retrieveBySQL(sb.toString());
+			courseContentByCourseId = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
 			logger.info("Course contents by course id data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
@@ -78,7 +78,7 @@ public class CourseContentDAOImpl implements CourseContentDAO {
 		try {
 			StringBuilder sb = new StringBuilder(
 					"select * from course_contents c where c.VIDEO_ID=" + videoId + " and c.IS_ACTIVE=true");
-			courseContentByVideoId = dataRetriver.retrieveBySQL(sb.toString());
+			courseContentByVideoId = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
 			logger.info("Course contents by video id data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);

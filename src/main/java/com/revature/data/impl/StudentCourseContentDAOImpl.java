@@ -33,7 +33,7 @@ public class StudentCourseContentDAOImpl implements StudentCourseContentDAO {
 		List<StudentCourseContent> studentCoursesContents = null;
 		try {
 			StringBuilder sb = new StringBuilder("select * from student_course_contents");
-			studentCoursesContents = dataRetriver.retrieveBySQL(sb.toString());
+			studentCoursesContents = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
 			logger.info("StudentCourses data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
@@ -49,7 +49,7 @@ public class StudentCourseContentDAOImpl implements StudentCourseContentDAO {
 		try {
 			StringBuilder sb = new StringBuilder(
 					"select * from student_course_contents where COURSE_CONTENT_ID='" + courseContentId + "'");
-			studentCoursesContents = dataRetriver.retrieveBySQL(sb.toString());
+			studentCoursesContents = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
 			logger.info("StudentCourseContents data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
@@ -65,7 +65,7 @@ public class StudentCourseContentDAOImpl implements StudentCourseContentDAO {
 		try {
 			StringBuilder sb = new StringBuilder(
 					"select * from student_course_contents where STUDENT_COURSE_ID='" + studentCourseId + "'");
-			studentCoursesContents = dataRetriver.retrieveBySQL(sb.toString());
+			studentCoursesContents = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
 			logger.info("StudentCourses data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);

@@ -10,7 +10,10 @@ import com.revature.biz.UserService;
 import com.revature.biz.exception.BusinessServiceException;
 import com.revature.data.UserDAO;
 import com.revature.data.exception.DataServiceException;
+import com.revature.model.College;
+import com.revature.model.Department;
 import com.revature.model.User;
+import com.revature.model.dto.UserDTO;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -20,8 +23,8 @@ public class UserServiceImpl implements UserService {
 	private UserDAO userDAO;
 
 	@Override
-	public List<User> getAllUsers() throws BusinessServiceException {
-		List<User> users = null;
+	public List<UserDTO> getAllUsers() throws BusinessServiceException {
+		List<UserDTO> users = null;
 		try {
 			users = userDAO.getAllUsers();
 			logger.info("Users retrived successfully");
@@ -33,10 +36,12 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<User> getUserById(Integer userId) throws BusinessServiceException {
-		List<User> userById = null;
+	public UserDTO getUserById(UserDTO userDTO) throws BusinessServiceException {
+		UserDTO userById = new UserDTO();
+		User user = new User();
+		user.setId(userDTO.getId());
 		try {
-			userById = userDAO.getUserById(userId);
+			userById = userDAO.getUserById(user);
 			logger.info("User by id retrived successfully");
 		} catch (DataServiceException e) {
 			logger.error(e.getMessage(), e);
@@ -46,10 +51,12 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<User> getUserByEmailId(String userEmailId) throws BusinessServiceException {
-		List<User> userByEmailId = null;
+	public UserDTO getUserByEmailId(UserDTO userDTO) throws BusinessServiceException {
+		UserDTO userByEmailId = new UserDTO();
+		User user = new User();
+		user.setEmailId(userDTO.getEmailId());
 		try {
-			userByEmailId = userDAO.getUserByEmailId(userEmailId);
+			userByEmailId = userDAO.getUserByEmailId(user);
 			logger.info("User by email id retrived successfully");
 		} catch (DataServiceException e) {
 			logger.error(e.getMessage(), e);
@@ -59,10 +66,14 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<User> getUsersByCollegeId(Integer collegeId) throws BusinessServiceException {
-		List<User> userByCollegeId = null;
+	public List<UserDTO> getUsersByCollegeId(UserDTO userDTO) throws BusinessServiceException {
+		List<UserDTO> userByCollegeId=null;
+		User user = new User();
+		College college=new College();
+		college.setId(userDTO.getCollegeId());
+		user.setCollegeId(college);
 		try {
-			userByCollegeId = userDAO.getUsersByCollegeId(collegeId);
+			userByCollegeId = userDAO.getUsersByCollegeId(user);
 			logger.info("User by college id retrived successfully");
 		} catch (DataServiceException e) {
 			logger.error(e.getMessage(), e);
@@ -72,10 +83,14 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<User> getUsersByDepartmentId(Integer departmentId) throws BusinessServiceException {
-		List<User> userByDepartmentId = null;
+	public List<UserDTO> getUsersByDepartmentId(UserDTO userDTO) throws BusinessServiceException {
+		List<UserDTO> userByDepartmentId = null;
+		User user = new User();
+		Department department=new Department();
+		department.setId(userDTO.getDepartmentId());
+		user.setDepartmentId(department);
 		try {
-			userByDepartmentId = userDAO.getUsersByDepartmentId(departmentId);
+			userByDepartmentId = userDAO.getUsersByDepartmentId(user);
 			logger.info("User by department id retrived successfully");
 		} catch (DataServiceException e) {
 			logger.error(e.getMessage(), e);
@@ -85,24 +100,51 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<User> getUserByLogin(String userEmailId, String password) throws BusinessServiceException {
-		List<User> user = null;
+	public UserDTO getUserByLogin(UserDTO userDTO) throws BusinessServiceException {
+		UserDTO userDTOObj = new UserDTO();
 		try {
-			user = userDAO.getUserByLogin(userEmailId, password);
+			User user = new User();
+			user.setEmailId(userDTO.getEmailId());
+			user.setPassword(userDTO.getPassword());
+			userDTOObj = userDAO.getUserByLogin(user);
 			logger.info("User retrived successfully");
 		} catch (DataServiceException e) {
 			logger.error(e.getMessage(), e);
 			throw new BusinessServiceException(e.getMessage(), e);
 		}
-		return user;
+		return userDTOObj;
 	}
 
-	/*
-	 * @Override public List<User> getValues() throws BusinessServiceException {
-	 * List<User> users=null; try{ users=userDAO.getValues();
-	 * logger.info("Users retrived successfully"); } catch (DataServiceException
-	 * e) { logger.error(e.getMessage(), e); throw new
-	 * BusinessServiceException(e.getMessage(), e); } return users; }
-	 */
+	@Override
+	public String updateUserPassword(UserDTO userDTO, String newPassword) throws BusinessServiceException {
+		String msg = null;
+		try {
+			User user = new User();
+			user.setEmailId(userDTO.getEmailId());
+			user.setPassword(userDTO.getPassword());
+			msg = userDAO.updateUserPassword(user, newPassword);
+			logger.info("User password updated successfully");
+		} catch (DataServiceException e) {
+			logger.error(e.getMessage(), e);
+			throw new BusinessServiceException(e.getMessage(), e);
+		}
+		return msg;
+	}
+
+	@Override
+	public String insertUserPassword(UserDTO userDTO) throws BusinessServiceException {
+		String msg = null;
+		try {
+			User user = new User();
+			user.setEmailId(userDTO.getEmailId());
+			user.setPassword(userDTO.getPassword());
+			msg = userDAO.insertUserPassword(user);
+			logger.info("User password inserted successfully");
+		} catch (DataServiceException e) {
+			logger.error(e.getMessage(), e);
+			throw new BusinessServiceException(e.getMessage(), e);
+		}
+		return msg;
+	}
 
 }

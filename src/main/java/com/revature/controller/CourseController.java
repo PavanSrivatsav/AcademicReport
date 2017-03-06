@@ -26,7 +26,7 @@ public class CourseController {
 
 	@GetMapping("/list/all")
 
-	public List<?> getActiveCoursesController() {
+	public List<Course> getActiveCoursesController() {
 
 		List<Course> list = null;
 

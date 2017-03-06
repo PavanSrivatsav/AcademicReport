@@ -33,7 +33,7 @@ public class VideoDAOImpl implements VideoDAO {
 		List<Video> videos = null;
 		try {
 			StringBuilder sb = new StringBuilder("select * from videos v where v.IS_ACTIVE=true");
-			videos = dataRetriver.retrieveBySQL(sb.toString());
+			videos = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
 			logger.info("Users data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
@@ -48,7 +48,7 @@ public class VideoDAOImpl implements VideoDAO {
 		try {
 			StringBuilder sb = new StringBuilder(
 					"select * from videos v where v.ID='" + videoId + "' and v.IS_ACTIVE=true");
-			videos = dataRetriver.retrieveBySQL(sb.toString());
+			videos = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
 			logger.info("Users data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
@@ -63,7 +63,7 @@ public class VideoDAOImpl implements VideoDAO {
 		try {
 			StringBuilder sb = new StringBuilder(
 					"select * from videos v where v.NAME='" + videoName + "' and v.IS_ACTIVE=true");
-			videos = dataRetriver.retrieveBySQL(sb.toString());
+			videos = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
 			logger.info("Users data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);

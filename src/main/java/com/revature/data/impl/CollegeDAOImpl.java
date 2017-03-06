@@ -33,7 +33,7 @@ public class CollegeDAOImpl implements CollegeDAO {
 		List<College> colleges = null;
 		try {
 			StringBuilder sb = new StringBuilder("select * from colleges c where c.IS_ACTIVE=true");
-			colleges = dataRetriver.retrieveBySQL(sb.toString());
+			colleges = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
 			logger.info("Colleges data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
@@ -48,7 +48,7 @@ public class CollegeDAOImpl implements CollegeDAO {
 		try {
 			StringBuilder sb = new StringBuilder(
 					"select * from colleges c where c.ID=" + collegeId + " and c.IS_ACTIVE=true");
-			collegesById = dataRetriver.retrieveBySQL(sb.toString());
+			collegesById = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
 			logger.info("Colleges By id data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
@@ -63,7 +63,7 @@ public class CollegeDAOImpl implements CollegeDAO {
 		try {
 			StringBuilder sb = new StringBuilder(
 					"select * from colleges c where c.NAME='" + collegeName + "' and c.IS_ACTIVE=true");
-			collegesByName = dataRetriver.retrieveBySQL(sb.toString());
+			collegesByName = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
 			logger.info("Colleges By name data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
