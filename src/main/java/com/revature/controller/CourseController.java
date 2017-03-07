@@ -13,7 +13,8 @@ import com.revature.biz.CourseService;
 import com.revature.biz.exception.BusinessServiceException;
 import com.revature.controller.exception.InternalException;
 import com.revature.controller.exception.InvalidInputException;
-import com.revature.model.Course;
+import com.revature.model.dto.CollegeDTO;
+import com.revature.model.dto.CourseDTO;
 
 @RestController
 @RequestMapping("/courses")
@@ -24,15 +25,16 @@ public class CourseController {
 	@Autowired
 	private CourseService courseService;
 
-	@GetMapping("/list/all")
+	
+@GetMapping("/list/all")
 
-	public List<Course> getActiveCoursesController() {
+	public List<CourseDTO> getActiveCoursesController() {
 
-		List<Course> list = null;
+		List<CourseDTO> course = null;
 
 		try {
 			logger.info("Getting the courses data...");
-			list = courseService.getAllCourses();
+			course = courseService.getAllCourses();
 			logger.info("courses data retrieval success.");
 		} catch (BusinessServiceException e) {
 			logger.error(e.getMessage(), e);
@@ -41,15 +43,17 @@ public class CourseController {
 			logger.error(e.getMessage(), e);
 			throw new InternalException("System has some issue...", e);
 		}
-		return list;
+		return course;
 	}
 
-	@GetMapping("/list/id/{id}")
-	public List<Course> getActiveCategoriesController(@PathVariable("id") int courseId) {
-		List<Course> course = null;
+	@GetMapping("/list/{id}")
+	public CourseDTO getActiveCategoriesController(@PathVariable("id") Integer courseId) {
+		CourseDTO course = null;
+		CourseDTO courseDTO= new CourseDTO();
+		courseDTO.setId(courseId);
 		try {
 			logger.info("Getting the categories data...");
-			course = courseService.getCoursesById(courseId);
+			course = courseService.getCoursesById(courseDTO);
 			logger.info("course data retrieval success.");
 		} catch (BusinessServiceException e) {
 			logger.error(e.getMessage(), e);
@@ -62,11 +66,13 @@ public class CourseController {
 	}
 
 	@GetMapping("/list/name/{name}")
-	public List<Course> getActiveCategoriesByNameController(@PathVariable("name") String courseName) {
-		List<Course> course = null;
+	public CourseDTO getActiveCategoriesByNameController(@PathVariable("name") String courseName) {
+		CourseDTO course = null;
+		CourseDTO courseDTO=new CourseDTO();
+		courseDTO.setName(courseName);
 		try {
 			logger.info("Getting the categories data...");
-			course = courseService.getCourseByName(courseName);
+			course = courseService.getCourseByName(courseDTO);
 			logger.info("course data retrieval success.");
 		} catch (BusinessServiceException e) {
 			logger.error(e.getMessage(), e);
@@ -78,12 +84,14 @@ public class CourseController {
 		return course;
 	}
 
-	@GetMapping("/list/category/id/{id}")
-	public List<Course> getActiveCategoriesByCategoryIdController(@PathVariable("id") Integer categoryId) {
-		List<Course> course = null;
+	@GetMapping("/list/category/{id}")
+	public List<CourseDTO> getActiveCategoriesByCategoryIdController(@PathVariable("id") Integer categoryId) {
+		List<CourseDTO> course = null;
+		CourseDTO courseDTO = new CourseDTO();
+		courseDTO.setCategoryId(categoryId);
 		try {
 			logger.info("Getting the categories by category id data...");
-			course = courseService.getCourseByCategoryId(categoryId);
+			course = courseService.getCourseByCategoryId(courseDTO);
 			logger.info("categories by category id data retrieval success.");
 		} catch (BusinessServiceException e) {
 			logger.error(e.getMessage(), e);
@@ -94,12 +102,14 @@ public class CourseController {
 		}
 		return course;
 	}
-	@GetMapping("/list/course/overall/detail/collegeId/{collegeId}")
-	public List<Course> getCourseOverAllDetailController(@PathVariable("collegeId") Integer collegeId) {
-		List<Course> courseOverAllDetail = null;
+	@GetMapping("/list/course/overall/detail/college/{collegeId}")
+	public List<CollegeDTO> getCourseOverAllDetailController(@PathVariable("collegeId") Integer collegeId) {
+		List<CollegeDTO> courseOverAllDetail = null;
+		CollegeDTO collegeDTO= new CollegeDTO();
+		collegeDTO.setId(collegeId);
 		try {
 			logger.info("Getting the over all course details data...");
-			courseOverAllDetail = courseService.getCourseOverAllDetail(collegeId);
+			courseOverAllDetail = courseService.getCourseOverAllDetail(collegeDTO);
 			logger.info("Over all course details data retrieval success.");
 		} catch (BusinessServiceException e) {
 			logger.error(e.getMessage(), e);
@@ -111,12 +121,14 @@ public class CourseController {
 		return courseOverAllDetail;
 	}
 
-	@GetMapping("/list/course/detail/courseId/{courseId}")
-	public List<Course> getCourseDetailController(@PathVariable("courseId") Integer courseId) {
-		List<Course> courseDetail = null;
+	@GetMapping("/list/course/detail/course/{courseId}")
+	public List<CourseDTO> getCourseDetailController(@PathVariable("courseId") Integer courseId) {
+		List<CourseDTO> courseDetail = null;
+		CourseDTO courseDTO= new CourseDTO();
+		courseDTO.setId(courseId);
 		try {
 			logger.info("Getting the course details data...");
-			courseDetail = courseService.getCourseDetail(courseId);
+			courseDetail = courseService.getCourseDetail(courseDTO);
 			logger.info("Course details data retrieval success.");
 		} catch (BusinessServiceException e) {
 			logger.error(e.getMessage(), e);
@@ -129,12 +141,14 @@ public class CourseController {
 	}
 
 	
-	@GetMapping("/total/course/count/courseId/{courseId}")
-	public List<Course> getTotalCourseCountController(@PathVariable("courseId") Integer courseId) {
-		List<Course> totalCourseCount = null;
+	@GetMapping("/total/course/count/course/{courseId}")
+	public List<CourseDTO> getTotalCourseCountController(@PathVariable("courseId") Integer courseId) {
+		List<CourseDTO> totalCourseCount = null;
+		CourseDTO courseDTO= new CourseDTO();
+		courseDTO.setId(courseId);
 		try {
 			logger.info("Getting the Total Course Count data...");
-			totalCourseCount = courseService.getTotalCourseCount(courseId);
+			totalCourseCount = courseService.getTotalCourseCount(courseDTO);
 			logger.info("Total Course Count data retrieval success.");
 		} catch (BusinessServiceException e) {
 			logger.error(e.getMessage(), e);
