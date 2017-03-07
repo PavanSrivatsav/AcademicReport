@@ -13,7 +13,7 @@ import com.revature.biz.CourseContentService;
 import com.revature.biz.exception.BusinessServiceException;
 import com.revature.controller.exception.InternalException;
 import com.revature.controller.exception.InvalidInputException;
-import com.revature.model.CourseContent;
+import com.revature.model.dto.CourseContentDTO;
 
 @RestController
 @RequestMapping("/course/contents")
@@ -25,10 +25,10 @@ public class CourseContentController {
 	private CourseContentService courseContentService;
 
 	@GetMapping("/list/all")
-	public List<CourseContent> getActiveCategoriesController() {
-		List<CourseContent> courseContents = null;
+	public List<CourseContentDTO> getActiveCategoriesController() {
+		List<CourseContentDTO> courseContents = null;
 		try {
-			logger.info("Getting the categories data...");
+			logger.info("Getting the corse content data...");
 			courseContents = courseContentService.getAllCourseContents();
 			logger.info("course contents data retrieval success.");
 		} catch (BusinessServiceException e) {
@@ -41,12 +41,14 @@ public class CourseContentController {
 		return courseContents;
 	}
 
-	@GetMapping("/list/id/{id}")
-	public List<CourseContent> getActiveCategoriesByIdController(@PathVariable("id") Integer id) {
-		List<CourseContent> courseContentById = null;
+	@GetMapping("/list/{id}")
+	public CourseContentDTO getActiveCategoriesByIdController(@PathVariable("id") Integer id) {
+		CourseContentDTO courseContentById = null;
+		CourseContentDTO courseContentDTO = new CourseContentDTO();
+		courseContentDTO.setId(id);
 		try {
 			logger.info("Getting the categories by id data...");
-			courseContentById = courseContentService.getCourseContentById(id);
+			courseContentById = courseContentService.getCourseContentById(courseContentDTO);
 			logger.info("category data by id retrieval success.");
 		} catch (BusinessServiceException e) {
 			logger.error(e.getMessage(), e);
@@ -58,12 +60,14 @@ public class CourseContentController {
 		return courseContentById;
 	}
 
-	@GetMapping("/list/course/id/{id}")
-	public List<CourseContent> getActiveCategoriesByCourseIdController(@PathVariable("id") Integer courseId) {
-		List<CourseContent> courseContentById = null;
+	@GetMapping("/list/course/{id}")
+	public List<CourseContentDTO> getActiveCategoriesByCourseIdController(@PathVariable("id") Integer courseId) {
+		List<CourseContentDTO> courseContentById = null;
+		CourseContentDTO courseContentDTO = new CourseContentDTO();
+		courseContentDTO.setCourseId(courseId);
 		try {
-			logger.info("Getting the categories by course id data...");
-			courseContentById = courseContentService.getCourseContentByCourseId(courseId);
+			logger.info("Getting the course id by course id data...");
+			courseContentById = courseContentService.getCourseContentByCourseId(courseContentDTO);
 			logger.info("Categories by course id data retrieval success.");
 		} catch (BusinessServiceException e) {
 			logger.error(e.getMessage(), e);
@@ -75,12 +79,14 @@ public class CourseContentController {
 		return courseContentById;
 	}
 
-	@GetMapping("/list/video/id/{id}")
-	public List<CourseContent> getActiveCategoriesByVideoController(@PathVariable("id") Integer videoId) {
-		List<CourseContent> courseContentById = null;
-		try {
+	@GetMapping("/list/video/{id}")
+	public CourseContentDTO getActiveCategoriesByVideoController(@PathVariable("id") Integer videoId) {
+		CourseContentDTO courseContentById = null;
+		CourseContentDTO courseContentDTO = new CourseContentDTO();
+		courseContentDTO.setVideoId(videoId);
+				try {
 			logger.info("Getting the categories by video id data...");
-			courseContentById = courseContentService.getCourseContentByVideoId(videoId);
+			courseContentById = courseContentService.getCourseContentByVideoId(courseContentDTO);
 			logger.info("categories by video id data retrieval success.");
 		} catch (BusinessServiceException e) {
 			logger.error(e.getMessage(), e);

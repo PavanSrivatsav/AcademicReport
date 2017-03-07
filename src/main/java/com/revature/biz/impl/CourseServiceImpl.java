@@ -10,32 +10,43 @@ import com.revature.biz.CourseService;
 import com.revature.biz.exception.BusinessServiceException;
 import com.revature.data.CourseDAO;
 import com.revature.data.exception.DataServiceException;
+import com.revature.model.Category;
+import com.revature.model.College;
 import com.revature.model.Course;
+import com.revature.model.dto.CollegeDTO;
+import com.revature.model.dto.CourseDTO;
+
 
 @Service
 public class CourseServiceImpl implements CourseService {
 
 	private static Logger logger = Logger.getLogger(CourseServiceImpl.class);
 
-	@Autowired
+@Autowired
 	private CourseDAO courseDAO;
-
+	
 	@Override
-	public List<Course> getAllCourses() throws BusinessServiceException {
+	public List<CourseDTO> getAllCourses() throws BusinessServiceException {
+		List<CourseDTO> courses = null;
 		try {
+			courses = courseDAO.getAllCourses();
 			logger.info("Courses retrieved successfully");
-			return courseDAO.getAllCourses();
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			throw new BusinessServiceException(e.getMessage(), e);
 		}
+		return courses;
 	}
 
+
 	@Override
-	public List<Course> getCoursesById(Integer id) throws BusinessServiceException {
-		List<Course> coursesById = null;
+	public CourseDTO getCoursesById(CourseDTO courseDTO) throws BusinessServiceException {
+		CourseDTO coursesById = null;
+		Course course = new Course();
+		course.setId(courseDTO.getId());
+		
 		try {
-			coursesById = courseDAO.getCourseById(id);
+			coursesById = courseDAO.getCourseById(course);
 			logger.info("Courses by id retrieved successfully");
 		} catch (DataServiceException e) {
 			logger.error(e.getMessage(), e);
@@ -46,10 +57,12 @@ public class CourseServiceImpl implements CourseService {
 	}
 
 	@Override
-	public List<Course> getCourseByName(String courseName) throws BusinessServiceException {
-		List<Course> coursesByName = null;
-		try {
-			coursesByName = courseDAO.getCourseByName(courseName);
+	public CourseDTO getCourseByName(CourseDTO courseDTO) throws BusinessServiceException {
+		CourseDTO coursesByName = null;
+		Course course = new Course();
+		course.setName(courseDTO.getName());
+			try {
+			coursesByName = courseDAO.getCourseByName(course);
 			logger.info("Courses by name retrieved successfully");
 		} catch (DataServiceException e) {
 			logger.error(e.getMessage(), e);
@@ -59,10 +72,15 @@ public class CourseServiceImpl implements CourseService {
 	}
 
 	@Override
-	public List<Course> getCourseByCategoryId(Integer categoryId) throws BusinessServiceException {
-		List<Course> coursesByCategoryId = null;
+	public List<CourseDTO> getCourseByCategoryId(CourseDTO courseDTO) throws BusinessServiceException {
+		List<CourseDTO> coursesByCategoryId = null;
+		Course course = new Course();
+		Category category=new Category();
+		category.setId(courseDTO.getCategoryId());
+		course.setCategory(category);
+		
 		try {
-			coursesByCategoryId = courseDAO.getCourseByCategoryId(categoryId);
+			coursesByCategoryId = courseDAO.getCourseByCategoryId(course);
 			logger.info("Courses by category id retrieved successfully");
 		} catch (DataServiceException e) {
 			logger.error(e.getMessage(), e);
@@ -72,10 +90,12 @@ public class CourseServiceImpl implements CourseService {
 	}
 
 	@Override
-	public List<Course> getCourseOverAllDetail(Integer collegeId) throws BusinessServiceException {
-		List<Course> courseOverAllDetail = null;
+	public List<CollegeDTO> getCourseOverAllDetail(CollegeDTO collegeDTO) throws BusinessServiceException {
+		List<CollegeDTO> courseOverAllDetail = null;
+		College college = new College();
+		college.setId(collegeDTO.getId());
 		try {
-			courseOverAllDetail = courseDAO.getCourseOverAllDetail(collegeId);
+			courseOverAllDetail = courseDAO.getCourseOverAllDetail(college);
 			logger.info("Courses over all data retrieved successfully");
 		} catch (DataServiceException e) {
 			logger.error(e.getMessage(), e);
@@ -85,10 +105,12 @@ public class CourseServiceImpl implements CourseService {
 	}
 
 	@Override
-	public List<Course> getCourseDetail(Integer courseId) throws BusinessServiceException {
-		List<Course> courseDetail = null;
+	public List<CourseDTO> getCourseDetail(CourseDTO courseDTO) throws BusinessServiceException {
+		List<CourseDTO> courseDetail = null;
+		Course course= new Course();
+		course.setId(courseDTO.getId());
 		try {
-			courseDetail = courseDAO.getCourseDetail(courseId);
+			courseDetail = courseDAO.getCourseDetail(course);
 			logger.info("Course data retrieved successfully");
 		} catch (DataServiceException e) {
 			logger.error(e.getMessage(), e);
@@ -98,10 +120,13 @@ public class CourseServiceImpl implements CourseService {
 	}
 
 	@Override
-	public List<Course> getTotalCourseCount(Integer courseId) throws BusinessServiceException {
-		List<Course> totalCourseCount = null;
+	public List<CourseDTO> getTotalCourseCount(CourseDTO courseDTO) throws BusinessServiceException {
+		List<CourseDTO> totalCourseCount = null;
+		Course course= new Course();
+		course.setId(courseDTO.getId());
+		
 		try {
-			totalCourseCount = courseDAO.getTotalCourseCount(courseId);
+			totalCourseCount = courseDAO.getTotalCourseCount(course);
 			logger.info("TotalCourseCount retrieved successfully");
 		} catch (DataServiceException e) {
 			logger.error(e.getMessage(), e);
