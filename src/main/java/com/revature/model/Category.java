@@ -15,12 +15,12 @@ import lombok.Data;
 @Table(name = "seed_categories")
 public class Category {
 
-	private Category() {
+	public Category() {
 	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	private Integer id;
 
 	@NotNull
 	@Column(unique = true)

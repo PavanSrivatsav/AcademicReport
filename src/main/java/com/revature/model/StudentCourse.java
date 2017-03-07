@@ -26,13 +26,13 @@ import lombok.Data;
 @JsonInclude(Include.NON_NULL)
 public class StudentCourse {
 
-	private StudentCourse() {
+	public StudentCourse() {
 
 	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	private Integer id;
 
 	@NotNull
 	@ManyToOne

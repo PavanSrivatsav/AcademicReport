@@ -23,12 +23,12 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 		@UniqueConstraint(columnNames = { "STUDENT_COURSE_ID", "COURSE_CONTENT_ID" }) })
 public class StudentCourseContent {
 
-	private StudentCourseContent() {
+	public StudentCourseContent() {
 	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	private Integer id;
 
 	@NotNull
 	@ManyToOne
