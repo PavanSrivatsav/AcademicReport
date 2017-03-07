@@ -110,8 +110,7 @@ public class ProjectDAOImpl implements ProjectDAO {
 		List<ProjectDTO> projectDetail = null;
 		try {
 			StringBuilder sb = new StringBuilder(
-					"SELECT  `projects`.`NAME`,`projects`.`DESCRIPTION`,`project_sprints`.`SPRINT_NAME`,`project_sprint_activities`.`ONLINE_ACTIVITY`,`project_sprint_activities`.`OFFLINE_ACTIVITY` ,`quizzes`.`NAME` as 'Quiz name' ,`videos`.`NAME` as 'Video name',`videos`.`URL`,`courses`.`NAME` as 'Course name' FROM `projects` JOIN `project_sprints`ON `projects`.`ID`=`project_sprints`.`PROJECT_ID` JOIN `project_sprint_activities` ON `project_sprints`.`ID`=`project_sprint_activities`.`PROJECT_SPRINT_ID` LEFT JOIN `videos` ON `project_sprint_activities`.`VIDEO_ID`=`videos`.`ID` LEFT JOIN`courses` ON `project_sprint_activities`.`COURSE_ID`=`courses`.`ID`LEFT JOIN `quizzes` ON `project_sprint_activities`.`QUIZ_ID`=`quizzes`.`ID` "
-					+ "WHERE projects.`IS_ACTIVE`=TRUE AND projects.`ID`='"+ project.getId()+"'");
+					"SELECT id id,project_name name,description description,sprint_name sprintName,online_activity onlineActivity,offline_activity offlineActivity,quiz_name quizName,video_name videoName,url url,course_name courseName FROM vw_project_activity WHERE id="+ project.getId());
 			projectDetail =dataRetriver.retrieveBySQLAsJSON(sb.toString(),ProjectDTO.class);
 			logger.info("Projects details data retrieval success..");
 		} catch (DataAccessException e) {
@@ -126,8 +125,8 @@ public class ProjectDAOImpl implements ProjectDAO {
 		List<ProjectDTO> totalProjectCount = null;
 		try {
 			StringBuilder sb = new StringBuilder(
-					"SELECT DISTINCT COUNT(projects.`ID`) as 'Project Count' FROM projects JOIN project_sprints ON projects.`ID`=project_sprints.`PROJECT_ID` JOIN project_sprint_activities ON project_sprints.`ID`=project_sprint_activities.`PROJECT_SPRINT_ID` WHERE projects.`IS_ACTIVE`=TRUE AND projects.`ID`='"
-							+ project.getId()+"'");
+					"SELECT id id,project_count ProjectCnt FROM vw_project_activity_count WHERE ID="
+							+ project.getId());
 			totalProjectCount =dataRetriver.retrieveBySQLAsJSON(sb.toString(), ProjectDTO.class);
 			logger.info("TotalProjectCount data retrieval success..");
 		} catch (DataAccessException e) {
