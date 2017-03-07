@@ -51,6 +51,7 @@ public class DataRetriverImpl implements DataRetriver {
 	}
 */	
 	@Override
+	@SuppressWarnings("rawtypes")
 	public <E> Object retrieveBySQLAsObject(String query, Class className) throws DataAccessException {
 		Object object;
 		try {
