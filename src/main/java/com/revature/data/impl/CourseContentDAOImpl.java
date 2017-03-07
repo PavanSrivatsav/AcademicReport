@@ -7,11 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.revature.data.CourseContentDAO;
+import com.revature.data.access.DataModifier;
 import com.revature.data.access.DataRetriver;
 import com.revature.data.access.exception.DataAccessException;
 import com.revature.data.exception.DataServiceException;
 import com.revature.data.utils.DataUtils;
 import com.revature.model.CourseContent;
+import com.revature.model.dto.CourseContentDTO;
 
 @Repository
 public class CourseContentDAOImpl implements CourseContentDAO {
@@ -27,13 +29,24 @@ public class CourseContentDAOImpl implements CourseContentDAO {
 	public void setDataRetriver(DataRetriver dataRetriver) {
 		this.dataRetriver = dataRetriver;
 	}
+	@Autowired
+	private DataModifier dataModifier;
+
+	public DataModifier getDataModifier() {
+		return dataModifier;
+	}
+
+	public void setDataModifier(DataModifier dataModifier) {
+		this.dataModifier = dataModifier;
+	}
+
 
 	@Override
-	public List<CourseContent> getAllCourseContents() throws DataServiceException {
-		List<CourseContent> courseContents = null;
+	public List<CourseContentDTO> getAllCourseContents() throws DataServiceException {
+		List<CourseContentDTO> courseContents = null;
 		try {
-			StringBuilder sb = new StringBuilder("select * from course_contents c where c.IS_ACTIVE=true");
-			courseContents = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
+			StringBuilder sb = new StringBuilder("select c.ID id,c.COURSE_ID courseId,c.VIDEO_ID videoId,c.TEXT_CONTENT textContent,c.IS_ACTIVE isActive from course_contents c where c.IS_ACTIVE=true");
+			courseContents = dataRetriver.retrieveBySQLAsJSON(sb.toString(),CourseContentDTO.class);
 			logger.info("Course contents data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
@@ -42,13 +55,14 @@ public class CourseContentDAOImpl implements CourseContentDAO {
 		return courseContents;
 	}
 
+
 	@Override
-	public List<CourseContent> getCourseContentById(Integer id) throws DataServiceException {
-		List<CourseContent> courseContentsById = null;
+	public <E> CourseContentDTO getCourseContentById(CourseContent courseContent) throws DataServiceException {
+		CourseContentDTO courseContentsById = null;
 		try {
 			StringBuilder sb = new StringBuilder(
-					"select * from course_contents c where c.ID=" + id + " and c.IS_ACTIVE=true");
-			courseContentsById = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
+					"select c.ID id,c.COURSE_ID courseId,c.VIDEO_ID videoId,c.TEXT_CONTENT textContent,c.IS_ACTIVE isActive from course_contents c where c.ID=" + courseContent.getId() + " and c.IS_ACTIVE=true");
+			courseContentsById = (CourseContentDTO)dataRetriver.retrieveBySQLAsObject(sb.toString(),CourseContentDTO.class);
 			logger.info("Course contents by id data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
@@ -58,12 +72,12 @@ public class CourseContentDAOImpl implements CourseContentDAO {
 	}
 
 	@Override
-	public List<CourseContent> getCourseContentByCourseId(Integer courseId) throws DataServiceException {
-		List<CourseContent> courseContentByCourseId = null;
+	public List<CourseContentDTO>  getCourseContentByCourseId(CourseContent courseContent) throws DataServiceException {
+		List<CourseContentDTO> courseContentByCourseId = null;
 		try {
 			StringBuilder sb = new StringBuilder(
-					"select * from course_contents c where c.COURSE_ID=" + courseId + " and c.IS_ACTIVE=true");
-			courseContentByCourseId = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
+					"select c.ID id,c.COURSE_ID courseId,c.VIDEO_ID videoId,c.TEXT_CONTENT textContent,c.IS_ACTIVE isActive from course_contents c where c.COURSE_ID=" + courseContent.getCourse().getId() + " and c.IS_ACTIVE=true");
+			courseContentByCourseId = dataRetriver.retrieveBySQLAsJSON(sb.toString(),CourseContentDTO.class);
 			logger.info("Course contents by course id data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
@@ -73,12 +87,12 @@ public class CourseContentDAOImpl implements CourseContentDAO {
 	}
 
 	@Override
-	public List<CourseContent> getCourseContentByVideoId(Integer videoId) throws DataServiceException {
-		List<CourseContent> courseContentByVideoId = null;
+	public <E> CourseContentDTO getCourseContentByVideoId(CourseContent courseContent) throws DataServiceException {
+	CourseContentDTO courseContentByVideoId = null;
 		try {
 			StringBuilder sb = new StringBuilder(
-					"select * from course_contents c where c.VIDEO_ID=" + videoId + " and c.IS_ACTIVE=true");
-			courseContentByVideoId = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
+					"select c.ID id,c.COURSE_ID courseId,c.VIDEO_ID videoId,c.TEXT_CONTENT textContent,c.IS_ACTIVE isActive from course_contents c where c.VIDEO_ID=" + courseContent.getVideo().getId() + " and c.IS_ACTIVE=true");
+			courseContentByVideoId = (CourseContentDTO)dataRetriver.retrieveBySQLAsObject(sb.toString(),CourseContentDTO.class);
 			logger.info("Course contents by video id data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
