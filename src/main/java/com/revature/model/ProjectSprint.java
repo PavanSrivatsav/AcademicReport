@@ -19,13 +19,13 @@ import lombok.Data;
 		@UniqueConstraint(columnNames = { "PROJECT_ID", "SPRINT_NAME" }) })
 public class ProjectSprint {
 
-	private ProjectSprint() {
+	public ProjectSprint() {
 
 	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	private Integer id;
 
 	@NotNull
 	@ManyToOne

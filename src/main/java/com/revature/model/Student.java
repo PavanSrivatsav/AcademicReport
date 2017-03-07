@@ -21,13 +21,13 @@ import lombok.Data;
 @Table(name = "students")
 public class Student {
 
-	private Student() {
+	public Student() {
 
 	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	private Integer id;
 
 	@NotNull
 	private String name;

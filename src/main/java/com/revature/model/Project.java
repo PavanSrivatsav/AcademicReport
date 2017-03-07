@@ -17,13 +17,13 @@ import lombok.Data;
 @Table(name = "projects")
 public class Project {
 
-	private Project() {
+	public Project() {
 
 	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	private Integer id;
 
 	@NotNull
 	@Column(unique = true)

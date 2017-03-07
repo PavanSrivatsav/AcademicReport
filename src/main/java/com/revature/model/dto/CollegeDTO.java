@@ -7,15 +7,12 @@ import lombok.Data;
 
 @Data
 @JsonInclude(Include.NON_NULL)
-public class UserDTO {
+public class CollegeDTO {
 	private Integer id;
 	private String name;
-	private Integer roleId;
+	private String Address;
 	private String emailId;
-	private String password;
 	private String phone;
-	private Integer collegeId;
-	private Integer departmentId;
 	private Boolean isActive;
 
 }

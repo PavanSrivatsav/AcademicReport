@@ -20,13 +20,13 @@ import lombok.Data;
 @Table(name = "project_sprint_activities")
 public class ProjectSprintActivity {
 
-	private ProjectSprintActivity() {
+	public ProjectSprintActivity() {
 
 	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	private Integer id;
 
 	@NotNull
 	@ManyToOne

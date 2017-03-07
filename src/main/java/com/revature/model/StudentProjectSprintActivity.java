@@ -30,13 +30,13 @@ import lombok.Data;
 		@UniqueConstraint(columnNames = { "PROJECT_SPRINT_ID", "OFFLINE_ACTIVITY" }) })
 public class StudentProjectSprintActivity {
 
-	private StudentProjectSprintActivity() {
+	public StudentProjectSprintActivity() {
 
 	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	private Integer id;
 
 	@NotNull
 	@ManyToOne

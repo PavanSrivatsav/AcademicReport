@@ -15,13 +15,13 @@ import lombok.Data;
 @Table(name = "quizzes")
 public class Quiz {
 
-	private Quiz() {
+	public Quiz() {
 
 	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	private Integer id;
 
 	@NotNull
 	@Column(unique = true)
@@ -29,7 +29,7 @@ public class Quiz {
 
 	@NotNull
 	@Column(name = "DURATION_IN_MINUTES")
-	private String duration;
+	private Integer duration;
 
 	@NotNull
 	@Column(name = "IS_ACTIVE")

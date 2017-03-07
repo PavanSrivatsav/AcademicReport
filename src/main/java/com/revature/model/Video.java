@@ -15,13 +15,13 @@ import lombok.Data;
 @Table(name = "videos")
 public class Video {
 
-	private Video() {
+	public Video() {
 
 	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	private Integer id;
 
 	@NotNull
 	private String name;

@@ -2,20 +2,16 @@ package com.revature.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.revature.model.Project;
 
 import lombok.Data;
 
 @Data
 @JsonInclude(Include.NON_NULL)
-public class UserDTO {
+public class ProjectSprintDTO {
 	private Integer id;
-	private String name;
-	private Integer roleId;
-	private String emailId;
-	private String password;
-	private String phone;
-	private Integer collegeId;
-	private Integer departmentId;
+	private Project project;
+	private String sprintName;
 	private Boolean isActive;
 
 }

@@ -26,13 +26,13 @@ import lombok.Data;
 		@UniqueConstraint(columnNames = { "STUDENT_ID", "PROJECT_ID" }) })
 public class StudentProject {
 
-	private StudentProject() {
+	public StudentProject() {
 
 	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	private Integer id;
 
 	@NotNull
 	@ManyToOne

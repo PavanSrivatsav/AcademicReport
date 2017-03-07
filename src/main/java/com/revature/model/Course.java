@@ -19,13 +19,13 @@ import lombok.Data;
 @Entity
 @Table(name = "courses")
 public class Course {
-	private Course() {
+	public Course() {
 
 	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	private Integer id;
 
 	@NotNull
 	@Column(unique = true)
