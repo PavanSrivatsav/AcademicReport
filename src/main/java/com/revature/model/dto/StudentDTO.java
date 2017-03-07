@@ -4,9 +4,6 @@ import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.revature.model.College;
-import com.revature.model.Department;
-
 import lombok.Data;
 
 @Data
@@ -14,13 +11,13 @@ import lombok.Data;
 public class StudentDTO {
 	private Integer id;
 	private String name;
-	private College college;
+	private Integer collegeId;
 	private Date dob;
 	private String emailId;
 	private String password;
 	private String phone;
 	private String batch;
-	private Department department;
+	private Integer departmentId;
 	private String areaOfInterest;
 	private Boolean isActive;
 	

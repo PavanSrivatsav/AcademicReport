@@ -58,6 +58,6 @@ public class StudentProjectSprint {
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "STATUS_ID")
-	private Status statusId;
+	private Status status;
 
 }

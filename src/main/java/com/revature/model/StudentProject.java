@@ -37,7 +37,7 @@ public class StudentProject {
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "STUDENT_ID")
-	private Student studentId;
+	private Student student;
 
 	@NotNull
 	@ManyToOne

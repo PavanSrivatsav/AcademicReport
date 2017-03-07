@@ -71,7 +71,7 @@ public class UserServiceImpl implements UserService {
 		User user = new User();
 		College college=new College();
 		college.setId(userDTO.getCollegeId());
-		user.setCollegeId(college);
+		user.setCollege(college);
 		try {
 			userByCollegeId = userDAO.getUsersByCollegeId(user);
 			logger.info("User by college id retrived successfully");
@@ -88,7 +88,7 @@ public class UserServiceImpl implements UserService {
 		User user = new User();
 		Department department=new Department();
 		department.setId(userDTO.getDepartmentId());
-		user.setDepartmentId(department);
+		user.setDepartment(department);
 		try {
 			userByDepartmentId = userDAO.getUsersByDepartmentId(user);
 			logger.info("User by department id retrived successfully");

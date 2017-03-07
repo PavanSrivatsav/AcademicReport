@@ -91,7 +91,7 @@ public class UserDAOImpl implements UserDAO {
 		List<UserDTO> userByCollegeId = null;
 		try {
 			StringBuilder sb = new StringBuilder(
-					"select u.ID id, u.NAME name, u.EMAIL_ID emailId, u.PASSWORD password, u.DEPARTMENT_ID departmentId, u.COLLEGE_ID collegeId, u.ROLE_ID roleId, u.PHONE_NUMBER phone from users u where u.COLLEGE_ID='" + user.getCollegeId().getId() + "' and u.IS_ACTIVE=true");
+					"select u.ID id, u.NAME name, u.EMAIL_ID emailId, u.PASSWORD password, u.DEPARTMENT_ID departmentId, u.COLLEGE_ID collegeId, u.ROLE_ID roleId, u.PHONE_NUMBER phone from users u where u.COLLEGE_ID='" + user.getCollege().getId() + "' and u.IS_ACTIVE=true");
 			userByCollegeId = dataRetriver.retrieveBySQLAsJSON(sb.toString(),UserDTO.class);
 			logger.info("Users by college id data retrieval success..");
 		} catch (DataAccessException e) {
@@ -106,7 +106,7 @@ public class UserDAOImpl implements UserDAO {
 		List<UserDTO> userByDepartmentId = null;
 		try {
 			StringBuilder sb = new StringBuilder(
-					"select u.ID id, u.NAME name, u.EMAIL_ID emailId, u.PASSWORD password, u.DEPARTMENT_ID departmentId, u.COLLEGE_ID collegeId, u.ROLE_ID roleId, u.PHONE_NUMBER phone from users u where u.DEPARTMENT_ID='" + user.getDepartmentId().getId() + "' and u.IS_ACTIVE=true");
+					"select u.ID id, u.NAME name, u.EMAIL_ID emailId, u.PASSWORD password, u.DEPARTMENT_ID departmentId, u.COLLEGE_ID collegeId, u.ROLE_ID roleId, u.PHONE_NUMBER phone from users u where u.DEPARTMENT_ID='" + user.getDepartment().getId() + "' and u.IS_ACTIVE=true");
 			userByDepartmentId = dataRetriver.retrieveBySQLAsJSON(sb.toString(),UserDTO.class);
 			logger.info("Users by department id data retrieval success..");
 		} catch (DataAccessException e) {
