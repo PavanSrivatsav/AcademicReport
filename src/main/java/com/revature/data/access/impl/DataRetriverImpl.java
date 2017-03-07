@@ -36,7 +36,7 @@ public class DataRetriverImpl implements DataRetriver {
 		return list;
 	}
 
-	@SuppressWarnings("rawtypes")
+/*	@SuppressWarnings("rawtypes")
 	@Override
 	public <E> Object retrieveBySQLAsObject(String query, Class className) throws DataAccessException {
 		UserDTO user = new UserDTO();
@@ -49,6 +49,20 @@ public class DataRetriverImpl implements DataRetriver {
 			throw new DataAccessException(e.getMessage(), e);
 		}
 		return user;
+	}
+*/	
+	@Override
+	public <E> Object retrieveBySQLAsObject(String query, Class className) throws DataAccessException {
+		Object object;
+		try {
+			object = sessionFactory.getCurrentSession().createSQLQuery(query)
+					.setResultTransformer(Transformers.aliasToBean(className)).uniqueResult();
+			logger.info("data retrieval success..");
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			throw new DataAccessException(e.getMessage(), e);
+		}
+		return object;
 	}
 	
 	@Override
