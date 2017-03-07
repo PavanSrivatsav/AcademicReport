@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 
 import com.revature.data.access.DataRetriver;
 import com.revature.data.access.exception.DataAccessException;
-import com.revature.model.dto.UserDTO;
 
 @Repository
 @SuppressWarnings("unchecked")
@@ -39,9 +38,9 @@ public class DataRetriverImpl implements DataRetriver {
 	@SuppressWarnings("rawtypes")
 	@Override
 	public <E> Object retrieveBySQLAsObject(String query, Class className) throws DataAccessException {
-		UserDTO user = new UserDTO();
+		Object user;
 		try {
-			user = (UserDTO) sessionFactory.getCurrentSession().createSQLQuery(query)
+			user = sessionFactory.getCurrentSession().createSQLQuery(query)
 					.setResultTransformer(Transformers.aliasToBean(className)).uniqueResult();
 			logger.info("data retrieval success..");
 		} catch (Exception e) {
