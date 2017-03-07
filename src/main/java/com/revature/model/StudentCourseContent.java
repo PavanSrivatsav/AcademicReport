@@ -33,12 +33,12 @@ public class StudentCourseContent {
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "STUDENT_COURSE_ID")
-	private StudentCourse studentCourseId;
+	private StudentCourse studentCourse;
 
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "COURSE_CONTENT_ID")
-	private CourseContent courseContentId;
+	private CourseContent courseContent;
 
 	@NotNull
 	@Temporal(TemporalType.DATE)
@@ -53,6 +53,6 @@ public class StudentCourseContent {
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "STATUS_ID")
-	private Status statusId;
+	private Status status;
 
 }

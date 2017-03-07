@@ -57,6 +57,6 @@ public class StudentCourse {
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "STATUS_ID")
-	private Status statusId;
+	private Status status;
 
 }

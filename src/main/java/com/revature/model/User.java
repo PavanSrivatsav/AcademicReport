@@ -35,7 +35,7 @@ public class User {
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "ROLE_ID")
-	private Role roleId;
+	private Role role;
 
 	@NotNull
 	@Column(name = "EMAIL_ID", unique = true)
@@ -52,12 +52,12 @@ public class User {
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "COLLEGE_ID")
-	private College collegeId;
+	private College college;
 
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "DEPARTMENT_ID")
-	private Department departmentId;
+	private Department department;
 
 	@NotNull
 	@Column(name = "IS_ACTIVE")

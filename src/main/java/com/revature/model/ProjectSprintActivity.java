@@ -31,7 +31,7 @@ public class ProjectSprintActivity {
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "PROJECT_SPRINT_ID")
-	private ProjectSprint projectSprintId;
+	private ProjectSprint projectSprint;
 
 	@ManyToOne
 	@JoinColumn(name = "VIDEO_ID", nullable = true)

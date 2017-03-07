@@ -2,8 +2,6 @@ package com.revature.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.revature.model.Category;
-
 import lombok.Data;
 
 @Data
@@ -11,7 +9,7 @@ import lombok.Data;
 public class ProjectDTO {
 	private Integer id;
 	private String name;
-	private Category categoy;
+	private Integer categoyId;
 	private String description;
 	private Integer duration;
 	private Boolean isActive;
