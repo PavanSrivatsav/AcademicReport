@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.revature.data.exception.DataServiceException;
 import com.revature.model.StudentCourse;
+import com.revature.model.dto.StudentCourseDTO;
 
 public interface StudentCourseDAO {
 
@@ -12,13 +13,13 @@ public interface StudentCourseDAO {
 	 * @throws DataServiceException
 	 */
 
-	public List<StudentCourse> getAllStudentCourses() throws DataServiceException;
+	public List<StudentCourseDTO> getAllStudentCourses() throws DataServiceException;
 
-	public List<StudentCourse> getStudentCourseById(int studentCourseId) throws DataServiceException;
+	public <E>StudentCourseDTO getStudentCourseById(StudentCourse studentCourse) throws DataServiceException;
 
-	public List<StudentCourse> getStudentCourseByStudentId(int studentId) throws DataServiceException;
+	public List<StudentCourseDTO> getStudentCourseByStudentId(StudentCourse studentCourse) throws DataServiceException;
 
-	public List<StudentCourse> getStudentCourseByCourseId(int courseId) throws DataServiceException;
+	public List<StudentCourseDTO> getStudentCourseByCourseId(StudentCourse studentCourse) throws DataServiceException;
 
-	public List<StudentCourse> getCompletedStudentCourseCount(int studentId, int courseId) throws DataServiceException;
+	public List<StudentCourseDTO> getCompletedStudentCourseCount(StudentCourse studentCourse) throws DataServiceException;
 }

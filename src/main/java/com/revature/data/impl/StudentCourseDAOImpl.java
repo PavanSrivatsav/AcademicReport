@@ -7,11 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.revature.data.StudentCourseDAO;
+import com.revature.data.access.DataModifier;
 import com.revature.data.access.DataRetriver;
 import com.revature.data.access.exception.DataAccessException;
 import com.revature.data.exception.DataServiceException;
 import com.revature.data.utils.DataUtils;
 import com.revature.model.StudentCourse;
+import com.revature.model.dto.StudentCourseDTO;
 
 @Repository
 public class StudentCourseDAOImpl implements StudentCourseDAO {
@@ -27,13 +29,24 @@ public class StudentCourseDAOImpl implements StudentCourseDAO {
 	public void setDataRetriver(DataRetriver dataRetriver) {
 		this.dataRetriver = dataRetriver;
 	}
+	@Autowired
+	private DataModifier dataModifier;
+
+	public DataModifier getDataModifier() {
+		return dataModifier;
+	}
+
+	public void setDataModifier(DataModifier dataModifier) {
+		this.dataModifier = dataModifier;
+	}
+
 
 	@Override
-	public List<StudentCourse> getAllStudentCourses() throws DataServiceException {
-		List<StudentCourse> studentCourses = null;
+	public List<StudentCourseDTO> getAllStudentCourses() throws DataServiceException {
+		List<StudentCourseDTO> studentCourses = null;
 		try {
-			StringBuilder sb = new StringBuilder("select * from student_courses");
-			studentCourses = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
+			StringBuilder sb = new StringBuilder("select sc.ID id,sc.STUDENT_ID studentId,sc.COURSE_ID courseId,sc.STARTED_ON startedOn,sc.COMPLETED_ON completedOn,sc.STATUS_ID statusId from student_courses sc");
+			studentCourses = dataRetriver.retrieveBySQLAsJSON(sb.toString(),StudentCourseDTO.class);
 			logger.info("StudentCourses data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
@@ -43,11 +56,11 @@ public class StudentCourseDAOImpl implements StudentCourseDAO {
 	}
 
 	@Override
-	public List<StudentCourse> getStudentCourseById(int studentCourseId) throws DataServiceException {
-		List<StudentCourse> studentCourses = null;
+	public <E> StudentCourseDTO getStudentCourseById(StudentCourse studentCourse) throws DataServiceException {
+		StudentCourseDTO studentCourses = null;
 		try {
-			StringBuilder sb = new StringBuilder("select * from student_courses where ID='" + studentCourseId + "'");
-			studentCourses = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
+			StringBuilder sb = new StringBuilder("select sc.ID id,sc.STUDENT_ID studentId,sc.COURSE_ID courseId,sc.STARTED_ON startedOn,sc.COMPLETED_ON completedOn,sc.STATUS_ID statusId from student_courses sc where sc.ID=" + studentCourse.getId());
+			studentCourses = (StudentCourseDTO)dataRetriver.retrieveBySQLAsObject(sb.toString(),StudentCourseDTO.class);
 			logger.info("StudentCourses data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
@@ -57,11 +70,11 @@ public class StudentCourseDAOImpl implements StudentCourseDAO {
 	}
 
 	@Override
-	public List<StudentCourse> getStudentCourseByStudentId(int studentId) throws DataServiceException {
-		List<StudentCourse> studentCourses = null;
+	public List<StudentCourseDTO> getStudentCourseByStudentId(StudentCourse studentCourse) throws DataServiceException {
+		List<StudentCourseDTO> studentCourses = null;
 		try {
-			StringBuilder sb = new StringBuilder("select * from student_courses where ID='" + studentId + "'");
-			studentCourses = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
+			StringBuilder sb = new StringBuilder("select sc.Id id,sc.STUDENT_ID studentId,sc.COURSE_ID courseId,sc.STARTED_ON startedOn,sc.COMPLETED_ON completedOn,sc.STATUS_ID statusId from student_courses sc where sc.STUDENT_ID="+ studentCourse.getStudent().getId() );
+			studentCourses = dataRetriver.retrieveBySQLAsJSON(sb.toString(),StudentCourseDTO.class);
 			logger.info("StudentCourses data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
@@ -71,11 +84,11 @@ public class StudentCourseDAOImpl implements StudentCourseDAO {
 	}
 
 	@Override
-	public List<StudentCourse> getStudentCourseByCourseId(int courseId) throws DataServiceException {
-		List<StudentCourse> studentCourses = null;
+	public List<StudentCourseDTO> getStudentCourseByCourseId(StudentCourse studentCourse) throws DataServiceException {
+		List<StudentCourseDTO> studentCourses = null;
 		try {
-			StringBuilder sb = new StringBuilder("select * from student_courses where ID='" + courseId + "'");
-			studentCourses = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
+			StringBuilder sb = new StringBuilder("select sc.Id id,sc.STUDENT_ID studentId,sc.COURSE_ID courseId,sc.STARTED_ON startedOn,sc.COMPLETED_ON completedOn,sc.STATUS_ID statusId from student_courses sc where sc.COURSE_ID=" +studentCourse.getCourse().getId());
+			studentCourses = dataRetriver.retrieveBySQLAsJSON(sb.toString(),StudentCourseDTO.class);
 			logger.info("StudentCourses data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
@@ -85,13 +98,13 @@ public class StudentCourseDAOImpl implements StudentCourseDAO {
 	}
 
 	@Override
-	public List<StudentCourse> getCompletedStudentCourseCount(int studentId, int courseId) throws DataServiceException {
-		List<StudentCourse> completedStudentCourseCount = null;
+	public List<StudentCourseDTO> getCompletedStudentCourseCount(StudentCourse studentCourse) throws DataServiceException {
+		List<StudentCourseDTO> completedStudentCourseCount = null;
 		try {
 			StringBuilder sb = new StringBuilder(
-					"SELECT COUNT(courses.`ID`) FROM courses JOIN student_courses ON courses.`ID`=student_courses.`COURSE_ID` JOIN student_course_contents ON student_course_contents.`STUDENT_COURSE_ID`=student_courses.`ID` WHERE courses.`IS_ACTIVE`=TRUE AND student_course_contents.`STATUS_ID`=(SELECT id FROM `seed_status` WHERE `seed_status`.`NAME`='COMPLETED')   AND student_courses.`STUDENT_ID`="
-							+ studentId + " AND courses.`ID`= " + courseId);
-			completedStudentCourseCount = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
+					"SELECT c.ID id, COUNT(c.`ID`) count FROM courses c JOIN student_courses ON c.`ID`=student_courses.`COURSE_ID` JOIN student_course_contents ON student_course_contents.`STUDENT_COURSE_ID`=student_courses.`ID` WHERE c.`IS_ACTIVE`=TRUE AND student_course_contents.`STATUS_ID`=(SELECT id FROM `seed_status`  WHERE `seed_status`.`NAME`='COMPLETED')   AND student_courses.`STUDENT_ID`="
+                            + studentCourse.getStudent().getId() + " AND student_courses.`COURSE_ID`= " + studentCourse.getCourse().getId());
+			completedStudentCourseCount = dataRetriver.retrieveBySQLAsJSON(sb.toString(),StudentCourseDTO.class);
 			logger.info("Completed Student Course Count data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
