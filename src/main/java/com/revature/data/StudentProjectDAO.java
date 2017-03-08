@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.revature.data.exception.DataServiceException;
 import com.revature.model.StudentProject;
+import com.revature.model.dto.StudentProjectDTO;
 
 public interface StudentProjectDAO {
 
@@ -12,14 +13,14 @@ public interface StudentProjectDAO {
 	 * @throws DataServiceException
 	 */
 
-	public List<StudentProject> getAllStudentProjects() throws DataServiceException;
+	public List<StudentProjectDTO> getAllStudentProjects() throws DataServiceException;
 
-	public List<StudentProject> getStudentProjectById(int studentProjectId) throws DataServiceException;
+	public <E> StudentProjectDTO getStudentProjectById(StudentProject studentProject) throws DataServiceException;
 
-	public List<StudentProject> getStudentProjectByStudentId(int studentId) throws DataServiceException;
+	public List<StudentProjectDTO> getStudentProjectByStudentId(StudentProject studentProject) throws DataServiceException;
 
-	public List<StudentProject> getStudentProjectByProjectId(int projectId) throws DataServiceException;
+	public List<StudentProjectDTO> getStudentProjectByProjectId(StudentProject studentProject) throws DataServiceException;
 
-	public List<StudentProject> getCompletedStudentProjectCount(int studentId) throws DataServiceException;
+	public <E> StudentProjectDTO getCompletedStudentProjectCount(StudentProject studentProject) throws DataServiceException;
 
 }

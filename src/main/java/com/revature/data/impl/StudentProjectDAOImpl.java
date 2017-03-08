@@ -12,6 +12,7 @@ import com.revature.data.access.exception.DataAccessException;
 import com.revature.data.exception.DataServiceException;
 import com.revature.data.utils.DataUtils;
 import com.revature.model.StudentProject;
+import com.revature.model.dto.StudentProjectDTO;
 
 @Repository
 public class StudentProjectDAOImpl implements StudentProjectDAO {
@@ -29,11 +30,11 @@ public class StudentProjectDAOImpl implements StudentProjectDAO {
 	}
 
 	@Override
-	public List<StudentProject> getAllStudentProjects() throws DataServiceException {
-		List<StudentProject> studentProjects = null;
+	public List<StudentProjectDTO> getAllStudentProjects() throws DataServiceException {
+		List<StudentProjectDTO> studentProjects = null;
 		try {
-			StringBuilder sb = new StringBuilder("select * from student_projects");
-			studentProjects = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
+			StringBuilder sb = new StringBuilder("select sp.ID id,sp.STUDENT_ID studentId,sp.PROJECT_ID projectId,sp.STARTED_ON startedOn,sp.COMPLETED_ON completedOn,sp.STATUS_ID statusId from student_projects sp");
+			studentProjects = dataRetriver.retrieveBySQLAsJSON(sb.toString(),StudentProjectDTO.class);
 			logger.info("StudentProjects data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
@@ -43,11 +44,11 @@ public class StudentProjectDAOImpl implements StudentProjectDAO {
 	}
 
 	@Override
-	public List<StudentProject> getStudentProjectById(int studentProjectId) throws DataServiceException {
-		List<StudentProject> studentProjectById = null;
+	public <E> StudentProjectDTO getStudentProjectById(StudentProject studentProject) throws DataServiceException {
+		StudentProjectDTO studentProjectById = null;
 		try {
-			StringBuilder sb = new StringBuilder("select * from student_projects where ID='" + studentProjectId + "'");
-			studentProjectById = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
+			StringBuilder sb = new StringBuilder("select sp.ID id,sp.STUDENT_ID studentId,sp.PROJECT_ID projectId,sp.STARTED_ON startedOn,sp.COMPLETED_ON completedOn,sp.STATUS_ID statusId from student_projects sp where ID=" + studentProject.getId());
+			studentProjectById =(StudentProjectDTO) dataRetriver.retrieveBySQLAsJSON(sb.toString(),StudentProjectDTO.class);
 			logger.info("StudentProjects data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
@@ -57,12 +58,12 @@ public class StudentProjectDAOImpl implements StudentProjectDAO {
 	}
 
 	@Override
-	public List<StudentProject> getStudentProjectByStudentId(int studentId) throws DataServiceException {
-		List<StudentProject> studentProjectByStudentId = null;
+	public List<StudentProjectDTO> getStudentProjectByStudentId(StudentProject studentProject) throws DataServiceException {
+		List<StudentProjectDTO> studentProjectByStudentId = null;
 		try {
 			StringBuilder sb = new StringBuilder(
-					"select * from student_projects where STUDENT_ID=' " + studentId + " ' ");
-			studentProjectByStudentId = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
+					"select sp.ID id,sp.STUDENT_ID studentId,sp.PROJECT_ID projectId,sp.STARTED_ON startedOn,sp.COMPLETED_ON completedOn,sp.STATUS_ID statusId from student_projects sp where STUDENT_ID=" + studentProject.getStudent().getId());
+			studentProjectByStudentId = dataRetriver.retrieveBySQLAsJSON(sb.toString(),StudentProjectDTO.class);
 			logger.info("StudentProjects data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
@@ -72,12 +73,12 @@ public class StudentProjectDAOImpl implements StudentProjectDAO {
 	}
 
 	@Override
-	public List<StudentProject> getStudentProjectByProjectId(int projectId) throws DataServiceException {
-		List<StudentProject> studentProjectByProjectId = null;
+	public List<StudentProjectDTO> getStudentProjectByProjectId(StudentProject studentProject) throws DataServiceException {
+		List<StudentProjectDTO> studentProjectByProjectId = null;
 		try {
 			StringBuilder sb = new StringBuilder(
-					" select * from student_projects where PROJECT_ID=' " + projectId + " ' ");
-			studentProjectByProjectId = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
+					"select sp.ID id,sp.STUDENT_ID studentId,sp.PROJECT_ID projectId,sp.STARTED_ON startedOn,sp.COMPLETED_ON completedOn,sp.STATUS_ID statusId from student_projects sp where PROJECT_ID=" + studentProject.getProject().getId());
+			studentProjectByProjectId =  dataRetriver.retrieveBySQLAsJSON(sb.toString(),StudentProjectDTO.class);
 			logger.info("StudentProjects data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
@@ -87,13 +88,13 @@ public class StudentProjectDAOImpl implements StudentProjectDAO {
 	}
 
 	@Override
-	public List<StudentProject> getCompletedStudentProjectCount(int studentId) throws DataServiceException {
-		List<StudentProject> completedStudentProjectCount = null;
+	public <E> StudentProjectDTO getCompletedStudentProjectCount(StudentProject studentProject) throws DataServiceException {
+		StudentProjectDTO completedStudentProjectCount = null;
 		try {
 			StringBuilder sb = new StringBuilder(
 					"SELECT COUNT(projects.`ID`) FROM projects JOIN student_projects ON projects.`ID`=student_projects.`PROJECT_ID` JOIN student_project_sprints ON student_projects.`ID`=student_project_sprints.`STUDENT_PROJECT_ID` JOIN student_project_sprint_activities ON student_project_sprints.`ID`=student_project_sprint_activities.`STUDENT_PROJECT_SPRINT_ID` WHERE projects.`IS_ACTIVE`=TRUE AND student_project_sprint_activities.`STATUS_ID`=(SELECT id FROM `seed_status` WHERE `seed_status`.`NAME`='COMPLETED') AND student_projects.`STUDENT_ID` ="
-							+ studentId);
-			completedStudentProjectCount = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
+							+ studentProject.getStudent().getId());
+			completedStudentProjectCount = (StudentProjectDTO) dataRetriver.retrieveBySQLAsObject(sb.toString(),StudentProjectDTO.class);
 			logger.info("Completed Student Project Count data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);

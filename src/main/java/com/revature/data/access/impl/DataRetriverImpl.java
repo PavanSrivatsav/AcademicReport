@@ -38,9 +38,9 @@ public class DataRetriverImpl implements DataRetriver {
 /*	@SuppressWarnings("rawtypes")
 	@Override
 	public <E> Object retrieveBySQLAsObject(String query, Class className) throws DataAccessException {
-		UserDTO user = new UserDTO();
+		Object user;
 		try {
-			user = (UserDTO) sessionFactory.getCurrentSession().createSQLQuery(query)
+			user = sessionFactory.getCurrentSession().createSQLQuery(query)
 					.setResultTransformer(Transformers.aliasToBean(className)).uniqueResult();
 			logger.info("data retrieval success..");
 		} catch (Exception e) {
@@ -50,8 +50,8 @@ public class DataRetriverImpl implements DataRetriver {
 		return user;
 	}
 */	
-	@SuppressWarnings("rawtypes")
 	@Override
+	@SuppressWarnings("rawtypes")
 	public <E> Object retrieveBySQLAsObject(String query, Class className) throws DataAccessException {
 		Object object;
 		try {

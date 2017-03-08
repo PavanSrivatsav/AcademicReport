@@ -13,7 +13,9 @@ import com.revature.biz.ProjectService;
 import com.revature.biz.exception.BusinessServiceException;
 import com.revature.controller.exception.InternalException;
 import com.revature.controller.exception.InvalidInputException;
-import com.revature.model.Project;
+import com.revature.model.Category;
+import com.revature.model.dto.CollegeDTO;
+import com.revature.model.dto.ProjectDTO;
 
 @RestController
 @RequestMapping("/projects")
@@ -25,8 +27,8 @@ public class ProjectController {
 	private ProjectService projectService;
 
 	@GetMapping("/list/all")
-	public List<Project> getProjectController() {
-		List<Project> projects = null;
+	public List<ProjectDTO> getProjectController() {
+		List<ProjectDTO> projects = null;
 		try {
 			logger.info("Getting the Projects data...");
 			projects = projectService.getAllProjects();
@@ -42,11 +44,13 @@ public class ProjectController {
 	}
 
 	@GetMapping("/list/id/{id}")
-	public List<Project> getActiveProjectsByIdController(@PathVariable("id") Integer id) {
-		List<Project> projectById = null;
+	public ProjectDTO getActiveProjectsByIdController(@PathVariable("id") Integer projectId) {
+		ProjectDTO projectById = null;
+		ProjectDTO projectDTO=new ProjectDTO();
+		projectDTO.setId(projectId);
 		try {
 			logger.info("Getting the Projects by id data...");
-			projectById = projectService.getProjectById(id);
+			projectById = projectService.getProjectById(projectDTO);
 			logger.info("Projects by id data retrieval success.");
 		} catch (BusinessServiceException e) {
 			logger.error(e.getMessage(), e);
@@ -59,11 +63,13 @@ public class ProjectController {
 	}
 
 	@GetMapping("/list/name/{name}")
-	public List<Project> getActiveProjectsByNameController(@PathVariable("name") String name) {
-		List<Project> projectByName = null;
+	public ProjectDTO getActiveProjectsByNameController(@PathVariable("name") String projectName) {
+		ProjectDTO projectByName = null;
+		ProjectDTO projectDTO=new ProjectDTO();
+		projectDTO.setName(projectName);
 		try {
 			logger.info("Getting the Projects by name data...");
-			projectByName = projectService.getProjectByName(name);
+			projectByName = projectService.getProjectByName(projectDTO);
 			logger.info("Projects by name data retrieval success.");
 		} catch (BusinessServiceException e) {
 			logger.error(e.getMessage(), e);
@@ -76,11 +82,15 @@ public class ProjectController {
 	}
 
 	@GetMapping("/list/category/id/{id}")
-	public List<Project> getActiveProjectsByCategoryIdController(@PathVariable("id") Integer categoryId) {
-		List<Project> projectByCategoryId = null;
+	public List<ProjectDTO> getActiveProjectsByCategoryIdController(@PathVariable("id") Integer categoryId) {
+		List<ProjectDTO> projectByCategoryId = null;
+		ProjectDTO projectDTO=new ProjectDTO();
+		Category category=new Category();
+		category.setId(categoryId);
+		projectDTO.setCategoyId(categoryId);;
 		try {
 			logger.info("Getting the Projects by category id data...");
-			projectByCategoryId = projectService.getProjectByCategoryId(categoryId);
+			projectByCategoryId = projectService.getProjectByCategoryId(projectDTO);
 			logger.info("Projects by category id data retrieval success.");
 		} catch (BusinessServiceException e) {
 			logger.error(e.getMessage(), e);
@@ -91,12 +101,14 @@ public class ProjectController {
 		}
 		return projectByCategoryId;
 	}
-	@GetMapping("/list/project/overall/detail/collegeId/{collegeId}")
-	public List<Project> getProjectOverAllDetailController(@PathVariable("collegeId") Integer collegeId) {
-		List<Project> projectOverAllDetail = null;
+	@GetMapping("/list/project/overall/detail/college/{id}")
+	public List<ProjectDTO> getProjectOverAllDetailController(@PathVariable("id") Integer collegeId) {
+		List<ProjectDTO> projectOverAllDetail = null;
+		CollegeDTO collegeDTO=new CollegeDTO();
+		collegeDTO.setId(collegeId);
 		try {
 			logger.info("Getting the over all project details data...");
-			projectOverAllDetail = projectService.getProjectOverAllDetail(collegeId);
+			projectOverAllDetail = projectService.getProjectOverAllDetail(collegeDTO);
 			logger.info("Over all project details data retrieval success.");
 		} catch (BusinessServiceException e) {
 			logger.error(e.getMessage(), e);
@@ -108,12 +120,14 @@ public class ProjectController {
 		return projectOverAllDetail;
 	}
 
-	@GetMapping("/list/project/detail/projectId/{projectId}")
-	public List<Project> getProjectDetailController(@PathVariable("projectId") Integer projectId) {
-		List<Project> projectDetail = null;
+	@GetMapping("/list/project/detail/project/{id}")
+	public List<ProjectDTO> getProjectDetailController(@PathVariable("id") Integer projectId) {
+		List<ProjectDTO> projectDetail = null;
+		ProjectDTO projectDTO=new ProjectDTO();
+		projectDTO.setId(projectId);
 		try {
 			logger.info("Getting the project details data...");
-			projectDetail = projectService.getProjectDetail(projectId);
+			projectDetail = projectService.getProjectDetail(projectDTO);
 			logger.info("Project details data retrieval success.");
 		} catch (BusinessServiceException e) {
 			logger.error(e.getMessage(), e);
@@ -124,12 +138,14 @@ public class ProjectController {
 		}
 		return projectDetail;
 	}
-	@GetMapping("/total/project/count/projectId/{projectId}")
-	public List<Project> getTotalProjectCountController(@PathVariable("projectId") Integer projectId) {
-		List<Project> totalProjectCount = null;
+	@GetMapping("/total/project/count/project/{id}")
+	public List<ProjectDTO> getTotalProjectCountController(@PathVariable("id") Integer projectId) {
+		List<ProjectDTO> totalProjectCount = null;
+		ProjectDTO projectDTO=new ProjectDTO();
+		projectDTO.setId(projectId);
 		try {
 			logger.info("Getting the Total Project Count data...");
-			totalProjectCount = projectService.getTotalProjectCount(projectId);
+			totalProjectCount = projectService.getTotalProjectCount(projectDTO);
 			logger.info("Total Project Count data retrieval success.");
 		} catch (BusinessServiceException e) {
 			logger.error(e.getMessage(), e);
