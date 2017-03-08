@@ -3,25 +3,26 @@ package com.revature.biz;
 import java.util.List;
 
 import com.revature.biz.exception.BusinessServiceException;
-import com.revature.model.Project;
+import com.revature.model.dto.CollegeDTO;
+import com.revature.model.dto.ProjectDTO;
 
 public interface ProjectService {
 	/**
 	 * @return
 	 * @throws BusinessServiceException
 	 */
-	List<Project> getAllProjects() throws BusinessServiceException;
+	 List<ProjectDTO> getAllProjects() throws BusinessServiceException;
 
-	List<Project> getProjectById(Integer Id) throws BusinessServiceException;
+	 <E> ProjectDTO getProjectById(ProjectDTO projectDTO) throws BusinessServiceException;
 
-	List<Project> getProjectByName(String projectName) throws BusinessServiceException;
+	 <E> ProjectDTO getProjectByName(ProjectDTO projectDTO) throws BusinessServiceException;
 
-	List<Project> getProjectByCategoryId(Integer categoryId) throws BusinessServiceException;
+	 List<ProjectDTO> getProjectByCategoryId(ProjectDTO projectDTO) throws BusinessServiceException;
 
-	List<Project> getProjectOverAllDetail(Integer collegeId) throws BusinessServiceException;
+	 List<ProjectDTO> getProjectOverAllDetail(CollegeDTO collegeDTO) throws BusinessServiceException;
 
-	List<Project> getProjectDetail(Integer projectId) throws BusinessServiceException;
+	 List<ProjectDTO> getProjectDetail(ProjectDTO projectDTO) throws BusinessServiceException;
 
-	List<Project> getTotalProjectCount(Integer projectId) throws BusinessServiceException;
+	 List<ProjectDTO> getTotalProjectCount(ProjectDTO projectDTO) throws BusinessServiceException;
 
 }

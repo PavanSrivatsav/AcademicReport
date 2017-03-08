@@ -13,7 +13,7 @@ import com.revature.biz.StudentProjectService;
 import com.revature.biz.exception.BusinessServiceException;
 import com.revature.controller.exception.InternalException;
 import com.revature.controller.exception.InvalidInputException;
-import com.revature.model.StudentProject;
+import com.revature.model.dto.StudentProjectDTO;
 
 @RestController
 @RequestMapping("/students/project")
@@ -25,8 +25,8 @@ public class StudentProjectController {
 	private StudentProjectService studentProjectService;
 
 	@GetMapping("/list/all")
-	public List<StudentProject> getStudentProjectController() {
-		List<StudentProject> studentProjectS = null;
+	public List<StudentProjectDTO> getStudentProjectController() {
+		List<StudentProjectDTO> studentProjectS = null;
 		try {
 			logger.info("Getting the StudentProjects data...");
 			studentProjectS = studentProjectService.getAllStudentProjects();
@@ -42,11 +42,13 @@ public class StudentProjectController {
 	}
 
 	@GetMapping("/list/id/{id}")
-	public List<StudentProject> getStudentProjectByIdController(@PathVariable Integer id) {
-		List<StudentProject> studentProjectsById = null;
+	public StudentProjectDTO getStudentProjectByIdController(@PathVariable("id") Integer id) {
+		StudentProjectDTO studentProjectsById = null;
+		StudentProjectDTO studentProjectDTO=new StudentProjectDTO();
+		studentProjectDTO.setId(id);
 		try {
 			logger.info("Getting the StudentProjects by id...");
-			studentProjectsById = studentProjectService.getStudentProjectById(id);
+			studentProjectsById = studentProjectService.getStudentProjectById(studentProjectDTO);
 			logger.info("StudentProject data by id retrieval success.");
 		} catch (BusinessServiceException e) {
 			logger.error(e.getMessage(), e);
@@ -59,11 +61,13 @@ public class StudentProjectController {
 	}
 
 	@GetMapping("/list/student/id/{id}")
-	public List<StudentProject> getStudentProjectByStudentIdController(@PathVariable("id") Integer studentId) {
-		List<StudentProject> studentProjectsByStudentId = null;
+	public List<StudentProjectDTO> getStudentProjectByStudentIdController(@PathVariable("id") Integer studentId) {
+		List<StudentProjectDTO> studentProjectsByStudentId = null;
+		StudentProjectDTO studentProjectDTO=new StudentProjectDTO();
+		studentProjectDTO.setStudentId(studentId);
 		try {
 			logger.info("Getting the StudentProject by Student id... ");
-			studentProjectsByStudentId = studentProjectService.getStudentProjectByStudentId(studentId);
+			studentProjectsByStudentId = studentProjectService.getStudentProjectByStudentId(studentProjectDTO);
 			logger.info("Getting the StudentProject by Student id retrieval success ");
 		} catch (BusinessServiceException e) {
 			logger.error(e.getMessage(), e);
@@ -76,11 +80,13 @@ public class StudentProjectController {
 	}
 
 	@GetMapping("/list/student/project/id/{id}")
-	public List<StudentProject> getStudentProjectByProjectIdController(@PathVariable("id") Integer projectId) {
-		List<StudentProject> studentProjectsByProjectId = null;
+	public List<StudentProjectDTO> getStudentProjectByProjectIdController(@PathVariable("id") Integer projectId) {
+		List<StudentProjectDTO> studentProjectsByProjectId = null;
+		StudentProjectDTO studentProjectDTO=new StudentProjectDTO();
+		studentProjectDTO.setProjectId(projectId);
 		try {
 			logger.info("Getting the StudentProject by Project id... ");
-			studentProjectsByProjectId = studentProjectService.getStudentProjectByProjectId(projectId);
+			studentProjectsByProjectId = studentProjectService.getStudentProjectByProjectId(studentProjectDTO);
 			logger.info("Getting the StudentProject by Project id retrieval success ");
 		} catch (BusinessServiceException e) {
 			logger.error(e.getMessage(), e);
@@ -93,11 +99,13 @@ public class StudentProjectController {
 	}
 	
 	@GetMapping("/completed/student/project/count/studentId/{studentId}")
-	public List<StudentProject> getCompletedStudentProjectCountController(@PathVariable("studentId") Integer studentId) {
-		List<StudentProject> completedStudentProjectCount = null;
+	public StudentProjectDTO getCompletedStudentProjectCountController(@PathVariable("studentId") Integer studentId) {
+		StudentProjectDTO completedStudentProjectCount = null;
+		StudentProjectDTO studentProjectDTO=new StudentProjectDTO();
+		studentProjectDTO.setStudentId(studentId);
 		try {
 			logger.info("Getting the Completed Student Project Count... ");
-			completedStudentProjectCount = studentProjectService.getCompletedStudentProjectCount(studentId);
+			completedStudentProjectCount = studentProjectService.getCompletedStudentProjectCount(studentProjectDTO);
 			logger.info("Getting the Completed Student Project Count retrieval success ");
 		} catch (BusinessServiceException e) {
 			logger.error(e.getMessage(), e);

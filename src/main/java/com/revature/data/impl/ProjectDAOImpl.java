@@ -11,7 +11,9 @@ import com.revature.data.access.DataRetriver;
 import com.revature.data.access.exception.DataAccessException;
 import com.revature.data.exception.DataServiceException;
 import com.revature.data.utils.DataUtils;
+import com.revature.model.College;
 import com.revature.model.Project;
+import com.revature.model.dto.ProjectDTO;
 
 @Repository
 public class ProjectDAOImpl implements ProjectDAO {
@@ -29,11 +31,11 @@ public class ProjectDAOImpl implements ProjectDAO {
 	}
 
 	@Override
-	public List<Project> getAllProjects() throws DataServiceException {
-		List<Project> projects = null;
+	public List<ProjectDTO> getAllProjects() throws DataServiceException {
+		List<ProjectDTO> projects = null;
 		try {
-			StringBuilder sb = new StringBuilder("select * from projects p where p.IS_ACTIVE=true");
-			projects = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
+			StringBuilder sb = new StringBuilder("select p.ID id,p.NAME name,p.CATEGORY_ID categoyId,p.DESCRIPTION description,p.DURATION_IN_MINUTES duration,p.IS_ACTIVE isActive from projects p where p.IS_ACTIVE=true");
+			projects = dataRetriver.retrieveBySQLAsJSON(sb.toString(),ProjectDTO.class);
 			logger.info("Projects data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
@@ -43,11 +45,12 @@ public class ProjectDAOImpl implements ProjectDAO {
 	}
 
 	@Override
-	public List<Project> getProjectById(Integer id) throws DataServiceException {
-		List<Project> projectById = null;
+	public <E> ProjectDTO getProjectById(Project project) throws DataServiceException {
+		ProjectDTO projectById = null;
 		try {
-			StringBuilder sb = new StringBuilder("select * from projects p where ID=" + id + " and p.IS_ACTIVE=true");
-			projectById = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
+			StringBuilder sb = new StringBuilder(
+					"select p.ID id, p.NAME name, p.CATEGORY_ID categoyId, p.DESCRIPTION description, p.DURATION_IN_MINUTES duration, p.IS_ACTIVE isActive from projects p where p.ID='"+project.getId()+"' and p.IS_ACTIVE=true");
+			projectById = (ProjectDTO) dataRetriver.retrieveBySQLAsObject(sb.toString(),ProjectDTO.class);
 			logger.info("Projects by id data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
@@ -57,12 +60,12 @@ public class ProjectDAOImpl implements ProjectDAO {
 	}
 
 	@Override
-	public List<Project> getProjectByName(String projectName) throws DataServiceException {
-		List<Project> projectByName = null;
+	public <E> ProjectDTO getProjectByName(Project project) throws DataServiceException {
+		ProjectDTO projectByName = null;
 		try {
 			StringBuilder sb = new StringBuilder(
-					"select * from projects p where NAME='" + projectName + "' and p.IS_ACTIVE=true");
-			projectByName = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
+					"select p.ID id,p.NAME name,p.CATEGORY_ID categoyId,p.DESCRIPTION description,p.DURATION_IN_MINUTES duration,p.IS_ACTIVE isActive from projects p where p.NAME='"+project.getName()+"' and p.IS_ACTIVE=true");
+			projectByName = (ProjectDTO) dataRetriver.retrieveBySQLAsObject(sb.toString(),ProjectDTO.class);
 			logger.info("Projects by name data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
@@ -72,12 +75,12 @@ public class ProjectDAOImpl implements ProjectDAO {
 	}
 
 	@Override
-	public List<Project> getProjectByCategoryId(Integer categoryId) throws DataServiceException {
-		List<Project> projectByCategoryId = null;
+	public List<ProjectDTO> getProjectByCategoryId(Project project) throws DataServiceException {
+		List<ProjectDTO> projectByCategoryId = null;
 		try {
 			StringBuilder sb = new StringBuilder(
-					"select * from projects p where CATEGORY_ID=" + categoryId + " and p.IS_ACTIVE=true");
-			projectByCategoryId = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
+					"select p.ID id,p.NAME name,p.CATEGORY_ID categoyId,p.DESCRIPTION description,p.DURATION_IN_MINUTES duration,p.IS_ACTIVE isActive from projects p where p.CATEGORY_ID='" + project.getCategoy().getId() + "' and p.IS_ACTIVE=true");
+			projectByCategoryId = dataRetriver.retrieveBySQLAsJSON(sb.toString(),ProjectDTO.class);
 			logger.info("Projects by category id data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
@@ -87,13 +90,13 @@ public class ProjectDAOImpl implements ProjectDAO {
 	}
 
 	@Override
-	public List<Project> getProjectOverAllDetail(Integer collegeId) throws DataServiceException {
-		List<Project> projectOverAllDetail = null;
+	public List<ProjectDTO> getProjectOverAllDetail(College college) throws DataServiceException {
+		List<ProjectDTO> projectOverAllDetail = null;
 		try {
 			StringBuilder sb = new StringBuilder(
-					"SELECT NAME,DESCRIPTION FROM projects WHERE id IN (SELECT DISTINCT projects.`ID` FROM `student_projects` JOIN `projects` ON `projects`.`ID`=`student_projects`.`PROJECT_ID` JOIN `students` ON students.`ID`=student_projects.`STUDENT_ID` WHERE `students`.`IS_ACTIVE`=TRUE AND projects.`IS_ACTIVE`=TRUE AND `students`.`COLLEGE_ID`= "
-							+ collegeId + " )");
-			projectOverAllDetail = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
+					"SELECT p.NAME name,p.DESCRIPTION description FROM projects p WHERE p.ID IN (SELECT DISTINCT projects.`ID` FROM `student_projects` JOIN `projects` ON `projects`.`ID`=`student_projects`.`PROJECT_ID` JOIN `students` ON students.`ID`=student_projects.`STUDENT_ID` WHERE `students`.`IS_ACTIVE`=TRUE AND projects.`IS_ACTIVE`=TRUE AND `students`.`COLLEGE_ID`= '"
+							+ college.getId() + "' )");
+			projectOverAllDetail = dataRetriver.retrieveBySQLAsJSON(sb.toString(),ProjectDTO.class);
 			logger.info("Projects over all details data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
@@ -103,13 +106,12 @@ public class ProjectDAOImpl implements ProjectDAO {
 	}
 
 	@Override
-	public List<Project> getProjectDetail(Integer projectId) throws DataServiceException {
-		List<Project> projectDetail = null;
+	public List<ProjectDTO> getProjectDetail(Project project) throws DataServiceException {
+		List<ProjectDTO> projectDetail = null;
 		try {
 			StringBuilder sb = new StringBuilder(
-					"SELECT  `projects`.`NAME`,`projects`.`DESCRIPTION`,`project_sprints`.`SPRINT_NAME`,`project_sprint_activities`.`ONLINE_ACTIVITY`,`project_sprint_activities`.`OFFLINE_ACTIVITY`,`quizzes`.`NAME` as 'Quiz name',`videos`.`NAME` as 'Video name',`videos`.`URL` ,`courses`.`NAME` as 'Course name' FROM `projects` JOIN `project_sprints`ON `projects`.`ID`=`project_sprints`.`PROJECT_ID` JOIN `project_sprint_activities` ON `project_sprints`.`ID`=`project_sprint_activities`.`PROJECT_SPRINT_ID` LEFT JOIN `videos` ON `project_sprint_activities`.`VIDEO_ID`=`videos`.`ID` LEFT JOIN`courses` ON `project_sprint_activities`.`COURSE_ID`=`courses`.`ID`LEFT JOIN `quizzes` ON `project_sprint_activities`.`QUIZ_ID`=`quizzes`.`ID` WHERE projects.`IS_ACTIVE`=TRUE AND projects.`ID`="
-							+ projectId);
-			projectDetail = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
+					"SELECT id id,project_name name,description description,sprint_name sprintName,online_activity onlineActivity,offline_activity offlineActivity,quiz_name quizName,video_name videoName,url url,course_name courseName FROM vw_project_activity WHERE id="+ project.getId());
+			projectDetail =dataRetriver.retrieveBySQLAsJSON(sb.toString(),ProjectDTO.class);
 			logger.info("Projects details data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
@@ -119,13 +121,13 @@ public class ProjectDAOImpl implements ProjectDAO {
 	}
 
 	@Override
-	public List<Project> getTotalProjectCount(Integer projectId) throws DataServiceException {
-		List<Project> totalProjectCount = null;
+	public List<ProjectDTO> getTotalProjectCount(Project project) throws DataServiceException {
+		List<ProjectDTO> totalProjectCount = null;
 		try {
 			StringBuilder sb = new StringBuilder(
-					"SELECT DISTINCT COUNT(projects.`ID`) as 'Project Count' FROM projects JOIN project_sprints ON projects.`ID`=project_sprints.`PROJECT_ID` JOIN project_sprint_activities ON project_sprints.`ID`=project_sprint_activities.`PROJECT_SPRINT_ID` WHERE projects.`IS_ACTIVE`=TRUE AND projects.`ID`="
-							+ projectId);
-			totalProjectCount = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
+					"SELECT id id,project_count ProjectCnt FROM vw_project_activity_count WHERE ID="
+							+ project.getId());
+			totalProjectCount =dataRetriver.retrieveBySQLAsJSON(sb.toString(), ProjectDTO.class);
 			logger.info("TotalProjectCount data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);

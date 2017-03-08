@@ -3,7 +3,9 @@ package com.revature.data;
 import java.util.List;
 
 import com.revature.data.exception.DataServiceException;
+import com.revature.model.College;
 import com.revature.model.Project;
+import com.revature.model.dto.ProjectDTO;
 
 public interface ProjectDAO {
 
@@ -12,18 +14,18 @@ public interface ProjectDAO {
 	 * @throws DataServiceException
 	 */
 
-	public List<Project> getAllProjects() throws DataServiceException;
+	public List<ProjectDTO> getAllProjects() throws DataServiceException;
 
-	public List<Project> getProjectById(Integer Id) throws DataServiceException;
+	public <E> ProjectDTO getProjectById(Project project) throws DataServiceException;
 
-	public List<Project> getProjectByName(String projectName) throws DataServiceException;
+	public <E> ProjectDTO getProjectByName(Project project) throws DataServiceException;
 
-	public List<Project> getProjectByCategoryId(Integer categoryId) throws DataServiceException;
+	public List<ProjectDTO> getProjectByCategoryId(Project project) throws DataServiceException;
 
-	public List<Project> getProjectOverAllDetail(Integer collegeId) throws DataServiceException;
+	public List<ProjectDTO> getProjectOverAllDetail(College college) throws DataServiceException;
 
-	public List<Project> getProjectDetail(Integer projectId) throws DataServiceException;
+	public List<ProjectDTO> getProjectDetail(Project project) throws DataServiceException;
 
-	public List<Project> getTotalProjectCount(Integer projectId) throws DataServiceException;
+	public List<ProjectDTO> getTotalProjectCount(Project project) throws DataServiceException;
 
 }
