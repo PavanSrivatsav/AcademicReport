@@ -112,7 +112,7 @@ public class CourseDAOImpl implements CourseDAO {
 		List<CollegeDTO> courseOverAllDetail = null;
 		try {
 			StringBuilder sb = new StringBuilder(
-					"SELECT c.NAME name,c.DESCRIPTION description FROM courses c WHERE id IN (SELECT DISTINCT courses.`ID` FROM `student_courses` JOIN `courses` ON `courses`.`ID`=`student_courses`.`COURSE_ID` JOIN `students` ON students.`ID`=student_courses.`STUDENT_ID` WHERE `students`.`IS_ACTIVE`=TRUE AND `courses`.`IS_ACTIVE`=TRUE AND `students`.`COLLEGE_ID`= "
+					"SELECT c.id id, c.NAME name,c.DESCRIPTION description FROM courses c WHERE id IN (SELECT DISTINCT courses.`ID` FROM `student_courses` JOIN `courses` ON `courses`.`ID`=`student_courses`.`COURSE_ID` JOIN `students` ON students.`ID`=student_courses.`STUDENT_ID` WHERE `students`.`IS_ACTIVE`=TRUE AND `courses`.`IS_ACTIVE`=TRUE AND `students`.`COLLEGE_ID`= "
 							+ college.getId() + " )");
 			courseOverAllDetail = dataRetriver.retrieveBySQLAsJSON(sb.toString(), CourseDTO.class);
 			logger.info("Courses over all details data retrieval success..");
@@ -143,7 +143,7 @@ public class CourseDAOImpl implements CourseDAO {
 		List<CourseDTO> totalCourseCount = null;
 		try {
 			StringBuilder sb = new StringBuilder(
-					"SELECT id,course_count courseCnt FROM vw_course_content_count WHERE id =" + course.getId());
+					"SELECT id,course_count cunt FROM vw_course_content_count WHERE id =" + course.getId());
 			totalCourseCount = dataRetriver.retrieveBySQLAsJSON(sb.toString(), CourseDTO.class);
 			logger.info("Total Course Count data retrieval success..");
 		} catch (DataAccessException e) {
