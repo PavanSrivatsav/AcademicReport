@@ -61,8 +61,9 @@ public class UserDAOImpl implements UserDAO {
 		UserDTO userById = null;
 		try {
 			StringBuilder sb = new StringBuilder(
-					"select u.ID id, u.NAME name, u.EMAIL_ID emailId, u.PASSWORD password, u.DEPARTMENT_ID departmentId, u.COLLEGE_ID collegeId, u.ROLE_ID roleId, u.PHONE_NUMBER phone from users u where u.ID='" + user.getId() + "' and u.IS_ACTIVE=true");
-			userById = (UserDTO) dataRetriver.retrieveBySQLAsObject(sb.toString(),UserDTO.class);
+					"select u.ID id, u.NAME name, u.EMAIL_ID emailId, u.PASSWORD password, u.DEPARTMENT_ID departmentId, u.COLLEGE_ID collegeId, u.ROLE_ID roleId, u.PHONE_NUMBER phone from users u where u.ID='"
+							+ user.getId() + "' and u.IS_ACTIVE=true");
+			userById = (UserDTO) dataRetriver.retrieveBySQLAsObject(sb.toString(), UserDTO.class);
 			logger.info("User by id data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
@@ -76,8 +77,9 @@ public class UserDAOImpl implements UserDAO {
 		UserDTO userByEmailId = null;
 		try {
 			StringBuilder sb = new StringBuilder(
-					"select u.ID id, u.NAME name, u.EMAIL_ID emailId, u.PASSWORD password, u.DEPARTMENT_ID departmentId, u.COLLEGE_ID collegeId, u.ROLE_ID roleId, u.PHONE_NUMBER phone from users u where u.EMAIL_ID='" + user.getEmailId() + "' and u.IS_ACTIVE=true");
-			userByEmailId = (UserDTO) dataRetriver.retrieveBySQLAsObject(sb.toString(),UserDTO.class);
+					"select u.ID id, u.NAME name, u.EMAIL_ID emailId, u.PASSWORD password, u.DEPARTMENT_ID departmentId, u.COLLEGE_ID collegeId, u.ROLE_ID roleId, u.PHONE_NUMBER phone from users u where u.EMAIL_ID='"
+							+ user.getEmailId() + "' and u.IS_ACTIVE=true");
+			userByEmailId = (UserDTO) dataRetriver.retrieveBySQLAsObject(sb.toString(), UserDTO.class);
 			logger.info("User by email id data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
@@ -91,8 +93,9 @@ public class UserDAOImpl implements UserDAO {
 		List<UserDTO> userByCollegeId = null;
 		try {
 			StringBuilder sb = new StringBuilder(
-					"select u.ID id, u.NAME name, u.EMAIL_ID emailId, u.PASSWORD password, u.DEPARTMENT_ID departmentId, u.COLLEGE_ID collegeId, u.ROLE_ID roleId, u.PHONE_NUMBER phone from users u where u.COLLEGE_ID='" + user.getCollege().getId() + "' and u.IS_ACTIVE=true");
-			userByCollegeId = dataRetriver.retrieveBySQLAsJSON(sb.toString(),UserDTO.class);
+					"select u.ID id, u.NAME name, u.EMAIL_ID emailId, u.PASSWORD password, u.DEPARTMENT_ID departmentId, u.COLLEGE_ID collegeId, u.ROLE_ID roleId, u.PHONE_NUMBER phone from users u where u.COLLEGE_ID='"
+							+ user.getCollege().getId() + "' and u.IS_ACTIVE=true");
+			userByCollegeId = dataRetriver.retrieveBySQLAsJSON(sb.toString(), UserDTO.class);
 			logger.info("Users by college id data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
@@ -106,8 +109,9 @@ public class UserDAOImpl implements UserDAO {
 		List<UserDTO> userByDepartmentId = null;
 		try {
 			StringBuilder sb = new StringBuilder(
-					"select u.ID id, u.NAME name, u.EMAIL_ID emailId, u.PASSWORD password, u.DEPARTMENT_ID departmentId, u.COLLEGE_ID collegeId, u.ROLE_ID roleId, u.PHONE_NUMBER phone from users u where u.DEPARTMENT_ID='" + user.getDepartment().getId() + "' and u.IS_ACTIVE=true");
-			userByDepartmentId = dataRetriver.retrieveBySQLAsJSON(sb.toString(),UserDTO.class);
+					"select u.ID id, u.NAME name, u.EMAIL_ID emailId, u.PASSWORD password, u.DEPARTMENT_ID departmentId, u.COLLEGE_ID collegeId, u.ROLE_ID roleId, u.PHONE_NUMBER phone from users u where u.DEPARTMENT_ID='"
+							+ user.getDepartment().getId() + "' and u.IS_ACTIVE=true");
+			userByDepartmentId = dataRetriver.retrieveBySQLAsJSON(sb.toString(), UserDTO.class);
 			logger.info("Users by department id data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
@@ -128,8 +132,8 @@ public class UserDAOImpl implements UserDAO {
 			if (DataUtils.checkPassword(user.getPassword(), dbPassword)) {
 				logger.info("User login success...");
 				StringBuilder sb1 = new StringBuilder(
-						"select u.ID id, u.NAME name, u.EMAIL_ID emailId, u.DEPARTMENT_ID departmentId, u.COLLEGE_ID collegeId, u.ROLE_ID roleId, u.PHONE_NUMBER phone from users u where u.EMAIL_ID='"
-								+ user.getEmailId() + "' and u.IS_ACTIVE=true");
+						"SELECT id id,username name,emailId emailId,PASSWORD password,departmentId departmentId,collegeId collegeId,roleId roleId,phone phone,roleName roleName,collegeName collegeName,departmentName departmentName FROM vw_user_details WHERE emailId='"
+								+ user.getEmailId() + "'");
 				userDTOObj = (UserDTO) dataRetriver.retrieveBySQLAsObject(sb1.toString(), UserDTO.class);
 			} else
 				logger.info("User login failure...");

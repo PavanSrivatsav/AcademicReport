@@ -17,5 +17,8 @@ public class UserDTO {
 	private Integer collegeId;
 	private Integer departmentId;
 	private Boolean isActive;
+	private String collegeName;
+	private String departmentName;
+	private String roleName;
 
 }

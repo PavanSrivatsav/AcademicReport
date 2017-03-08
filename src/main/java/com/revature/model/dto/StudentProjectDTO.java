@@ -1,5 +1,6 @@
 package com.revature.model.dto;
 
+import java.math.BigInteger;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -12,6 +13,11 @@ public class StudentProjectDTO {
 	private Integer id;
 	private Integer studentId;
 	private Integer projectId;
+	private String projectName;
+	private BigInteger projectCount;
+	private String name;
+	private Integer collegeId;
+	private Integer departmentId;
 	private Date startedOn;
 	private Date completedOn;
 	private Integer statusId;

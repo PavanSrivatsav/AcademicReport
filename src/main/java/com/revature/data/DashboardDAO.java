@@ -3,8 +3,9 @@ package com.revature.data;
 import java.util.List;
 
 import com.revature.data.exception.DataServiceException;
-import com.revature.model.StudentCourse;
-import com.revature.model.StudentProject;
+import com.revature.model.Student;
+import com.revature.model.dto.StudentCourseDTO;
+import com.revature.model.dto.StudentProjectDTO;
 
 public interface DashboardDAO {
 	/**
@@ -12,12 +13,12 @@ public interface DashboardDAO {
 	 * @throws DataServiceException
 	 */
 
-	public List<StudentCourse> getActiveCourses(Integer collegeId, Integer departmentId) throws DataServiceException;
+	public List<StudentCourseDTO> getActiveCourses(Student student) throws DataServiceException;
 
-	public List<StudentProject> getActiveProjects(Integer collegeId, Integer departmentId) throws DataServiceException;
+	public List<StudentProjectDTO> getActiveProjects(Student student) throws DataServiceException;
 
-	public List<StudentCourse> getTrendingCourses(Integer collegeId) throws DataServiceException;
+	public List<StudentCourseDTO> getTrendingCourses(Student student) throws DataServiceException;
 
-	public List<StudentProject> getTrendingProjects(Integer collegeId) throws DataServiceException;
+	public List<StudentProjectDTO> getTrendingProjects(Student student) throws DataServiceException;
 
 }
