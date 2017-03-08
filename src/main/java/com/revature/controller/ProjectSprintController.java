@@ -11,7 +11,7 @@ import com.revature.biz.ProjectSprintService;
 import com.revature.biz.exception.BusinessServiceException;
 import com.revature.controller.exception.InternalException;
 import com.revature.controller.exception.InvalidInputException;
-import com.revature.model.ProjectSprint;
+import com.revature.model.dto.ProjectSprintDTO;
 
 @RestController
 
@@ -23,8 +23,8 @@ public class ProjectSprintController {
 	private ProjectSprintService projectSprintService;
 
 	@RequestMapping("/projects/sprints")
-	public List<ProjectSprint> getProjectSprintController() {
-		List<ProjectSprint> projectSprints = null;
+	public List<ProjectSprintDTO> getProjectSprintController() {
+		List<ProjectSprintDTO> projectSprints = null;
 		try {
 			logger.info("Getting the ProjectSprints data...");
 			projectSprints = projectSprintService.getAllProjectSprints();
