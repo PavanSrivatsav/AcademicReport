@@ -94,7 +94,7 @@ public class ProjectDAOImpl implements ProjectDAO {
 		List<ProjectDTO> projectOverAllDetail = null;
 		try {
 			StringBuilder sb = new StringBuilder(
-					"SELECT p.NAME name,p.DESCRIPTION description FROM projects p WHERE p.ID IN (SELECT DISTINCT projects.`ID` FROM `student_projects` JOIN `projects` ON `projects`.`ID`=`student_projects`.`PROJECT_ID` JOIN `students` ON students.`ID`=student_projects.`STUDENT_ID` WHERE `students`.`IS_ACTIVE`=TRUE AND projects.`IS_ACTIVE`=TRUE AND `students`.`COLLEGE_ID`= '"
+					"SELECT p.ID id,p.NAME name,p.DESCRIPTION description FROM projects p WHERE p.ID IN (SELECT DISTINCT projects.`ID` FROM `student_projects` JOIN `projects` ON `projects`.`ID`=`student_projects`.`PROJECT_ID` JOIN `students` ON students.`ID`=student_projects.`STUDENT_ID` WHERE `students`.`IS_ACTIVE`=TRUE AND projects.`IS_ACTIVE`=TRUE AND `students`.`COLLEGE_ID`= '"
 							+ college.getId() + "' )");
 			projectOverAllDetail = dataRetriver.retrieveBySQLAsJSON(sb.toString(),ProjectDTO.class);
 			logger.info("Projects over all details data retrieval success..");

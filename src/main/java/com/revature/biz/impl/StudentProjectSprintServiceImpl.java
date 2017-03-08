@@ -10,7 +10,10 @@ import com.revature.biz.StudentProjectSprintService;
 import com.revature.biz.exception.BusinessServiceException;
 import com.revature.data.StudentProjectSprintDAO;
 import com.revature.data.exception.DataServiceException;
+import com.revature.model.ProjectSprint;
+import com.revature.model.StudentProject;
 import com.revature.model.StudentProjectSprint;
+import com.revature.model.dto.StudentProjectSprintDTO;
 
 @Service
 public class StudentProjectSprintServiceImpl implements StudentProjectSprintService {
@@ -20,8 +23,8 @@ public class StudentProjectSprintServiceImpl implements StudentProjectSprintServ
 	private StudentProjectSprintDAO studentProjectSprintDAO;
 
 	@Override
-	public List<StudentProjectSprint> getAllStudentProjectSprints() throws BusinessServiceException {
-		List<StudentProjectSprint> studentProjectSprint = null;
+	public List<StudentProjectSprintDTO> getAllStudentProjectSprints() throws BusinessServiceException {
+		List<StudentProjectSprintDTO> studentProjectSprint = null;
 		try {
 			studentProjectSprint = studentProjectSprintDAO.getAllStudentProjectSprints();
 			logger.info("StudentProjects retrieved successfully");
@@ -33,10 +36,12 @@ public class StudentProjectSprintServiceImpl implements StudentProjectSprintServ
 	}
 
 	@Override
-	public List<StudentProjectSprint> getStudentProjectSprintsById(Integer Id) throws BusinessServiceException {
-		List<StudentProjectSprint> studentProjectSprintId = null;
+	public List<StudentProjectSprintDTO> getStudentProjectSprintsById(StudentProjectSprintDTO studentProjectSprintDTO) throws BusinessServiceException {
+		List<StudentProjectSprintDTO> studentProjectSprintId = null;
+		StudentProjectSprint studentProjectSprint=new StudentProjectSprint();
+		studentProjectSprint.setId(studentProjectSprintDTO.getId());
 		try {
-			studentProjectSprintId = studentProjectSprintDAO.getStudentProjectSprintsById(Id);
+			studentProjectSprintId = studentProjectSprintDAO.getStudentProjectSprintsById(studentProjectSprint);
 			logger.info("StudentProjects retrieved successfully");
 		} catch (DataServiceException e) {
 			logger.error(e.getMessage(), e);
@@ -46,12 +51,16 @@ public class StudentProjectSprintServiceImpl implements StudentProjectSprintServ
 	}
 
 	@Override
-	public List<StudentProjectSprint> getStudentProjectSprintsByStudentProjectId(Integer studentProjectId)
+	public List<StudentProjectSprintDTO> getStudentProjectSprintsByStudentProjectId(StudentProjectSprintDTO studentProjectSprintDTO)
 			throws BusinessServiceException {
-		List<StudentProjectSprint> studentProjectSprintsByStudentProjectId = null;
+		List<StudentProjectSprintDTO> studentProjectSprintsByStudentProjectId = null;
+		StudentProjectSprint studentProjectSprint=new StudentProjectSprint();
+		StudentProject studentProject=new StudentProject();
+		studentProject.setId(studentProjectSprintDTO.getStudentProjectId());
+		studentProjectSprint.setStudentProject(studentProject);
 		try {
 			studentProjectSprintsByStudentProjectId = studentProjectSprintDAO
-					.getStudentProjectSprintsByStudentProjectId(studentProjectId);
+					.getStudentProjectSprintsByStudentProjectId(studentProjectSprint);
 			logger.info("StudentProjects retrieved successfully");
 		} catch (DataServiceException e) {
 			logger.error(e.getMessage(), e);
@@ -61,12 +70,16 @@ public class StudentProjectSprintServiceImpl implements StudentProjectSprintServ
 	}
 
 	@Override
-	public List<StudentProjectSprint> getStudentProjectSprintsByProjectSprintId(Integer studentProjectSprintId)
+	public List<StudentProjectSprintDTO> getStudentProjectSprintsByProjectSprintId(StudentProjectSprintDTO studentProjectSprintDTO)
 			throws BusinessServiceException {
-		List<StudentProjectSprint> studentProjectSprintsByProjectSprintId = null;
+		List<StudentProjectSprintDTO> studentProjectSprintsByProjectSprintId = null;
+		StudentProjectSprint studentProjectSprint=new StudentProjectSprint();
+		ProjectSprint projectSprint=new ProjectSprint();
+		projectSprint.setId(studentProjectSprintDTO.getProjectSprintId());
+		studentProjectSprint.setProjectSprint(projectSprint);
 		try {
 			studentProjectSprintsByProjectSprintId = studentProjectSprintDAO
-					.getStudentProjectSprintsByProjectSprintId(studentProjectSprintId);
+					.getStudentProjectSprintsByProjectSprintId(studentProjectSprint);
 			logger.info("StudentProjects retrieved successfully");
 		} catch (DataServiceException e) {
 			logger.error(e.getMessage(), e);
