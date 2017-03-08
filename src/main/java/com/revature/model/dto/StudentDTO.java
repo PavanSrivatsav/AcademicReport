@@ -18,7 +18,12 @@ public class StudentDTO {
 	private String phone;
 	private String batch;
 	private Integer departmentId;
+	private String departmentName;
 	private String areaOfInterest;
 	private Boolean isActive;
+	private String currentCourse;
+	private String completedCourse;
+	private String currentProject;
+	private String completedProject;
 	
 }

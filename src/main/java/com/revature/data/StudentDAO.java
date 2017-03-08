@@ -4,6 +4,9 @@ import java.util.List;
 
 import com.revature.data.exception.DataServiceException;
 import com.revature.model.Student;
+import com.revature.model.dto.StudentCourseDTO;
+import com.revature.model.dto.StudentDTO;
+import com.revature.model.dto.StudentProjectDTO;
 
 public interface StudentDAO {
 
@@ -12,30 +15,24 @@ public interface StudentDAO {
 	 * @throws DataServiceException
 	 */
 
-	public List<Student> getAllStudents() throws DataServiceException;
+	public List<StudentDTO> getAllStudents() throws DataServiceException;
 
-	public List<Student> getStudentById(int studentId) throws DataServiceException;
+	public <E> StudentDTO getStudentDetailsById(Student student) throws DataServiceException;
 
-	public List<Student> getStudentByEmailId(String sudentEmailId) throws DataServiceException;
+	public <E> StudentDTO getStudentByEmailId(Student student) throws DataServiceException;
 
-	public List<Student> getIndividualStudentByCourses(Integer collegeId, Integer departmentId, Integer studentId)
-			throws DataServiceException;
+	public List<StudentCourseDTO> getStudentCoursesByStudentId(Student student) throws DataServiceException;
 
-	public List<Student> getIndividualStudentByProjects(Integer collegeId, Integer departmentId, Integer studentId)
-			throws DataServiceException;
+	public List<StudentProjectDTO> getStudentProjectsByStudentId(Student student) throws DataServiceException;
 
-	public List<Student> getOverAllStudentByCurrentCourses(Integer collegeId, Integer departmentId)
-			throws DataServiceException;
+/*	public List<StudentDTO> getOverAllStudentByCurrentCourses(Student student) throws DataServiceException;
 
-	public List<Student> getOverAllStudentByCompletedCourses(Integer collegeId, Integer departmentId)
-			throws DataServiceException;
+	public List<StudentDTO> getOverAllStudentByCompletedCourses(Student student) throws DataServiceException;
 
-	public List<Student> getOverAllStudentByCurrentProjects(Integer collegeId, Integer departmentId)
-			throws DataServiceException;
+	public List<StudentDTO> getOverAllStudentByCurrentProjects(Student student) throws DataServiceException;
 
-	public List<Student> getOverAllStudentByCompletedProjects(Integer collegeId, Integer departmentId)
-			throws DataServiceException;
-	public List<Student> getOverAllStudentDetail(Integer collegeId, Integer departmentId)
-			throws DataServiceException;
+	public List<StudentDTO> getOverAllStudentByCompletedProjects(Student student) throws DataServiceException;
+*/	
+	public List<StudentDTO> getAllStudentByCollege (Student student) throws DataServiceException;
 
 }

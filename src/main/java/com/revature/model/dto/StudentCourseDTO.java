@@ -14,6 +14,7 @@ public class StudentCourseDTO {
 	private Integer studentId;
 	private Integer courseId;
 	private String courseName;
+	private String description;
 	private BigInteger courseCount;
 	private String name;
 	private Integer collegeId;

@@ -14,6 +14,7 @@ public class StudentProjectDTO {
 	private Integer studentId;
 	private Integer projectId;
 	private String projectName;
+	private String description;
 	private BigInteger projectCount;
 	private String name;
 	private Integer collegeId;
