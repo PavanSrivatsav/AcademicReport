@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.revature.data.exception.DataServiceException;
 import com.revature.model.ProjectSprintActivity;
+import com.revature.model.dto.ProjectSprintActivityDTO;
 
 public interface ProjectSprintActivityDAO {
 
@@ -12,9 +13,10 @@ public interface ProjectSprintActivityDAO {
 	 * @throws DataServiceException
 	 */
 
-	public List<ProjectSprintActivity> getAllProjectSprintActivities() throws DataServiceException;
+	public List<ProjectSprintActivityDTO> getAllProjectSprintActivities() throws DataServiceException;
+	
+	public <E> ProjectSprintActivityDTO getProjectSprintActivityById(ProjectSprintActivity projectSprintActivity) throws DataServiceException;
 
-	public List<ProjectSprintActivity> getProjectSprintActivityById(int projectSprintActivityId)
-			throws DataServiceException;
+
 
 }

@@ -13,7 +13,7 @@ import com.revature.biz.StudentProjectSprintService;
 import com.revature.biz.exception.BusinessServiceException;
 import com.revature.controller.exception.InternalException;
 import com.revature.controller.exception.InvalidInputException;
-import com.revature.model.StudentProjectSprint;
+import com.revature.model.dto.StudentProjectSprintDTO;
 
 @RestController
 @RequestMapping("/students/project/sprint")
@@ -25,8 +25,8 @@ public class StudentProjectSprintController {
 	private StudentProjectSprintService studentProjectSprintService;
 
 	@GetMapping("/list/all")
-	public List<StudentProjectSprint> getStudentProjectSprintController() {
-		List<StudentProjectSprint> studentProjectsSprint = null;
+	public List<StudentProjectSprintDTO> getStudentProjectSprintController() {
+		List<StudentProjectSprintDTO> studentProjectsSprint = null;
 		try {
 			logger.info("Getting the StudentProjectsSprint data...");
 			studentProjectsSprint = studentProjectSprintService.getAllStudentProjectSprints();
@@ -42,11 +42,13 @@ public class StudentProjectSprintController {
 	}
 
 	@GetMapping("/list/id/{id}")
-	public List<StudentProjectSprint> getStudentProjectSprintByIdController(@PathVariable Integer id) {
-		List<StudentProjectSprint> studentProjectsSprintById = null;
+	public List<StudentProjectSprintDTO> getStudentProjectSprintByIdController(@PathVariable("id") Integer id) {
+		List<StudentProjectSprintDTO> studentProjectsSprintById = null;
+		StudentProjectSprintDTO studentProjectSprintDTO=new StudentProjectSprintDTO();
+		studentProjectSprintDTO.setId(id);
 		try {
 			logger.info("Getting the StudentProjectsSprint by id...");
-			studentProjectsSprintById = studentProjectSprintService.getStudentProjectSprintsById(id);
+			studentProjectsSprintById = studentProjectSprintService.getStudentProjectSprintsById(studentProjectSprintDTO);
 			logger.info("StudentProjectSprint data by id retrieval success.");
 		} catch (BusinessServiceException e) {
 			logger.error(e.getMessage(), e);
@@ -59,13 +61,15 @@ public class StudentProjectSprintController {
 	}
 
 	@GetMapping("/list/student/project/id/{id}")
-	public List<StudentProjectSprint> getStudentProjectSprintsByStudentProjectIdController(
+	public List<StudentProjectSprintDTO> getStudentProjectSprintsByStudentProjectIdController(
 			@PathVariable("id") Integer studentProjectId) {
-		List<StudentProjectSprint> studentProjectsByStudentProjectId = null;
+		List<StudentProjectSprintDTO> studentProjectsByStudentProjectId = null;
+		StudentProjectSprintDTO studentProjectSprintDTO=new StudentProjectSprintDTO();
+		studentProjectSprintDTO.setStudentProjectId(studentProjectId);
 		try {
 			logger.info("Getting the StudentProjectSprint by Studentproject id... ");
 			studentProjectsByStudentProjectId = studentProjectSprintService
-					.getStudentProjectSprintsByStudentProjectId(studentProjectId);
+					.getStudentProjectSprintsByStudentProjectId(studentProjectSprintDTO);
 			logger.info("Getting the StudentProjectSprint by Studentproject id retrieval success ");
 		} catch (BusinessServiceException e) {
 			logger.error(e.getMessage(), e);
@@ -78,13 +82,15 @@ public class StudentProjectSprintController {
 	}
 
 	@GetMapping("/list/student/project/sprint/id/{id}")
-	public List<StudentProjectSprint> getStudentProjectSprintsByProjectSprintIdController(
+	public List<StudentProjectSprintDTO> getStudentProjectSprintsByProjectSprintIdController(
 			@PathVariable("id") Integer projectSprintId) {
-		List<StudentProjectSprint> getStudentProjectSprintsByProjectSprintId = null;
+		List<StudentProjectSprintDTO> getStudentProjectSprintsByProjectSprintId = null;
+		StudentProjectSprintDTO studentProjectSprintDTO=new StudentProjectSprintDTO();
+		studentProjectSprintDTO.setProjectSprintId(projectSprintId);
 		try {
 			logger.info("Getting the StudentProjectSprint by ProjectSprint id... ");
 			getStudentProjectSprintsByProjectSprintId = studentProjectSprintService
-					.getStudentProjectSprintsByProjectSprintId(projectSprintId);
+					.getStudentProjectSprintsByProjectSprintId(studentProjectSprintDTO);
 			logger.info("Getting the StudentProjectSprint by ProjectSprint id retrieval success ");
 		} catch (BusinessServiceException e) {
 			logger.error(e.getMessage(), e);
