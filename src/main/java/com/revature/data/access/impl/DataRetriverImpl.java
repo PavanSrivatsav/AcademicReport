@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 
 import com.revature.data.access.DataRetriver;
 import com.revature.data.access.exception.DataAccessException;
-import com.revature.model.dto.UserDTO;
 
 @Repository
 @SuppressWarnings("unchecked")
@@ -51,6 +50,7 @@ public class DataRetriverImpl implements DataRetriver {
 		return user;
 	}
 */	
+	@SuppressWarnings("rawtypes")
 	@Override
 	public <E> Object retrieveBySQLAsObject(String query, Class className) throws DataAccessException {
 		Object object;
