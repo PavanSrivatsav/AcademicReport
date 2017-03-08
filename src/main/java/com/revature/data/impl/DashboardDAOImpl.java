@@ -35,7 +35,7 @@ public class DashboardDAOImpl implements DashboardDAO {
 		List<StudentCourseDTO> activeCourses = null;
 		try {
 			StringBuilder sb = new StringBuilder(
-					"SELECT ID id,NAME name,department_id departmentId,college_id collegeId FROM vw_active_courses WHERE DEPARTMENT_ID="
+					"SELECT ID id,NAME name,course_count courseCount, department_id departmentId,college_id collegeId FROM vw_active_courses WHERE DEPARTMENT_ID="
 							+ student.getDepartment().getId() + " AND COLLEGE_ID=" + student.getCollege().getId());
 			activeCourses = dataRetriver.retrieveBySQLAsJSON(sb.toString(), StudentCourseDTO.class);
 			logger.info("Active courses data retrieval success..");
@@ -51,7 +51,7 @@ public class DashboardDAOImpl implements DashboardDAO {
 		List<StudentProjectDTO> activeProjects = null;
 		try {
 			StringBuilder sb = new StringBuilder(
-					"SELECT ID id,NAME name,department_id departmentId,college_id collegeId FROM vw_active_projects WHERE DEPARTMENT_ID="
+					"SELECT ID id,NAME name, project_count projectCount, department_id departmentId,college_id collegeId FROM vw_active_projects WHERE DEPARTMENT_ID="
 							+ student.getDepartment().getId() + " AND COLLEGE_ID=" + student.getCollege().getId());
 			activeProjects = dataRetriver.retrieveBySQLAsJSON(sb.toString(), StudentProjectDTO.class);
 			logger.info("Active projects data retrieval success..");
