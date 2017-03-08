@@ -10,7 +10,7 @@ import com.revature.biz.ProjectSprintService;
 import com.revature.biz.exception.BusinessServiceException;
 import com.revature.data.ProjectSprintDAO;
 import com.revature.data.exception.DataServiceException;
-import com.revature.model.ProjectSprint;
+import com.revature.model.dto.ProjectSprintDTO;
 
 @Service
 public class ProjectSprintServiceImpl implements ProjectSprintService {
@@ -20,8 +20,8 @@ public class ProjectSprintServiceImpl implements ProjectSprintService {
 	private ProjectSprintDAO projectSprintDAO;
 
 	@Override
-	public List<ProjectSprint> getAllProjectSprints() throws BusinessServiceException {
-		List<ProjectSprint> projectSprints = null;
+	public List<ProjectSprintDTO> getAllProjectSprints() throws BusinessServiceException {
+		List<ProjectSprintDTO> projectSprints = null;
 		try {
 			projectSprints = projectSprintDAO.getAllProjectSprints();
 			logger.info("ProjectSprints retrieved successfully");
@@ -33,7 +33,7 @@ public class ProjectSprintServiceImpl implements ProjectSprintService {
 	}
 
 	@Override
-	public List<ProjectSprint> getProjectSprintById(int id) throws BusinessServiceException {
+	public List<ProjectSprintDTO> getProjectSprintById(ProjectSprintDTO projectSprintDTO) throws BusinessServiceException {
 		return null;
 	}
 }
