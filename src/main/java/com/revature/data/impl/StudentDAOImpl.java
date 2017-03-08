@@ -72,7 +72,7 @@ public class StudentDAOImpl implements StudentDAO {
 		List<StudentCourseDTO> individualStudentByCourses = null;
 		try {
 			StringBuilder sb = new StringBuilder(
-					"SELECT student_id studentId,course_name courseName,description description FROM vw_student_course WHERE student_id="
+					"SELECT student_id studentId,course_id courseId,course_name courseName,description description FROM vw_student_course WHERE student_id="
 							+ student.getId());
 			individualStudentByCourses = dataRetriver.retrieveBySQLAsJSON(sb.toString(), StudentCourseDTO.class);
 			logger.info("Individual Student By Courses data retrieval success..");
@@ -88,7 +88,7 @@ public class StudentDAOImpl implements StudentDAO {
 		List<StudentProjectDTO> individualStudentByProjects = null;
 		try {
 			StringBuilder sb = new StringBuilder(
-					"SELECT student_id studentId,project_name projectName,description description FROM vw_student_project WHERE student_id="
+					"SELECT student_id studentId,project_id projectId,project_name projectName,description description FROM vw_student_project WHERE student_id="
 							+ student.getId());
 			individualStudentByProjects = dataRetriver.retrieveBySQLAsJSON(sb.toString(), StudentProjectDTO.class);
 			logger.info("Individual Student By Projects data retrieval success..");
