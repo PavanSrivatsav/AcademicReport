@@ -3,37 +3,33 @@ package com.revature.biz;
 import java.util.List;
 
 import com.revature.biz.exception.BusinessServiceException;
-import com.revature.model.Student;
+import com.revature.model.dto.StudentCourseDTO;
+import com.revature.model.dto.StudentDTO;
+import com.revature.model.dto.StudentProjectDTO;
 
 public interface StudentService {
 	/**
 	 * @return
 	 * @throws BusinessServiceException
 	 */
-	List<Student> getAllStudents() throws BusinessServiceException;
+	List<StudentDTO> getAllStudents() throws BusinessServiceException;
 
-	List<Student> getStudentById(int studentId) throws BusinessServiceException;
+	StudentDTO getStudentById(StudentDTO studentDTO) throws BusinessServiceException;
 
-	List<Student> getStudentByEmailId(String studentEmailId) throws BusinessServiceException;
+	StudentDTO getStudentByEmailId(StudentDTO studentDTO) throws BusinessServiceException;
 
-	List<Student> getIndividualStudentByCourses(Integer collegeId, Integer departmentId, Integer studentId)
-			throws BusinessServiceException;
+	List <StudentCourseDTO> getStudentCoursesByStudentId(StudentDTO studentDTO) throws BusinessServiceException;
 
-	List<Student> getIndividualStudentByProjects(Integer collegeId, Integer departmentId, Integer studentId)
-			throws BusinessServiceException;
+	List <StudentProjectDTO> getStudentProjectsByStudentId(StudentDTO studentDTO) throws BusinessServiceException;
 
-	List<Student> getOverAllStudentByCurrentCourses(Integer collegeId, Integer departmentId)
-			throws BusinessServiceException;
+/*	List<StudentDTO> getOverAllStudentByCurrentCourses(StudentDTO studentDTO) throws BusinessServiceException;
 
-	List<Student> getOverAllStudentByCompletedCourses(Integer collegeId, Integer departmentId)
-			throws BusinessServiceException;
+	List<StudentDTO> getOverAllStudentByCompletedCourses(StudentDTO studentDTO) throws BusinessServiceException;
 
-	List<Student> getOverAllStudentByCurrentProjects(Integer collegeId, Integer departmentId)
-			throws BusinessServiceException;
+	List<StudentDTO> getOverAllStudentByCurrentProjects(StudentDTO studentDTO) throws BusinessServiceException;
 
-	List<Student> getOverAllStudentByCompletedProjects(Integer collegeId, Integer departmentId)
-			throws BusinessServiceException;
+	List<StudentDTO> getOverAllStudentByCompletedProjects(StudentDTO studentDTO) throws BusinessServiceException;
+*/	
+	List<StudentDTO> getAllStudentByCollege (StudentDTO studentDTO) throws BusinessServiceException;
 	
-	List<Student> getOverAllStudentDetail(Integer collegeId, Integer departmentId)
-			throws BusinessServiceException;
 }
