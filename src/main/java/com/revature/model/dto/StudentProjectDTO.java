@@ -1,9 +1,11 @@
 package com.revature.model.dto;
 
+import java.math.BigInteger;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 import lombok.Data;
 
 @Data
@@ -15,5 +17,6 @@ public class StudentProjectDTO {
 	private Date startedOn;
 	private Date completedOn;
 	private Integer statusId;
+	private BigInteger count;
 
 }

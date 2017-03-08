@@ -18,7 +18,7 @@ public class CourseDTO {
 	private String description;
 	private Integer duration;
 	private Boolean isActive;
-	private BigInteger cunt;
+	private BigInteger count;
 	private String cont;
 	private String vidname;
 	private String url;
