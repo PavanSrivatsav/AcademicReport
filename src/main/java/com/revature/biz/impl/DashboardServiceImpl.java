@@ -10,8 +10,12 @@ import com.revature.biz.DashboardService;
 import com.revature.biz.exception.BusinessServiceException;
 import com.revature.data.DashboardDAO;
 import com.revature.data.exception.DataServiceException;
-import com.revature.model.StudentCourse;
-import com.revature.model.StudentProject;
+import com.revature.model.College;
+import com.revature.model.Department;
+import com.revature.model.Student;
+import com.revature.model.dto.StudentCourseDTO;
+import com.revature.model.dto.StudentDTO;
+import com.revature.model.dto.StudentProjectDTO;
 
 @Service
 
@@ -23,11 +27,18 @@ public class DashboardServiceImpl implements DashboardService {
 	private DashboardDAO dashboardDAO;
 
 	@Override
-	public List<StudentCourse> getActiveCourses(Integer collegeId, Integer departmentId)
+	public List<StudentCourseDTO> getActiveCourses(StudentDTO studentDTO)
 			throws BusinessServiceException {
-		List<StudentCourse> activeCourses = null;
+		List<StudentCourseDTO> activeCourses = null;
+		Student student=new Student();
+		College college=new College();
+		college.setId(studentDTO.getCollegeId());
+		student.setCollege(college);
+		Department department=new Department();
+		department.setId(studentDTO.getDepartmentId());
+		student.setDepartment(department);
 		try {
-			activeCourses = dashboardDAO.getActiveCourses(collegeId, departmentId);
+			activeCourses = dashboardDAO.getActiveCourses(student);
 			logger.info("Active courses retrieved successfully");
 		} catch (DataServiceException e) {
 			logger.error(e.getMessage(), e);
@@ -37,11 +48,18 @@ public class DashboardServiceImpl implements DashboardService {
 	}
 
 	@Override
-	public List<StudentProject> getActiveProjects(Integer collegeId, Integer departmentId)
+	public List<StudentProjectDTO> getActiveProjects(StudentDTO studentDTO)
 			throws BusinessServiceException {
-		List<StudentProject> activeProjects = null;
+		List<StudentProjectDTO> activeProjects = null;
+		Student student=new Student();
+		College college=new College();
+		college.setId(studentDTO.getCollegeId());
+		student.setCollege(college);
+		Department department=new Department();
+		department.setId(studentDTO.getDepartmentId());
+		student.setDepartment(department);
 		try {
-			activeProjects = dashboardDAO.getActiveProjects(collegeId, departmentId);
+			activeProjects = dashboardDAO.getActiveProjects(student);
 			logger.info("Active projects retrieved successfully");
 		} catch (DataServiceException e) {
 			logger.error(e.getMessage(), e);
@@ -51,10 +69,14 @@ public class DashboardServiceImpl implements DashboardService {
 	}
 
 	@Override
-	public List<StudentCourse> getTrendingCourses(Integer collegeId) throws BusinessServiceException {
-		List<StudentCourse> trendingCourses = null;
+	public List<StudentCourseDTO> getTrendingCourses(StudentDTO studentDTO) throws BusinessServiceException {
+		List<StudentCourseDTO> trendingCourses = null;
+		Student student=new Student();
+		College college=new College();
+		college.setId(studentDTO.getCollegeId());
+		student.setCollege(college);
 		try {
-			trendingCourses = dashboardDAO.getTrendingCourses(collegeId);
+			trendingCourses = dashboardDAO.getTrendingCourses(student);
 			logger.info("Trending courses retrieved successfully");
 		} catch (DataServiceException e) {
 			logger.error(e.getMessage(), e);
@@ -64,10 +86,14 @@ public class DashboardServiceImpl implements DashboardService {
 	}
 
 	@Override
-	public List<StudentProject> getTrendingProjects(Integer collegeId) throws BusinessServiceException {
-		List<StudentProject> trendingProject = null;
+	public List<StudentProjectDTO> getTrendingProjects(StudentDTO studentDTO) throws BusinessServiceException {
+		List<StudentProjectDTO> trendingProject = null;
+		Student student=new Student();
+		College college=new College();
+		college.setId(studentDTO.getCollegeId());
+		student.setCollege(college);
 		try {
-			trendingProject = dashboardDAO.getTrendingProjects(collegeId);
+			trendingProject = dashboardDAO.getTrendingProjects(student);
 			logger.info("Trending projects retrieved successfully");
 		} catch (DataServiceException e) {
 			logger.error(e.getMessage(), e);
