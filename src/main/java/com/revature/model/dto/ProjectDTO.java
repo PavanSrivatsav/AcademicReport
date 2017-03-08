@@ -1,5 +1,7 @@
 package com.revature.model.dto;
 
+import java.math.BigInteger;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -21,15 +23,6 @@ public class ProjectDTO {
 	private String videoName;
 	private String url;
 	private String courseName;
-	private Integer cunt;
-	   public void setProjectCnt(Object o) {
-	       if (o != null) {
-	           this.cunt = Integer.parseInt(o.toString());
-
-	       }
-	   }
-	   public Object getProjectCnt() {
-	       return 0;
-	   }
-
+	private BigInteger cunt;
+	 
 }

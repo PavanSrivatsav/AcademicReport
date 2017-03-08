@@ -125,7 +125,7 @@ public class ProjectDAOImpl implements ProjectDAO {
 		List<ProjectDTO> totalProjectCount = null;
 		try {
 			StringBuilder sb = new StringBuilder(
-					"SELECT id id,project_count ProjectCnt FROM vw_project_activity_count WHERE ID="
+					"SELECT id id,project_count cunt FROM vw_project_activity_count WHERE ID="
 							+ project.getId());
 			totalProjectCount =dataRetriver.retrieveBySQLAsJSON(sb.toString(), ProjectDTO.class);
 			logger.info("TotalProjectCount data retrieval success..");
