@@ -25,5 +25,5 @@ public interface UserService {
 	String updateUserPassword(UserDTO userDTO, String newPassword) throws BusinessServiceException;
 
 	String insertUserPassword(UserDTO userDTO) throws BusinessServiceException;
-
+	
 }

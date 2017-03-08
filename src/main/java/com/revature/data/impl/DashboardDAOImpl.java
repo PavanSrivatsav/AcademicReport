@@ -11,8 +11,9 @@ import com.revature.data.access.DataRetriver;
 import com.revature.data.access.exception.DataAccessException;
 import com.revature.data.exception.DataServiceException;
 import com.revature.data.utils.DataUtils;
-import com.revature.model.StudentCourse;
-import com.revature.model.StudentProject;
+import com.revature.model.Student;
+import com.revature.model.dto.StudentCourseDTO;
+import com.revature.model.dto.StudentProjectDTO;
 
 @Repository
 
@@ -30,14 +31,13 @@ public class DashboardDAOImpl implements DashboardDAO {
 	}
 
 	@Override
-	public List<StudentCourse> getActiveCourses(Integer collegeId, Integer departmentId) throws DataServiceException {
-		List<StudentCourse> activeCourses = null;
+	public List<StudentCourseDTO> getActiveCourses(Student student) throws DataServiceException {
+		List<StudentCourseDTO> activeCourses = null;
 		try {
 			StringBuilder sb = new StringBuilder(
-					"SELECT students.`NAME` FROM `students` JOIN `student_courses` ON  `student_courses`.`STUDENT_ID`=`students`.`ID` WHERE `student_courses`.`STATUS_ID`=(SELECT id FROM seed_status WHERE NAME='COMPLETED') AND  `students`.`IS_ACTIVE`=TRUE AND `students`.`DEPARTMENT_ID`="
-							+ departmentId + " AND `students`.`COLLEGE_ID`=" + collegeId
-							+ " GROUP BY `STUDENT_ID` ORDER BY COUNT(`COURSE_ID`) DESC LIMIT 5");
-			activeCourses = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
+					"SELECT ID id,NAME name,course_count courseCount, department_id departmentId,college_id collegeId FROM vw_active_courses WHERE DEPARTMENT_ID="
+							+ student.getDepartment().getId() + " AND COLLEGE_ID=" + student.getCollege().getId());
+			activeCourses = dataRetriver.retrieveBySQLAsJSON(sb.toString(), StudentCourseDTO.class);
 			logger.info("Active courses data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
@@ -47,14 +47,13 @@ public class DashboardDAOImpl implements DashboardDAO {
 	}
 
 	@Override
-	public List<StudentProject> getActiveProjects(Integer collegeId, Integer departmentId) throws DataServiceException {
-		List<StudentProject> activeProjects = null;
+	public List<StudentProjectDTO> getActiveProjects(Student student) throws DataServiceException {
+		List<StudentProjectDTO> activeProjects = null;
 		try {
 			StringBuilder sb = new StringBuilder(
-					"SELECT students.`NAME` FROM `students` JOIN `student_projects` ON `student_projects`.`STUDENT_ID`=`students`.`ID`WHERE `student_projects`.`STATUS_ID`=(SELECT id FROM seed_status WHERE NAME='COMPLETED') AND  `students`.`IS_ACTIVE`=TRUE AND `students`.`DEPARTMENT_ID`="
-							+ departmentId + "  AND `students`.`COLLEGE_ID`=" + collegeId
-							+ " GROUP BY `STUDENT_ID` ORDER BY COUNT(`PROJECT_ID`) DESC LIMIT 5");
-			activeProjects = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
+					"SELECT ID id,NAME name, project_count projectCount, department_id departmentId,college_id collegeId FROM vw_active_projects WHERE DEPARTMENT_ID="
+							+ student.getDepartment().getId() + " AND COLLEGE_ID=" + student.getCollege().getId());
+			activeProjects = dataRetriver.retrieveBySQLAsJSON(sb.toString(), StudentProjectDTO.class);
 			logger.info("Active projects data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
@@ -64,14 +63,14 @@ public class DashboardDAOImpl implements DashboardDAO {
 	}
 
 	@Override
-	public List<StudentCourse> getTrendingCourses(Integer collegeId) throws DataServiceException {
-		List<StudentCourse> trendingCourses = null;
+	public List<StudentCourseDTO> getTrendingCourses(Student student) throws DataServiceException {
+		List<StudentCourseDTO> trendingCourses = null;
 		try {
 			StringBuilder sb = new StringBuilder(
-					"SELECT courses.`NAME` ,COUNT(`student_id`) as 'Trending course count' FROM `student_courses` JOIN `courses` ON `courses`.`ID`=`student_courses`.`COURSE_ID` JOIN `students`  ON students.`ID`=student_courses.`STUDENT_ID` WHERE `courses`.`IS_ACTIVE`=TRUE AND `students`.`COLLEGE_ID`="
-							+ collegeId
+					"SELECT students.college_id collegeId, courses.`NAME` courseName, COUNT(`student_id`) courseCount FROM `student_courses` JOIN `courses` ON `courses`.`ID`=`student_courses`.`COURSE_ID` JOIN `students`  ON students.`ID`=student_courses.`STUDENT_ID` WHERE `courses`.`IS_ACTIVE`=TRUE AND `students`.`COLLEGE_ID`="
+							+ student.getCollege().getId()
 							+ " GROUP BY `student_courses`.`COURSE_ID` ORDER BY COUNT(`COURSE_ID`) DESC LIMIT 5");
-			trendingCourses = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
+			trendingCourses = dataRetriver.retrieveBySQLAsJSON(sb.toString(), StudentCourseDTO.class);
 			logger.info("Trending courses data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
@@ -81,14 +80,14 @@ public class DashboardDAOImpl implements DashboardDAO {
 	}
 
 	@Override
-	public List<StudentProject> getTrendingProjects(Integer collegeId) throws DataServiceException {
-		List<StudentProject> trendingProjects = null;
+	public List<StudentProjectDTO> getTrendingProjects(Student student) throws DataServiceException {
+		List<StudentProjectDTO> trendingProjects = null;
 		try {
 			StringBuilder sb = new StringBuilder(
-					"SELECT projects.`NAME`  ,COUNT(`student_id`) as 'Trending project count' FROM `student_projects` JOIN `projects` ON `projects`.`ID`=`student_projects`.`PROJECT_ID` JOIN `students` ON students.`ID`=student_projects.`STUDENT_ID` WHERE projects.`IS_ACTIVE`=TRUE AND `students`.`COLLEGE_ID`="
-							+ collegeId
+					"SELECT students.college_id collegeId, projects.`NAME` projectName, COUNT(`student_id`) projectCount FROM `student_projects` JOIN `projects` ON `projects`.`ID`=`student_projects`.`PROJECT_ID` JOIN `students` ON students.`ID`=student_projects.`STUDENT_ID` WHERE projects.`IS_ACTIVE`=TRUE AND `students`.`COLLEGE_ID`="
+							+ student.getCollege().getId()
 							+ " GROUP BY `student_projects`.`PROJECT_ID` ORDER BY COUNT(`PROJECT_ID`) DESC LIMIT 5");
-			trendingProjects = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
+			trendingProjects = dataRetriver.retrieveBySQLAsJSON(sb.toString(), StudentProjectDTO.class);
 			logger.info("Trending projects data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);

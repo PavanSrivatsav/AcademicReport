@@ -12,6 +12,7 @@ import com.revature.data.access.exception.DataAccessException;
 import com.revature.data.exception.DataServiceException;
 import com.revature.data.utils.DataUtils;
 import com.revature.model.StudentProjectSprint;
+import com.revature.model.dto.StudentProjectSprintDTO;
 
 @Repository
 public class StudentProjectSprintDAOImpl implements StudentProjectSprintDAO {
@@ -29,10 +30,10 @@ public class StudentProjectSprintDAOImpl implements StudentProjectSprintDAO {
 	}
 
 	@Override
-	public List<StudentProjectSprint> getAllStudentProjectSprints() throws DataServiceException {
-		List<StudentProjectSprint> studentProjectsSprint = null;
+	public List<StudentProjectSprintDTO> getAllStudentProjectSprints() throws DataServiceException {
+		List<StudentProjectSprintDTO> studentProjectsSprint = null;
 		try {
-			StringBuilder sb = new StringBuilder("select * from student_project_sprints");
+			StringBuilder sb = new StringBuilder("select sps.id id,sps.student_project_id studentProjectId,sps.project_sprint_id projectSprintId,sps.started_on startedOn,sps.completed_on completedOn,sps.status_id statusId FROM student_project_sprints sps");
 			studentProjectsSprint = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
 			logger.info("StudentProjectsSprints data retrieval success..");
 		} catch (DataAccessException e) {
@@ -43,12 +44,12 @@ public class StudentProjectSprintDAOImpl implements StudentProjectSprintDAO {
 	}
 
 	@Override
-	public List<StudentProjectSprint> getStudentProjectSprintsById(int studentProjectSprintId)
+	public List<StudentProjectSprintDTO> getStudentProjectSprintsById(StudentProjectSprint studentProjectSprint)
 			throws DataServiceException {
-		List<StudentProjectSprint> studentProjectById = null;
+		List<StudentProjectSprintDTO> studentProjectById = null;
 		try {
 			StringBuilder sb = new StringBuilder(
-					"select * from student_project_sprints where ID='" + studentProjectSprintId + "'");
+					"select sps.id id,sps.student_project_id studentProjectId,sps.project_sprint_id projectSprintId,sps.started_on startedOn,sps.completed_on completedOn,sps.status_id statusId FROM student_project_sprints sps where ID=" + studentProjectSprint.getId());
 			studentProjectById = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
 			logger.info("StudentProjectsSprints data retrieval success..");
 		} catch (DataAccessException e) {
@@ -59,12 +60,12 @@ public class StudentProjectSprintDAOImpl implements StudentProjectSprintDAO {
 	}
 
 	@Override
-	public List<StudentProjectSprint> getStudentProjectSprintsByProjectSprintId(int sprintId)
+	public List<StudentProjectSprintDTO> getStudentProjectSprintsByProjectSprintId(StudentProjectSprint studentProjectSprint)
 			throws DataServiceException {
-		List<StudentProjectSprint> studentProjectBySprntId = null;
+		List<StudentProjectSprintDTO> studentProjectBySprntId = null;
 		try {
 			StringBuilder sb = new StringBuilder(
-					"select * from student_project_sprints where PROJECT_SPRINT_ID=' " + sprintId + " ' ");
+					"select sps.id id,sps.student_project_id studentProjectId,sps.project_sprint_id projectSprintId,sps.started_on startedOn,sps.completed_on completedOn,sps.status_id statusId FROM student_project_sprints sps where PROJECT_SPRINT_ID=" +studentProjectSprint.getProjectSprint().getId());
 			studentProjectBySprntId = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
 			logger.info("StudentProjectsSprints data retrieval success..");
 		} catch (DataAccessException e) {
@@ -75,12 +76,12 @@ public class StudentProjectSprintDAOImpl implements StudentProjectSprintDAO {
 	}
 
 	@Override
-	public List<StudentProjectSprint> getStudentProjectSprintsByStudentProjectId(int projectId)
+	public List<StudentProjectSprintDTO> getStudentProjectSprintsByStudentProjectId(StudentProjectSprint studentProjectSprint)
 			throws DataServiceException {
-		List<StudentProjectSprint> studentProjectByStudentProjId = null;
+		List<StudentProjectSprintDTO> studentProjectByStudentProjId = null;
 		try {
 			StringBuilder sb = new StringBuilder(
-					" select * from student_project_sprints where STUDENT_PROJECT_ID=' " + projectId + " ' ");
+					" select sps.id id,sps.student_project_id studentProjectId,sps.project_sprint_id projectSprintId,sps.started_on startedOn,sps.completed_on completedOn,sps.status_id statusId FROM student_project_sprints sps where STUDENT_PROJECT_ID=" + studentProjectSprint.getStudentProject().getId());
 			studentProjectByStudentProjId = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
 			logger.info("StudentProjectsSprints data retrieval success..");
 		} catch (DataAccessException e) {

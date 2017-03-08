@@ -10,7 +10,12 @@ import com.revature.biz.StudentService;
 import com.revature.biz.exception.BusinessServiceException;
 import com.revature.data.StudentDAO;
 import com.revature.data.exception.DataServiceException;
+import com.revature.model.College;
+import com.revature.model.Department;
 import com.revature.model.Student;
+import com.revature.model.dto.StudentCourseDTO;
+import com.revature.model.dto.StudentDTO;
+import com.revature.model.dto.StudentProjectDTO;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -20,8 +25,8 @@ public class StudentServiceImpl implements StudentService {
 	private StudentDAO studentDAO;
 
 	@Override
-	public List<Student> getAllStudents() throws BusinessServiceException {
-		List<Student> students = null;
+	public List<StudentDTO> getAllStudents() throws BusinessServiceException {
+		List<StudentDTO> students = null;
 		try {
 			students = studentDAO.getAllStudents();
 			logger.info("Student retrieved successfully");
@@ -33,21 +38,18 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	@Override
-	public List<Student> getStudentById(int studentId) throws BusinessServiceException {
-		return null;
-	}
-
-	@Override
-	public List<Student> getStudentByEmailId(String studentEmailId) throws BusinessServiceException {
-		return null;
-	}
-
-	@Override
-	public List<Student> getIndividualStudentByCourses(Integer collegeId, Integer departmentId, Integer studentId)
-			throws BusinessServiceException {
-		List<Student> individualStudentByCourses = null;
+	public StudentDTO getStudentById(StudentDTO studentDTO) throws BusinessServiceException {
+		StudentDTO individualStudentByCourses = null;
+		Student student = new Student();
+		student.setId(studentDTO.getId());
+		College college = new College();
+		college.setId(studentDTO.getCollegeId());
+		student.setCollege(college);
+		Department department = new Department();
+		department.setId(studentDTO.getDepartmentId());
+		student.setDepartment(department);
 		try {
-			individualStudentByCourses = studentDAO.getIndividualStudentByCourses(collegeId, departmentId, studentId);
+			individualStudentByCourses = studentDAO.getStudentDetailsById(student);
 			logger.info("Individual Student By Courses retrieved successfully");
 		} catch (DataServiceException e) {
 			logger.error(e.getMessage(), e);
@@ -57,11 +59,44 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	@Override
-	public List<Student> getIndividualStudentByProjects(Integer collegeId, Integer departmentId, Integer studentId)
-			throws BusinessServiceException {
-		List<Student> individualStudentByProjects = null;
+	public StudentDTO getStudentByEmailId(StudentDTO studentDTO) throws BusinessServiceException {
+		return null;
+	}
+
+	@Override
+	public List <StudentCourseDTO> getStudentCoursesByStudentId(StudentDTO studentDTO) throws BusinessServiceException {
+		List <StudentCourseDTO> individualStudentByCourses = null;
+		Student student = new Student();
+		student.setId(studentDTO.getId());
+		College college = new College();
+		college.setId(studentDTO.getCollegeId());
+		student.setCollege(college);
+		Department department = new Department();
+		department.setId(studentDTO.getDepartmentId());
+		student.setDepartment(department);
 		try {
-			individualStudentByProjects = studentDAO.getIndividualStudentByProjects(collegeId, departmentId, studentId);
+			individualStudentByCourses = studentDAO.getStudentCoursesByStudentId(student);
+			logger.info("Individual Student By Courses retrieved successfully");
+		} catch (DataServiceException e) {
+			logger.error(e.getMessage(), e);
+			throw new BusinessServiceException(e.getMessage(), e);
+		}
+		return individualStudentByCourses;
+	}
+
+	@Override
+	public List<StudentProjectDTO> getStudentProjectsByStudentId(StudentDTO studentDTO) throws BusinessServiceException {
+		List <StudentProjectDTO> individualStudentByProjects = null;
+		Student student = new Student();
+		student.setId(studentDTO.getId());
+		College college = new College();
+		college.setId(studentDTO.getCollegeId());
+		student.setCollege(college);
+		Department department = new Department();
+		department.setId(studentDTO.getDepartmentId());
+		student.setDepartment(department);
+		try {
+			individualStudentByProjects = studentDAO.getStudentProjectsByStudentId(student);
 			logger.info("Individual Student By Projects retrieved successfully");
 		} catch (DataServiceException e) {
 			logger.error(e.getMessage(), e);
@@ -70,27 +105,18 @@ public class StudentServiceImpl implements StudentService {
 		return individualStudentByProjects;
 	}
 
-	@Override
-	public List<Student> getOverAllStudentDetail(Integer collegeId, Integer departmentId)
-			throws BusinessServiceException {
-		List<Student> overAllStudentDetail = null;
+/*	@Override
+	public List<StudentDTO> getOverAllStudentByCurrentCourses(StudentDTO studentDTO) throws BusinessServiceException {
+		List<StudentDTO> overAllStudentByCurrentCourses = null;
+		Student student = new Student();
+		College college = new College();
+		college.setId(studentDTO.getCollegeId());
+		student.setCollege(college);
+		Department department = new Department();
+		department.setId(studentDTO.getDepartmentId());
+		student.setDepartment(department);
 		try {
-			overAllStudentDetail = studentDAO.getOverAllStudentDetail(collegeId, departmentId);
-			logger.info("Over All Student Detail retrieved successfully");
-		} catch (DataServiceException e) {
-			logger.error(e.getMessage(), e);
-			throw new BusinessServiceException(e.getMessage(), e);
-		}
-		return overAllStudentDetail;
-	}
-
-	
-	@Override
-	public List<Student> getOverAllStudentByCurrentCourses(Integer collegeId, Integer departmentId)
-			throws BusinessServiceException {
-		List<Student> overAllStudentByCurrentCourses = null;
-		try {
-			overAllStudentByCurrentCourses = studentDAO.getOverAllStudentByCurrentCourses(collegeId, departmentId);
+			overAllStudentByCurrentCourses = studentDAO.getOverAllStudentByCurrentCourses(student);
 			logger.info("Over All Student By Current Courses retrieved successfully");
 		} catch (DataServiceException e) {
 			logger.error(e.getMessage(), e);
@@ -100,11 +126,17 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	@Override
-	public List<Student> getOverAllStudentByCompletedCourses(Integer collegeId, Integer departmentId)
-			throws BusinessServiceException {
-		List<Student> overAllStudentByCompletedCourses = null;
+	public List<StudentDTO> getOverAllStudentByCompletedCourses(StudentDTO studentDTO) throws BusinessServiceException {
+		List<StudentDTO> overAllStudentByCompletedCourses = null;
+		Student student = new Student();
+		College college = new College();
+		college.setId(studentDTO.getCollegeId());
+		student.setCollege(college);
+		Department department = new Department();
+		department.setId(studentDTO.getDepartmentId());
+		student.setDepartment(department);
 		try {
-			overAllStudentByCompletedCourses = studentDAO.getOverAllStudentByCompletedCourses(collegeId, departmentId);
+			overAllStudentByCompletedCourses = studentDAO.getOverAllStudentByCompletedCourses(student);
 			logger.info("Over All Student By Completed Courses retrieved successfully");
 		} catch (DataServiceException e) {
 			logger.error(e.getMessage(), e);
@@ -114,11 +146,17 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	@Override
-	public List<Student> getOverAllStudentByCurrentProjects(Integer collegeId, Integer departmentId)
-			throws BusinessServiceException {
-		List<Student> overAllStudentByCurrentProjects = null;
+	public List<StudentDTO> getOverAllStudentByCurrentProjects(StudentDTO studentDTO) throws BusinessServiceException {
+		List<StudentDTO> overAllStudentByCurrentProjects = null;
+		Student student = new Student();
+		College college = new College();
+		college.setId(studentDTO.getCollegeId());
+		student.setCollege(college);
+		Department department = new Department();
+		department.setId(studentDTO.getDepartmentId());
+		student.setDepartment(department);
 		try {
-			overAllStudentByCurrentProjects = studentDAO.getOverAllStudentByCurrentProjects(collegeId, departmentId);
+			overAllStudentByCurrentProjects = studentDAO.getOverAllStudentByCurrentProjects(student);
 			logger.info("Over All Student By Current Projects retrieved successfully");
 		} catch (DataServiceException e) {
 			logger.error(e.getMessage(), e);
@@ -128,18 +166,44 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	@Override
-	public List<Student> getOverAllStudentByCompletedProjects(Integer collegeId, Integer departmentId)
+	public List<StudentDTO> getOverAllStudentByCompletedProjects(StudentDTO studentDTO)
 			throws BusinessServiceException {
-		List<Student> overAllStudentByCompletedProjects = null;
+		List<StudentDTO> overAllStudentByCompletedProjects = null;
+		Student student = new Student();
+		College college = new College();
+		college.setId(studentDTO.getCollegeId());
+		student.setCollege(college);
+		Department department = new Department();
+		department.setId(studentDTO.getDepartmentId());
+		student.setDepartment(department);
 		try {
-			overAllStudentByCompletedProjects = studentDAO.getOverAllStudentByCompletedProjects(collegeId,
-					departmentId);
+			overAllStudentByCompletedProjects = studentDAO.getOverAllStudentByCompletedProjects(student);
 			logger.info("Over All Student By Completed Projects retrieved successfully");
 		} catch (DataServiceException e) {
 			logger.error(e.getMessage(), e);
 			throw new BusinessServiceException(e.getMessage(), e);
 		}
 		return overAllStudentByCompletedProjects;
+	}
+*/
+	@Override
+	public List<StudentDTO> getAllStudentByCollege(StudentDTO studentDTO) throws BusinessServiceException {
+		List<StudentDTO> overAllStudentByCollege = null;
+		Student student = new Student();
+		College college = new College();
+		college.setId(studentDTO.getCollegeId());
+		student.setCollege(college);
+		Department department = new Department();
+		department.setId(studentDTO.getDepartmentId());
+		student.setDepartment(department);
+		try {
+			overAllStudentByCollege = studentDAO.getAllStudentByCollege(student);
+			logger.info("Over All Students By College retrieved successfully");
+		} catch (DataServiceException e) {
+			logger.error(e.getMessage(), e);
+			throw new BusinessServiceException(e.getMessage(), e);
+		}
+		return overAllStudentByCollege;
 	}
 
 }

@@ -3,8 +3,9 @@ package com.revature.biz;
 import java.util.List;
 
 import com.revature.biz.exception.BusinessServiceException;
-import com.revature.model.StudentCourse;
-import com.revature.model.StudentProject;
+import com.revature.model.dto.StudentCourseDTO;
+import com.revature.model.dto.StudentDTO;
+import com.revature.model.dto.StudentProjectDTO;
 
 public interface DashboardService {
 
@@ -15,12 +16,12 @@ public interface DashboardService {
 	 * @throws BusinessServiceException
 	 *             if any business error occurs
 	 */
-	List<StudentCourse> getActiveCourses(Integer collegeId, Integer departmentId) throws BusinessServiceException;
+	List<StudentCourseDTO> getActiveCourses(StudentDTO studentDTO) throws BusinessServiceException;
 
-	List<StudentProject> getActiveProjects(Integer collegeId, Integer departmentId) throws BusinessServiceException;
+	List<StudentProjectDTO> getActiveProjects(StudentDTO studentDTO) throws BusinessServiceException;
 
-	List<StudentCourse> getTrendingCourses(Integer collegeId) throws BusinessServiceException;
+	List<StudentCourseDTO> getTrendingCourses(StudentDTO studentDTO) throws BusinessServiceException;
 
-	List<StudentProject> getTrendingProjects(Integer collegeId) throws BusinessServiceException;
+	List<StudentProjectDTO> getTrendingProjects(StudentDTO studentDTO) throws BusinessServiceException;
 
 }

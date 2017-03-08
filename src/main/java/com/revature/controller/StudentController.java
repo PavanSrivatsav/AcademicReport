@@ -13,7 +13,9 @@ import com.revature.biz.StudentService;
 import com.revature.biz.exception.BusinessServiceException;
 import com.revature.controller.exception.InternalException;
 import com.revature.controller.exception.InvalidInputException;
-import com.revature.model.Student;
+import com.revature.model.dto.StudentCourseDTO;
+import com.revature.model.dto.StudentDTO;
+import com.revature.model.dto.StudentProjectDTO;
 
 @RestController
 @RequestMapping("/students")
@@ -24,9 +26,9 @@ public class StudentController {
 	@Autowired
 	private StudentService studentService;
 
-	@GetMapping("/list/All")
-	public List<Student> getStudentController() {
-		List<Student> students = null;
+	@GetMapping("/list/all")
+	public List<StudentDTO> getStudentController() {
+		List<StudentDTO> students = null;
 		try {
 			logger.info("Getting the Students data...");
 			students = studentService.getAllStudents();
@@ -40,30 +42,18 @@ public class StudentController {
 		}
 		return students;
 	}
-	@GetMapping("/individual/student/courses/collegeId/{collegeId}/departmentId/{departmentId}/studentId/{studentId}")
-	public List<Student> getIndividualStudentByCourses(@PathVariable("collegeId") int collegeId,@PathVariable("departmentId") int departmentId,@PathVariable("studentId") int studentId) {
-		List<Student> individualStudentByCourses = null;
-		try {
-			logger.info("Getting the Students data...");
-			individualStudentByCourses = studentService.getIndividualStudentByCourses(collegeId, departmentId,
-					studentId);
-			logger.info("Individual Student By Courses data retrieval success.");
-		} catch (BusinessServiceException e) {
-			logger.error(e.getMessage(), e);
-			throw new InvalidInputException(e.getMessage(), e);
-		} catch (Exception e) {
-			logger.error(e.getMessage(), e);
-			throw new InternalException("System has some issue...", e);
-		}
-		return individualStudentByCourses;
-	}
-	@GetMapping("/individual/student/projects/collegeId/{collegeId}/departmentId/{departmentId}/studentId/{studentId}")
-	public List<Student> getIndividualStudentByProjects(@PathVariable("collegeId") int collegeId,@PathVariable("departmentId") int departmentId,@PathVariable("studentId") int studentId) {
-		List<Student> individualStudentByProjects = null;
+	
+	@GetMapping("/individual/student/details/collegeId/{collegeId}/departmentId/{departmentId}/studentId/{studentId}")
+	public StudentDTO getIndividualStudentDetails(@PathVariable("collegeId") int collegeId,
+			@PathVariable("departmentId") int departmentId, @PathVariable("studentId") int studentId) {
+		StudentDTO individualStudentByProjects = null;
+		StudentDTO studentDTO = new StudentDTO();
+		studentDTO.setId(studentId);
+		studentDTO.setCollegeId(collegeId);
+		studentDTO.setDepartmentId(departmentId);
 		try {
 			logger.info("Getting the Individual Students by Projects data...");
-			individualStudentByProjects = studentService.getIndividualStudentByProjects(collegeId, departmentId,
-					studentId);
+			individualStudentByProjects = studentService.getStudentById(studentDTO);
 			logger.info("Individual Student By Projects data retrieval success.");
 		} catch (BusinessServiceException e) {
 			logger.error(e.getMessage(), e);
@@ -74,13 +64,19 @@ public class StudentController {
 		}
 		return individualStudentByProjects;
 	}
-	@GetMapping("/overall/student/detail/collegeId/{collegeId}/departmentId/{departmentId}")
-	public List<Student> getOverAllStudentDetail(@PathVariable("collegeId") int collegeId,@PathVariable("departmentId") int departmentId) {
-		List<Student> overAllStudentDetail = null;
+
+	@GetMapping("/individual/student/courses/collegeId/{collegeId}/departmentId/{departmentId}/studentId/{studentId}")
+	public List<StudentCourseDTO> getIndividualStudentByCourses(@PathVariable("collegeId") int collegeId,
+			@PathVariable("departmentId") int departmentId, @PathVariable("studentId") int studentId) {
+		List<StudentCourseDTO> individualStudentByCourses = null;
+		StudentDTO studentDTO = new StudentDTO();
+		studentDTO.setId(studentId);
+		studentDTO.setCollegeId(collegeId);
+		studentDTO.setDepartmentId(departmentId);
 		try {
-			logger.info("Getting the Over All Student Detail data...");
-			overAllStudentDetail = studentService.getOverAllStudentDetail(collegeId, departmentId);
-			logger.info("Over All Student Detail data retrieval success.");
+			logger.info("Getting the Students data...");
+			individualStudentByCourses = studentService.getStudentCoursesByStudentId(studentDTO);
+			logger.info("Individual Student By Courses data retrieval success.");
 		} catch (BusinessServiceException e) {
 			logger.error(e.getMessage(), e);
 			throw new InvalidInputException(e.getMessage(), e);
@@ -88,15 +84,41 @@ public class StudentController {
 			logger.error(e.getMessage(), e);
 			throw new InternalException("System has some issue...", e);
 		}
-		return overAllStudentDetail;
+		return individualStudentByCourses;
 	}
 	
-	@GetMapping("/overall/student/current/courses/collegeId/{collegeId}/departmentId/{departmentId}")
-	public List<Student> getOverAllStudentByCurrentCourses(@PathVariable("collegeId") int collegeId,@PathVariable("departmentId") int departmentId) {
-		List<Student> overAllStudentByCurrentCourses = null;
+	@GetMapping("/individual/student/projects/collegeId/{collegeId}/departmentId/{departmentId}/studentId/{studentId}")
+	public List<StudentProjectDTO> getIndividualStudentByProjects(@PathVariable("collegeId") int collegeId,
+			@PathVariable("departmentId") int departmentId, @PathVariable("studentId") int studentId) {
+		List<StudentProjectDTO> individualStudentByProjects = null;
+		StudentDTO studentDTO = new StudentDTO();
+		studentDTO.setId(studentId);
+		studentDTO.setCollegeId(collegeId);
+		studentDTO.setDepartmentId(departmentId);
+		try {
+			logger.info("Getting the Individual Students by Projects data...");
+			individualStudentByProjects = studentService.getStudentProjectsByStudentId(studentDTO);
+			logger.info("Individual Student By Projects data retrieval success.");
+		} catch (BusinessServiceException e) {
+			logger.error(e.getMessage(), e);
+			throw new InvalidInputException(e.getMessage(), e);
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			throw new InternalException("System has some issue...", e);
+		}
+		return individualStudentByProjects;
+	}
+
+/*	@GetMapping("/overall/student/current/courses/collegeId/{collegeId}/departmentId/{departmentId}")
+	public List<StudentDTO> getOverAllStudentByCurrentCourses(@PathVariable("collegeId") int collegeId,
+			@PathVariable("departmentId") int departmentId) {
+		List<StudentDTO> overAllStudentByCurrentCourses = null;
+		StudentDTO studentDTO = new StudentDTO();
+		studentDTO.setCollegeId(collegeId);
+		studentDTO.setDepartmentId(departmentId);
 		try {
 			logger.info("Getting the Over All Student By Current Courses data...");
-			overAllStudentByCurrentCourses = studentService.getOverAllStudentByCurrentCourses(collegeId, departmentId);
+			overAllStudentByCurrentCourses = studentService.getOverAllStudentByCurrentCourses(studentDTO);
 			logger.info("Over All  Student By Current Courses data retrieval success.");
 		} catch (BusinessServiceException e) {
 			logger.error(e.getMessage(), e);
@@ -107,13 +129,17 @@ public class StudentController {
 		}
 		return overAllStudentByCurrentCourses;
 	}
+
 	@GetMapping("/overall/student/completed/courses/collegeId/{collegeId}/departmentId/{departmentId}")
-	public List<Student> getOverAllStudentByCompletedCourses(@PathVariable("collegeId") int collegeId,@PathVariable("departmentId") int departmentId) {
-		List<Student> overAllStudentByCompletedCourses = null;
+	public List<StudentDTO> getOverAllStudentByCompletedCourses(@PathVariable("collegeId") int collegeId,
+			@PathVariable("departmentId") int departmentId) {
+		List<StudentDTO> overAllStudentByCompletedCourses = null;
+		StudentDTO studentDTO = new StudentDTO();
+		studentDTO.setCollegeId(collegeId);
+		studentDTO.setDepartmentId(departmentId);
 		try {
 			logger.info("Getting the Over All Student By Completed Courses data...");
-			overAllStudentByCompletedCourses = studentService.getOverAllStudentByCompletedCourses(collegeId,
-					departmentId);
+			overAllStudentByCompletedCourses = studentService.getOverAllStudentByCompletedCourses(studentDTO);
 			logger.info("Over All Student By Completed Courses data retrieval success.");
 		} catch (BusinessServiceException e) {
 			logger.error(e.getMessage(), e);
@@ -124,13 +150,17 @@ public class StudentController {
 		}
 		return overAllStudentByCompletedCourses;
 	}
+
 	@GetMapping("/overall/student/current/projects/collegeId/{collegeId}/departmentId/{departmentId}")
-	public List<Student> getOverAllStudentByCurrentProjects(@PathVariable("collegeId") int collegeId,@PathVariable("departmentId") int departmentId) {
-		List<Student> overAllStudentByCurrentProjects = null;
+	public List<StudentDTO> getOverAllStudentByCurrentProjects(@PathVariable("collegeId") int collegeId,
+			@PathVariable("departmentId") int departmentId) {
+		List<StudentDTO> overAllStudentByCurrentProjects = null;
+		StudentDTO studentDTO = new StudentDTO();
+		studentDTO.setCollegeId(collegeId);
+		studentDTO.setDepartmentId(departmentId);
 		try {
 			logger.info("Getting the Over All Student By Current Projects data...");
-			overAllStudentByCurrentProjects = studentService.getOverAllStudentByCurrentProjects(collegeId,
-					departmentId);
+			overAllStudentByCurrentProjects = studentService.getOverAllStudentByCurrentProjects(studentDTO);
 			logger.info("Over All  Student By Current Projects data retrieval success.");
 		} catch (BusinessServiceException e) {
 			logger.error(e.getMessage(), e);
@@ -141,13 +171,38 @@ public class StudentController {
 		}
 		return overAllStudentByCurrentProjects;
 	}
+
 	@GetMapping("/overall/student/completed/projects/collegeId/{collegeId}/departmentId/{departmentId}")
-	public List<Student> getOverAllStudentByCompletedProjects(@PathVariable("collegeId") int collegeId,@PathVariable("departmentId") int departmentId) {
-		List<Student> overAllStudentByCompletedProjects = null;
+	public List<StudentDTO> getOverAllStudentByCompletedProjects(@PathVariable("collegeId") int collegeId,
+			@PathVariable("departmentId") int departmentId) {
+		List<StudentDTO> overAllStudentByCompletedProjects = null;
+		StudentDTO studentDTO = new StudentDTO();
+		studentDTO.setCollegeId(collegeId);
+		studentDTO.setDepartmentId(departmentId);
 		try {
 			logger.info("Getting the Over All Student By Completed Projects data...");
-			overAllStudentByCompletedProjects = studentService.getOverAllStudentByCompletedProjects(collegeId,
-					departmentId);
+			overAllStudentByCompletedProjects = studentService.getOverAllStudentByCompletedProjects(studentDTO);
+			logger.info("Over All Student By Completed Projects data retrieval success.");
+		} catch (BusinessServiceException e) {
+			logger.error(e.getMessage(), e);
+			throw new InvalidInputException(e.getMessage(), e);
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			throw new InternalException("System has some issue...", e);
+		}
+		return overAllStudentByCompletedProjects;
+	}
+*/
+	@GetMapping("/overall/student/college/{collegeId}/departmentId/{departmentId}")
+	public List<StudentDTO> getOverAllStudentByCollege(@PathVariable("collegeId") int collegeId,
+			@PathVariable("departmentId") int departmentId) {
+		List<StudentDTO> overAllStudentByCompletedProjects = null;
+		StudentDTO studentDTO = new StudentDTO();
+		studentDTO.setCollegeId(collegeId);
+		studentDTO.setDepartmentId(departmentId);
+		try {
+			logger.info("Getting the Over All Student By Completed Projects data...");
+			overAllStudentByCompletedProjects = studentService.getAllStudentByCollege(studentDTO);
 			logger.info("Over All Student By Completed Projects data retrieval success.");
 		} catch (BusinessServiceException e) {
 			logger.error(e.getMessage(), e);
