@@ -173,7 +173,7 @@ public class StudentDAOImpl implements StudentDAO {
 		List<StudentDTO> overAllStudentByCompletedProjects = null;
 		try {
 			StringBuilder sb = new StringBuilder(
-					"SELECT id id,department_id departmentId,college_id collegeId,current_courses_name currentCourse,completed_courses_name completedCourse,current_projects_name currentProject,completed_projects_name completedProject FROM vw_overall_student_list WHERE college_id="
+					"SELECT id id,name name,department_id departmentId,department_name departmentName,college_id collegeId,email_id emailId,current_courses_name currentCourse,completed_courses_name completedCourse,current_projects_name currentProject,completed_projects_name completedProject FROM vw_overall_student_list WHERE college_id="
 							+ student.getCollege().getId() + " AND department_id=" + student.getDepartment().getId()
 							+ " ORDER BY id");
 			overAllStudentByCompletedProjects = dataRetriver.retrieveBySQLAsJSON(sb.toString(), StudentDTO.class);
