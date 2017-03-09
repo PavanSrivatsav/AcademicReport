@@ -132,7 +132,7 @@ public class UserDAOImpl implements UserDAO {
 			if (DataUtils.checkPassword(user.getPassword(), dbPassword)) {
 				logger.info("User login success...");
 				StringBuilder sb1 = new StringBuilder(
-						"SELECT id id,username name,emailId emailId,PASSWORD password,departmentId departmentId,collegeId collegeId,roleId roleId,phone phone,roleName roleName,collegeName collegeName,departmentName departmentName FROM vw_user_details WHERE emailId='"
+						"SELECT id id,username name,emailId emailId,departmentId departmentId,collegeId collegeId,roleId roleId,phone phone,roleName roleName,collegeName collegeName,departmentName departmentName FROM vw_user_details WHERE emailId='"
 								+ user.getEmailId() + "'");
 				userDTOObj = (UserDTO) dataRetriver.retrieveBySQLAsObject(sb1.toString(), UserDTO.class);
 			} else
