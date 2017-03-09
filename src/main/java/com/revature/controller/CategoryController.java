@@ -13,7 +13,7 @@ import com.revature.biz.CategoryService;
 import com.revature.biz.exception.BusinessServiceException;
 import com.revature.controller.exception.InternalException;
 import com.revature.controller.exception.InvalidInputException;
-import com.revature.model.Category;
+import com.revature.model.dto.CategoryDTO;
 
 @RestController
 @RequestMapping("/categories")
@@ -25,8 +25,8 @@ public class CategoryController {
 	private CategoryService categoryService;
 
 	@GetMapping("/list/all")
-	public List<Category> getActiveCategoriesController() {
-		List<Category> categories = null;
+	public List<CategoryDTO> getActiveCategoriesController() {
+		List<CategoryDTO> categories = null;
 		try {
 			logger.info("Getting the categories data...");
 			categories = categoryService.getAllCategories();
@@ -42,11 +42,13 @@ public class CategoryController {
 	}
 
 	@GetMapping("/list/id/{id}")
-	public List<Category> getActiveCategoriesController(@PathVariable("id") Integer categoryId) {
-		List<Category> categoryById = null;
+	public CategoryDTO getActiveCategoriesController(@PathVariable("id") Integer id) {
+		CategoryDTO categoryById = null;
+		CategoryDTO categoryDTO = new CategoryDTO();
+		categoryDTO.setId(id);
 		try {
 			logger.info("Getting the categories by id data...");
-			categoryById = categoryService.getCategoryById(categoryId);
+			categoryById = categoryService.getCategoryById(categoryDTO);
 			logger.info("category by id data retrieval success.");
 		} catch (BusinessServiceException e) {
 			logger.error(e.getMessage(), e);
@@ -59,11 +61,14 @@ public class CategoryController {
 	}
 
 	@GetMapping("/list/name/{name}")
-	public List<Category> getActiveCategoriesController(@PathVariable("name") String categoryName) {
-		List<Category> categoryByName = null;
+	public CategoryDTO getActiveCategoriesController(@PathVariable("name") String name) {
+		CategoryDTO categoryByName = null;
+		CategoryDTO categoryDTO = new CategoryDTO();
+		categoryDTO.setName(name);
+		
 		try {
 			logger.info("Getting the categories by name data...");
-			categoryByName = categoryService.getCategoryByName(categoryName);
+			categoryByName = categoryService.getCategoryByName(categoryDTO);
 			logger.info("category by name data retrieval success.");
 		} catch (BusinessServiceException e) {
 			logger.error(e.getMessage(), e);

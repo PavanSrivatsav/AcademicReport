@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.revature.data.exception.DataServiceException;
 import com.revature.model.Category;
+import com.revature.model.dto.CategoryDTO;
 
 public interface CategoryDAO {
 
@@ -15,9 +16,9 @@ public interface CategoryDAO {
 	 *             if any exception happens while executing the query
 	 */
 
-	public List<Category> getAllCategories() throws DataServiceException;
+	public List<CategoryDTO> getAllCategories() throws DataServiceException;
 
-	public List<Category> getCategoryById(Integer categoryId) throws DataServiceException;
+	public <E> CategoryDTO getCategoryById(Category category) throws DataServiceException;
 
-	public List<Category> getCategoryByName(String categoryName) throws DataServiceException;
+	public <E> CategoryDTO getCategoryByName(Category category) throws DataServiceException;
 }

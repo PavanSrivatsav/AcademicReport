@@ -3,7 +3,7 @@ package com.revature.biz;
 import java.util.List;
 
 import com.revature.biz.exception.BusinessServiceException;
-import com.revature.model.Category;
+import com.revature.model.dto.CategoryDTO;
 
 public interface CategoryService {
 
@@ -14,10 +14,10 @@ public interface CategoryService {
 	 * @throws BusinessServiceException
 	 *             if any business error occurs
 	 */
-	List<Category> getAllCategories() throws BusinessServiceException;
+	List<CategoryDTO> getAllCategories() throws BusinessServiceException;
 
-	List<Category> getCategoryById(Integer categoryId) throws BusinessServiceException;
+	CategoryDTO getCategoryById(CategoryDTO categoryDTO) throws BusinessServiceException;
 
-	List<Category> getCategoryByName(String categoryName) throws BusinessServiceException;
+	CategoryDTO getCategoryByName(CategoryDTO categoryDTO) throws BusinessServiceException;
 
 }

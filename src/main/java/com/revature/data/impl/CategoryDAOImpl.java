@@ -12,6 +12,7 @@ import com.revature.data.access.exception.DataAccessException;
 import com.revature.data.exception.DataServiceException;
 import com.revature.data.utils.DataUtils;
 import com.revature.model.Category;
+import com.revature.model.dto.CategoryDTO;
 
 @Repository
 public class CategoryDAOImpl implements CategoryDAO {
@@ -24,15 +25,14 @@ public class CategoryDAOImpl implements CategoryDAO {
 	}
 
 	public void setDataRetriver(DataRetriver dataRetriver) {
-		this.dataRetriver = dataRetriver;
-	}
-
+}
+	
 	@Override
-	public List<Category> getAllCategories() throws DataServiceException {
-		List<Category> categories = null;
+	public List<CategoryDTO> getAllCategories() throws DataServiceException {
+		List<CategoryDTO> categories = null;
 		try {
-			StringBuilder sb = new StringBuilder("select * from seed_categories c where c.IS_ACTIVE=true");
-			categories = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
+			StringBuilder sb = new StringBuilder("select c.ID id,c.NAME name,c.IS_ACTIVE isActive from seed_categories c where c.IS_ACTIVE=true");
+			categories = dataRetriver.retrieveBySQLAsJSON(sb.toString(),CategoryDTO.class);
 			logger.info("Categories data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
@@ -42,12 +42,12 @@ public class CategoryDAOImpl implements CategoryDAO {
 	}
 
 	@Override
-	public List<Category> getCategoryById(Integer categoryId) throws DataServiceException {
-		List<Category> categoriesById = null;
+	public <E>CategoryDTO getCategoryById(Category category) throws DataServiceException {
+		CategoryDTO categoriesById = null;
 		try {
 			StringBuilder sb = new StringBuilder(
-					"select * from seed_categories c where c.ID='" + categoryId + "' and c.IS_ACTIVE=true");
-			categoriesById = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
+					"select c.ID id,c.NAME name,c.IS_ACTIVE isActive from seed_categories c where c.ID='" + category.getId() + "' and c.IS_ACTIVE=true");
+			categoriesById = (CategoryDTO)dataRetriver.retrieveBySQLAsObject(sb.toString(),CategoryDTO.class);
 			logger.info("Category data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
@@ -57,12 +57,12 @@ public class CategoryDAOImpl implements CategoryDAO {
 	}
 
 	@Override
-	public List<Category> getCategoryByName(String categoryName) throws DataServiceException {
-		List<Category> categoriesByName = null;
+	public <E>CategoryDTO getCategoryByName(Category category) throws DataServiceException {
+		CategoryDTO categoriesByName = null;
 		try {
 			StringBuilder sb = new StringBuilder(
-					"select * from seed_categories c where c.NAME='" + categoryName + "' and c.IS_ACTIVE=true");
-			categoriesByName = dataRetriver.retrieveBySQLAsJSONInDAO(sb.toString());
+					"select c.ID id,c.NAME name,c.IS_ACTIVE isActive from seed_categories c where c.NAME='" + category.getName() + "' and c.IS_ACTIVE=true");
+			categoriesByName = (CategoryDTO)dataRetriver.retrieveBySQLAsObject(sb.toString(),CategoryDTO.class);
 			logger.info("Category data retrieval success..");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
