@@ -91,7 +91,10 @@ public class StudentProjectServiceImpl implements StudentProjectService {
 		StudentProject studentProject = new StudentProject();
 		Student student=new Student();
 		student.setId(studentProjectDTO.getStudentId());
+		Project project=new Project();
+		project.setId(studentProjectDTO.getProjectId());
 		studentProject.setStudent(student);
+		studentProject.setProject(project);
 		try {
 			completedStudentProjectCount = studentProjectDAO.getCompletedStudentProjectCount(studentProject);
 			logger.info("Completed Student Project Count retrieved successfully");
