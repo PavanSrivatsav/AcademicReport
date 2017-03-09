@@ -98,11 +98,12 @@ public class StudentProjectController {
 		return studentProjectsByProjectId;
 	}
 	
-	@GetMapping("/completed/student/project/count/studentId/{studentId}")
-	public StudentProjectDTO getCompletedStudentProjectCountController(@PathVariable("studentId") Integer studentId) {
+	@GetMapping("/completed/student/project/count/student/{studentId}/project/{projectId}")
+	public StudentProjectDTO getCompletedStudentProjectCountController(@PathVariable("studentId") Integer studentId,@PathVariable("projectId") Integer projectId) {
 		StudentProjectDTO completedStudentProjectCount = null;
 		StudentProjectDTO studentProjectDTO=new StudentProjectDTO();
 		studentProjectDTO.setStudentId(studentId);
+		studentProjectDTO.setProjectId(projectId);
 		try {
 			logger.info("Getting the Completed Student Project Count... ");
 			completedStudentProjectCount = studentProjectService.getCompletedStudentProjectCount(studentProjectDTO);
