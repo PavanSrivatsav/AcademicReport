@@ -127,17 +127,21 @@ public class UserDAOImpl implements UserDAO {
 			StringBuilder sb = new StringBuilder(
 					"select u.password from users u where u.EMAIL_ID='" + user.getEmailId() + "' and u.IS_ACTIVE=true");
 			userDTOObj = (UserDTO) dataRetriver.retrieveBySQLAsObject(sb.toString(), UserDTO.class);
-			String dbPassword = userDTOObj.getPassword();
-			logger.info("Pass-db     " + dbPassword);
-			if (DataUtils.checkPassword(user.getPassword(), dbPassword)) {
-				logger.info("User login success...");
-				StringBuilder sb1 = new StringBuilder(
-						"SELECT id id,username name,emailId emailId,departmentId departmentId,collegeId collegeId,roleId roleId,phone phone,roleName roleName,collegeName collegeName,departmentName departmentName FROM vw_user_details WHERE emailId='"
-								+ user.getEmailId() + "'");
-				userDTOObj = (UserDTO) dataRetriver.retrieveBySQLAsObject(sb1.toString(), UserDTO.class);
-			} else
-				logger.info("User login failure...");
-			logger.info("Users data retrieval success..");
+			if (userDTOObj == null)
+				logger.info("User not exists");
+			else {
+				String dbPassword = userDTOObj.getPassword();
+				logger.info("Pass-db     " + dbPassword);
+				if (DataUtils.checkPassword(user.getPassword(), dbPassword)) {
+					logger.info("User login success...");
+					StringBuilder sb1 = new StringBuilder(
+							"SELECT id id,username name,emailId emailId,departmentId departmentId,collegeId collegeId,roleId roleId,phone phone,roleName roleName,collegeName collegeName,departmentName departmentName FROM vw_user_details WHERE emailId='"
+									+ user.getEmailId() + "'");
+					userDTOObj = (UserDTO) dataRetriver.retrieveBySQLAsObject(sb1.toString(), UserDTO.class);
+				} else
+					logger.info("User login failure...");
+				logger.info("Users data retrieval success..");
+			}
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
 			throw new DataServiceException(DataUtils.getPropertyMessage("data_retrieval_fail"), e);
