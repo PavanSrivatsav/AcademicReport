@@ -92,6 +92,7 @@ public class StudentProjectDAOImpl implements StudentProjectDAO {
 		StudentProjectDTO completedStudentProjectCount = null;
 		try {
 			StringBuilder sb = new StringBuilder("SELECT p.ID id,COUNT(p.`ID`) count FROM projects p JOIN student_projects ON p.`ID`=student_projects.`PROJECT_ID` JOIN student_project_sprints ON student_projects.`ID`=student_project_sprints.`STUDENT_PROJECT_ID` JOIN student_project_sprint_activities ON student_project_sprints.`ID`=student_project_sprint_activities.`STUDENT_PROJECT_SPRINT_ID` WHERE p.`IS_ACTIVE`=TRUE AND student_project_sprint_activities.`STATUS_ID`=(SELECT id FROM `seed_status` WHERE `seed_status`.`NAME`='COMPLETED') AND student_projects.`STUDENT_ID` ="
+							+ studentProject.getStudent().getId()+" AND p.`ID`="+studentProject.getProject().getId()+" GROUP BY p.ID");
 			completedStudentProjectCount = (StudentProjectDTO) dataRetriver.retrieveBySQLAsObject(sb.toString(),StudentProjectDTO.class);
 			logger.info("Completed Student Project Count data retrieval success..");
 		} catch (DataAccessException e) {
