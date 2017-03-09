@@ -47,7 +47,7 @@ public class CourseContentController {
 		CourseContentDTO courseContentDTO = new CourseContentDTO();
 		courseContentDTO.setId(id);
 		try {
-			logger.info("Getting the categories by id data...");
+			logger.info("Getting the student course by id data...");
 			courseContentById = courseContentService.getCourseContentById(courseContentDTO);
 			logger.info("category data by id retrieval success.");
 		} catch (BusinessServiceException e) {

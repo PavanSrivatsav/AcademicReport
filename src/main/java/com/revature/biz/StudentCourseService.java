@@ -3,20 +3,20 @@ package com.revature.biz;
 import java.util.List;
 
 import com.revature.biz.exception.BusinessServiceException;
-import com.revature.model.StudentCourse;
+import com.revature.model.dto.StudentCourseDTO;
 
 public interface StudentCourseService {
 	/**
 	 * @return
 	 * @throws BusinessServiceException
 	 */
-	List<StudentCourse> getAllStudentCourses() throws BusinessServiceException;
+	List<StudentCourseDTO> getAllStudentCourses() throws BusinessServiceException;
 
-	List<StudentCourse> getStudentCourseById(int studentCourseId) throws BusinessServiceException;
+	StudentCourseDTO getStudentCourseById(StudentCourseDTO studentCourseDTO) throws BusinessServiceException;
 
-	List<StudentCourse> getStudentCourseByStudentId(int studentId) throws BusinessServiceException;
+	List<StudentCourseDTO> getStudentCourseByStudentId(StudentCourseDTO studentCourseDTO) throws BusinessServiceException;
 
-	List<StudentCourse> getStudentCourseByCourseId(int courseId) throws BusinessServiceException;
+	List<StudentCourseDTO> getStudentCourseByCourseId(StudentCourseDTO studentCourseDTO) throws BusinessServiceException;
 
-	List<StudentCourse> getCompletedStudentCourseCount(int studentId, int courseId) throws BusinessServiceException;
+	List<StudentCourseDTO> getCompletedStudentCourseCount(StudentCourseDTO studentCourseDTO) throws BusinessServiceException;
 }
