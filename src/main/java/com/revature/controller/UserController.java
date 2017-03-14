@@ -6,7 +6,10 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.biz.UserService;
@@ -23,7 +26,7 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-	@GetMapping("/login/{emailId}/{password}")
+/*	@GetMapping("/login/{emailId}/{password}")
 	public UserDTO loginController(@PathVariable("emailId") String emailId, @PathVariable("password") String password) {
 		UserDTO userDTO = new UserDTO();
 		userDTO.setEmailId(emailId);
@@ -41,8 +44,26 @@ public class UserController {
 		}
 		return userDTO;
 	}
+*/
+	
+	@PostMapping("/login")
+	public UserDTO loginController(@RequestBody UserDTO userDTOParam) {
+		UserDTO userDTO=null;
+		try {
+			logger.info("Getting the Users data...");
+			userDTO = userService.getUserByLogin(userDTOParam);
+			logger.info("Users data retrieval success.");
+		} catch (BusinessServiceException e) {
+			logger.error(e.getMessage(), e);
+			throw new InvalidInputException(e.getMessage(), e);
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			throw new InternalException("System has some issue...", e);
+		}
+		return userDTO;
+	}
 
-	@GetMapping("update/emailId/{emailId}/password/{password}/newPassword/{newPassword}")
+/*	@GetMapping("update/emailId/{emailId}/password/{password}/newPassword/{newPassword}")
 	public String passwordUpdateController(@PathVariable("emailId") String emailId,
 			@PathVariable("password") String password, @PathVariable("newPassword") String newPassword) {
 		String user = null;
@@ -58,7 +79,42 @@ public class UserController {
 		}
 		return user;
 	}
+*/
 
+	@PostMapping("/update/newPassword/{newPassword}")
+	public String updateController1(@PathVariable ("newPassword") String newPassword,@RequestBody UserDTO userDTOParam) {
+		String msg=null;
+		try {
+			logger.info("Getting the Users data...");
+			msg = userService.updateUserPassword(userDTOParam, newPassword);
+			logger.info("Users data retrieval success.");
+		} catch (BusinessServiceException e) {
+			logger.error(e.getMessage(), e);
+			throw new InvalidInputException(e.getMessage(), e);
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			throw new InternalException("System has some issue...", e);
+		}
+		return msg;
+	}
+	
+	@PostMapping("/update/")
+	public String updateController2(@RequestParam("newPassword") String newPassword,@RequestBody UserDTO userDTOParam) {
+		String msg=null;
+		try {
+			logger.info("Getting the Users data...");
+			msg = userService.updateUserPassword(userDTOParam, newPassword);
+			logger.info("Users data retrieval success.");
+		} catch (BusinessServiceException e) {
+			logger.error(e.getMessage(), e);
+			throw new InvalidInputException(e.getMessage(), e);
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			throw new InternalException("System has some issue...", e);
+		}
+		return msg;
+	}
+	
 	@GetMapping("emailId/{emailId}/password/{password}")
 	public String passwordInsertController(@PathVariable("password") String password,
 			@PathVariable("emailId") String emailId) {
