@@ -34,11 +34,21 @@ public class DashboardDAOImpl implements DashboardDAO {
 	public List<StudentCourseDTO> getActiveCourses(Student student) throws DataServiceException {
 		List<StudentCourseDTO> activeCourses = null;
 		try {
+			if(student.getDepartment().getId()==5){
+				
+				StringBuilder sb = new StringBuilder(
+						"SELECT ID id,NAME name,course_count courseCount, department_id departmentId,college_id collegeId FROM vw_active_courses WHERE  "
+						+ "COLLEGE_ID=" + student.getCollege().getId());
+				activeCourses = dataRetriver.retrieveBySQLAsJSON(sb.toString(), StudentCourseDTO.class);
+				logger.info("Active courses data retrieval success..");
+			}else
+			{
 			StringBuilder sb = new StringBuilder(
 					"SELECT ID id,NAME name,course_count courseCount, department_id departmentId,college_id collegeId FROM vw_active_courses WHERE DEPARTMENT_ID="
 							+ student.getDepartment().getId() + " AND COLLEGE_ID=" + student.getCollege().getId());
 			activeCourses = dataRetriver.retrieveBySQLAsJSON(sb.toString(), StudentCourseDTO.class);
 			logger.info("Active courses data retrieval success..");
+			}
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
 			throw new DataServiceException(DataUtils.getPropertyMessage("data_retrieval_fail"), e);
@@ -50,11 +60,21 @@ public class DashboardDAOImpl implements DashboardDAO {
 	public List<StudentProjectDTO> getActiveProjects(Student student) throws DataServiceException {
 		List<StudentProjectDTO> activeProjects = null;
 		try {
+			if(student.getDepartment().getId()==5){
+				StringBuilder sb = new StringBuilder(
+						"SELECT ID id,NAME name, project_count projectCount, department_id departmentId,college_id collegeId FROM vw_active_projects "
+						+ "WHERE COLLEGE_ID=" + student.getCollege().getId());
+				activeProjects = dataRetriver.retrieveBySQLAsJSON(sb.toString(), StudentProjectDTO.class);
+				logger.info("Active projects data retrieval success..");
+			}
+			else
+			{
 			StringBuilder sb = new StringBuilder(
 					"SELECT ID id,NAME name, project_count projectCount, department_id departmentId,college_id collegeId FROM vw_active_projects WHERE DEPARTMENT_ID="
 							+ student.getDepartment().getId() + " AND COLLEGE_ID=" + student.getCollege().getId());
 			activeProjects = dataRetriver.retrieveBySQLAsJSON(sb.toString(), StudentProjectDTO.class);
 			logger.info("Active projects data retrieval success..");
+			}
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
 			throw new DataServiceException(DataUtils.getPropertyMessage("data_retrieval_fail"), e);

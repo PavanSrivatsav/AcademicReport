@@ -172,12 +172,22 @@ public class StudentDAOImpl implements StudentDAO {
 	public List<StudentDTO> getAllStudentByCollege(Student student) throws DataServiceException {
 		List<StudentDTO> overAllStudentByCompletedProjects = null;
 		try {
+			if(student.getDepartment().getId()==5){
+				StringBuilder sb = new StringBuilder(
+						"SELECT id id,name name,department_id departmentId,department_name departmentName,college_id collegeId,email_id emailId,current_courses_name currentCourse,completed_courses_name completedCourse,current_projects_name currentProject,completed_projects_name completedProject FROM vw_overall_student_list WHERE college_id="
+								+ student.getCollege().getId() + " ORDER BY id");
+				overAllStudentByCompletedProjects = dataRetriver.retrieveBySQLAsJSON(sb.toString(), StudentDTO.class);
+				logger.info("Over All Student By Completed Projects data retrieval success..");
+			}
+			else{
+			
 			StringBuilder sb = new StringBuilder(
 					"SELECT id id,name name,department_id departmentId,department_name departmentName,college_id collegeId,email_id emailId,current_courses_name currentCourse,completed_courses_name completedCourse,current_projects_name currentProject,completed_projects_name completedProject FROM vw_overall_student_list WHERE college_id="
 							+ student.getCollege().getId() + " AND department_id=" + student.getDepartment().getId()
 							+ " ORDER BY id");
 			overAllStudentByCompletedProjects = dataRetriver.retrieveBySQLAsJSON(sb.toString(), StudentDTO.class);
 			logger.info("Over All Student By Completed Projects data retrieval success..");
+		}
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
 			throw new DataServiceException(DataUtils.getPropertyMessage("data_retrieval_fail"), e);
