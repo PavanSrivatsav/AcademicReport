@@ -26,9 +26,31 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-/*	@GetMapping("/login/{emailId}/{password}")
-	public UserDTO loginController(@PathVariable("emailId") String emailId, @PathVariable("password") String password) {
-		UserDTO userDTO = new UserDTO();
+//	@GetMapping("/login/{emailId}/{password}")
+//	public UserDTO loginController(@PathVariable("emailId") String emailId, @PathVariable("password") String password) {
+//		UserDTO userDTO = new UserDTO();
+//		userDTO.setEmailId(emailId);
+//		userDTO.setPassword(password);
+//		try {
+//			logger.info("Getting the Users data...");
+//			userDTO = userService.getUserByLogin(userDTO);
+//			logger.info("Users data retrieval success.");
+//		} catch (BusinessServiceException e) {
+//			logger.error(e.getMessage(), e);
+//			throw new InvalidInputException(e.getMessage(), e);
+//		} catch (Exception e) {
+//			logger.error(e.getMessage(), e);
+//			throw new InternalException("System has some issue...", e);
+//		}
+//		return userDTO;
+//	}
+
+	
+	@PostMapping("/login")
+	public UserDTO loginController(@RequestParam("emailId") String emailId,
+			@RequestParam("password") String password) {
+		UserDTO userDTO=new UserDTO();
+		
 		userDTO.setEmailId(emailId);
 		userDTO.setPassword(password);
 		try {
@@ -44,25 +66,6 @@ public class UserController {
 		}
 		return userDTO;
 	}
-*/
-	
-	@PostMapping("/login")
-	public UserDTO loginController(@RequestBody UserDTO userDTOParam) {
-		UserDTO userDTO=null;
-		try {
-			logger.info("Getting the Users data...");
-			userDTO = userService.getUserByLogin(userDTOParam);
-			logger.info("Users data retrieval success.");
-		} catch (BusinessServiceException e) {
-			logger.error(e.getMessage(), e);
-			throw new InvalidInputException(e.getMessage(), e);
-		} catch (Exception e) {
-			logger.error(e.getMessage(), e);
-			throw new InternalException("System has some issue...", e);
-		}
-		return userDTO;
-	}
-
 /*	@GetMapping("update/emailId/{emailId}/password/{password}/newPassword/{newPassword}")
 	public String passwordUpdateController(@PathVariable("emailId") String emailId,
 			@PathVariable("password") String password, @PathVariable("newPassword") String newPassword) {
