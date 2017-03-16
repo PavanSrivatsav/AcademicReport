@@ -26,6 +26,6 @@ public interface UserDAO {
 
 	public String insertUserPassword(User user) throws DataServiceException;
 
-	public String updateUserPassword(User user, String newPassword) throws DataServiceException;
+	public Object updateUserPassword(User user, String newPassword) throws DataServiceException;
 
 }

@@ -116,8 +116,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public String updateUserPassword(UserDTO userDTO, String newPassword) throws BusinessServiceException {
-		String msg = null;
+	public Object updateUserPassword(UserDTO userDTO, String newPassword) throws BusinessServiceException {
+		Object msg = null;
 		try {
 			User user = new User();
 			user.setEmailId(userDTO.getEmailId());

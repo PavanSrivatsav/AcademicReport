@@ -172,34 +172,42 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public String updateUserPassword(User user, String newPassword) throws DataServiceException {
-		String msg = null;
+	public Object updateUserPassword(User user, String newPassword) throws DataServiceException {
 		UserDTO userDTOObj = null;
+		UserDTO userDTOObj1 = null;
+		Object mess = null;
 		try {
 			StringBuilder sb = new StringBuilder(
-					"select u.password from users u where u.EMAIL_ID='" + user.getEmailId() + "' and u.IS_ACTIVE=true");
+					"select u.password from users u where u.EMAIL_ID=" + user.getEmailId() + " and u.IS_ACTIVE=true");
 			userDTOObj = (UserDTO) dataRetriver.retrieveBySQLAsObject(sb.toString(), UserDTO.class);
 			String dbPassword = userDTOObj.getPassword();
+
+			StringBuilder sb2 = new StringBuilder(
+					"select u.id from users u where u.EMAIL_ID=" + user.getEmailId() + " and u.IS_ACTIVE=true");
+			userDTOObj1 = (UserDTO) dataRetriver.retrieveBySQLAsObject(sb2.toString(), UserDTO.class);
+
 			logger.info("Pass-db     " + dbPassword);
 			if (DataUtils.checkPassword(user.getPassword(), dbPassword)) {
 				logger.info("User login success...");
 				String hashedPassword = DataUtils.encryptPassword(newPassword);
 				StringBuilder sb1 = new StringBuilder(
-						"update users u set u.password='" + hashedPassword + "' where u.EMAIL_ID='" + user.getEmailId()
-								+ "' and u.PASSWORD='" + dbPassword + "' and u.IS_ACTIVE=true");
+						"update users u set u.password='" + hashedPassword + "' where u.EMAIL_ID=" + user.getEmailId()
+								+ " and u.PASSWORD='" + dbPassword + "' and u.IS_ACTIVE=true");
 				int rows = dataModifier.retrieveBySQL(sb1.toString());
 				logger.info("no. of rows updated... " + rows);
+
 				if (rows == 0)
-					msg = "Password not updated...";
+					mess = userDTOObj1;
 				else
-					msg = "Password udated...";
+					mess = userDTOObj;
+
 			} else
 				logger.info("User login failure...");
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
 			throw new DataServiceException(DataUtils.getPropertyMessage("data_modifier_fail"), e);
 		}
-		return msg;
+		return mess;
 	}
 
 }

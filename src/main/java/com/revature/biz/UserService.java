@@ -22,7 +22,7 @@ public interface UserService {
 
 	UserDTO getUserByLogin(UserDTO userDTO) throws BusinessServiceException;
 
-	String updateUserPassword(UserDTO userDTO, String newPassword) throws BusinessServiceException;
+	Object updateUserPassword(UserDTO userDTO, String newPassword) throws BusinessServiceException;
 
 	String insertUserPassword(UserDTO userDTO) throws BusinessServiceException;
 	
