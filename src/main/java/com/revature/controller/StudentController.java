@@ -109,6 +109,7 @@ public class StudentController {
 		return individualStudentByProjects;
 	}
 
+	
 /*	@GetMapping("/overall/student/current/courses/collegeId/{collegeId}/departmentId/{departmentId}")
 	public List<StudentDTO> getOverAllStudentByCurrentCourses(@PathVariable("collegeId") int collegeId,
 			@PathVariable("departmentId") int departmentId) {
